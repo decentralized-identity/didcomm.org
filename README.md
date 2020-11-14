@@ -5,6 +5,8 @@ This repo contains the content for [https://didcomm.org](https://didcomm.org). T
 
 ### Contributing
 
+The Decentralized Identity Foundation (DIF) sponsors a [DIDComm Working Group](https://identity.foundation/working-groups/did-comm.html) that meets weekly (Mondays at 3 pm Eastern, 9 pm Central Europe, noon Pacific, 5 am Tokyo) to discuss all things DIDComm. The general public can listen in.
+
 To modify static HTML on this website, raise a PR against something in the `/docs` folder.
 
 To publicly register or modify a DIDComm protocol definition, raise a PR against a file in the `/protocols` folder.
