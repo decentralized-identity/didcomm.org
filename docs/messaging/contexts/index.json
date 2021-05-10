@@ -1,0 +1,9 @@
+{
+    "@context":{
+       "@version":1.1,
+       "@protected":true,
+       "DIDCommMessaging":"https://didcomm.org/messaging/v2/#DIDCommMessaging",
+       "accept":"https://didcomm.org/messaging/v2/#accept",
+       "routingKeys":"https://didcomm.org/messaging/v2/#routingKeys"
+    }
+ }
