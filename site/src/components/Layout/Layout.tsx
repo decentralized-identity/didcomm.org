@@ -11,7 +11,7 @@ export const Layout = ({ title, children }: Props) => {
   return (
     <>
       <Seo title={title} />
-      <main>{children}</main>
+      <div>{children}</div>
     </>
   )
 }
