@@ -1,5 +1,5 @@
 # didcomm.org
-![logo](docs/didcomm-logo.png)
+![logo](didcomm-logo.png)
 
 This repo contains the content for [https://didcomm.org](https://didcomm.org). The website is intended to be the world's nexus for all things DIDComm -- [the spec](https://identity.foundation/didcomm-messaging/spec/), documentation, examples, and a global registry of protocol definitions.
 
