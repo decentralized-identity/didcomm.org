@@ -1,0 +1,28 @@
+@import "src/styles/mixins";
+@import 'src/styles/constants';
+
+.button {
+  padding: $grid-base-extra $grid-base-3x;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    @include shadow-large;
+  }
+}
+
+.buttonSecondary {
+  background-color: var(--color-secondary);
+  &:hover {
+    background-color: var(--color-secondary-hover);
+  }
+  &:focus {
+    background-color: var(--color-secondary-pressed);
+  }
+}
+
+.icon {
+  height: $grid-base-3x;
+  width: $grid-base-3x;
+  color: var(--color-primary);
+}
