@@ -1,0 +1,85 @@
+@import "constants";
+
+@mixin font-caption {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin font-footnote {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+@mixin font-subheadline {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+@mixin font-callout {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@mixin font-body {
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+}
+
+@mixin font-headline {
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 24px;
+}
+
+@mixin font-title-3 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+}
+
+@mixin font-title-2 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 32px;
+}
+
+@mixin font-title-1 {
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 32px;
+}
+
+@mixin font-title-large {
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 40px;
+}
+
+@mixin shadow-medium {
+  box-shadow: 0px $grid-base-extra $grid-base-extra rgba(0, 0, 0, 0.03),
+  0px $grid-base $grid-base-2x rgba(0, 0, 0, 0.03),
+  0px 1px $grid-base-3x rgba(0, 0, 0, 0.03);
+}
+
+@mixin shadow-large {
+  box-shadow: 0px $grid-base-extra $grid-base-3x rgba(0, 0, 0, 0.06),
+  0px $grid-base $grid-base-4x rgba(0, 0, 0, 0.06),
+  0px $grid-small $grid-base-6x rgba(0, 0, 0, 0.06);
+}
+
+@mixin rounded($radius: $radius) {
+  border-radius: $radius;
+}
+
+@mixin reverseOrder($child-numbers: 1) {
+  @for $i from 0 through $child-numbers {
+    &:nth-child(#{$i}) {
+      order: $child-numbers - $i + 1;
+    }
+  }
+}
