@@ -1,0 +1,53 @@
+@import "src/styles/mixins";
+@import 'src/styles/constants';
+
+.item {
+  width: 100%;
+  padding: $grid-base-3x $grid-base-4x;
+  background-color: var(--color-background);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.titleContainer {
+  display: flex;
+  align-items: baseline;
+}
+.title {
+  color: var(--color-primary);
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+  &:focus {
+    color: var(--color-primary-pressed);
+  }
+}
+.version {
+  margin-left: $grid-base;
+  color: var(--color-text-secondary);
+}
+.summary {
+  margin: $grid-base-2x 0;
+}
+
+.lastModified {
+  margin: 0 $grid-base-2x;
+}
+.footer {
+  margin-top: $grid-base-3x;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  & > * {
+    @include reverseOrder;
+  }
+}
+
+
+
