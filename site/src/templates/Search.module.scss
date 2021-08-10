@@ -1,0 +1,22 @@
+@import "src/styles/mixins";
+@import 'src/styles/constants';
+
+.title {
+  @include font-title-large;
+  margin-bottom: $grid-base-6x;
+  @media screen and (max-width: $bp-mobile) {
+    @include font-title-1;
+    margin-bottom: $grid-base-3x;
+  }
+}
+
+.mark {
+  display: inline-block;
+  line-height: 0em;
+  padding-bottom: 0.5em;
+  background-color: var(--color-secondary);
+}
+
+.main {
+  grid-column: span 2;
+}

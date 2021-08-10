@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { PageProps } from 'gatsby'
+
 import { Layout } from '../components/Layout/Layout'
 import { Header } from '../components/Header/Header'
 import { useProtocolsSearch } from '../common/hooks/useProtocolsSearch'
@@ -8,12 +9,11 @@ import { Search as SearchComponent } from '../components/Search/Search'
 import { useQueryParam, StringParam } from 'use-query-params'
 import { Protocol } from '../common/types'
 
+import * as styles from './Search.module.scss'
+
 type PageContext = {
   allProtocols: Protocol[]
-}
-
-const filter = (filter) => {
-
+  allLicences: string[]
 }
 
 const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
@@ -21,19 +21,21 @@ const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
   const { protocols, loading } = useProtocolsSearch(pageContext.allProtocols, query)
 
   return (
-    <Layout>
+    <Layout primary>
       <Header>
-        <SearchComponent query={query} onSearch={setQuery} />
+        <SearchComponent bordered query={query} onSearch={(q) => setQuery(q, 'push')} />
       </Header>
-      <main>
-        <h1>Protocols Definition</h1>
-        <section>
-          {loading
-            ? 'Loading...'
-            : <ProtocolsList protocols={protocols} />
-          }
-        </section>
-      </main>
+      <div className="content">
+        <h1 className={styles.title}>
+          <mark className={styles.mark}>{query ? protocols.length : 'All'}</mark> protocols {query ? `found for "${query}"` : ''}
+        </h1>
+        <div className="grid-3">
+          <main className={styles.main}>{loading ? 'Loading...' : <ProtocolsList protocols={protocols} />}</main>
+          <aside className="hide-mobile">
+            <h3>Filters</h3>
+          </aside>
+        </div>
+      </div>
     </Layout>
   )
 }
