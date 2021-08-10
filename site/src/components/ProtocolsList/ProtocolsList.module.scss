@@ -1,0 +1,5 @@
+@import 'src/styles/constants';
+.list {
+  display: grid;
+  grid-row-gap: $grid-base-2x;
+}
