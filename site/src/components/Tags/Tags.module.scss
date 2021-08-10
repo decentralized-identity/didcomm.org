@@ -1,0 +1,21 @@
+@import 'src/styles/constants';
+@import "src/styles/mixins";
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -8px;
+  & > * {
+    margin-top: $grid-base;
+    &:not(:last-child) {
+      margin-right: $grid-base-2x;
+    }
+  }
+}
+
+.tag {
+  @include rounded;
+  @include font-caption;
+  padding: $grid-small $grid-base;
+  border: $border-base solid var(--color-text-primary);
+}
