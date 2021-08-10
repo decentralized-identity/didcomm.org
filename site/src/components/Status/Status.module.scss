@@ -1,0 +1,29 @@
+@import "src/styles/mixins";
+@import 'src/styles/constants';
+
+.status {
+  padding: $grid-small $grid-base;
+  @include font-caption;
+  @include rounded;
+
+  @media print {
+    padding: 0 !important;
+    background: transparent !important;
+    color: var(--color-text-primary) !important;
+  }
+}
+
+.proposed {
+  color: var(--color-proposed);
+  background-color: var(--color-background-proposed);
+}
+
+.production {
+  color: var(--color-production);
+  background-color: var(--color-background-production);
+}
+
+.demonstrated {
+  color: var(--color-demonstrated);
+  background-color: var(--color-background-demonstrated);
+}
