@@ -21,23 +21,11 @@ export const Search = ({ onSearch, query = '', bordered }: Props) => {
         Search protocols definitions
       </label>
       <input
-        className={cls(styles.input, 'rounded', bordered && styles.bordered, 'hide-mobile')}
+        className={cls(styles.input, 'rounded', bordered && styles.bordered)}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         autoCorrect="off"
         placeholder="Search protocols to use in your own software"
-        autoComplete="off"
-        type="text"
-        aria-required="true"
-        required
-        id="search"
-      />
-      <input
-        className={cls(styles.input, 'rounded', bordered && styles.bordered, 'hide-desktop')}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        autoCorrect="off"
-        placeholder="Search protocols"
         autoComplete="off"
         type="text"
         aria-required="true"

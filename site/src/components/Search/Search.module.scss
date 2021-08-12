@@ -34,6 +34,9 @@ $search-max-width: 514px;
   overflow: hidden;
   color: var(--color-text-secondary);
   opacity: 1;
+  @media screen and (max-width: $bp-mobile) {
+    width: 8rem;
+  }
 }
 .button {
   position: absolute;
