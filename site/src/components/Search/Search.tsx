@@ -1,18 +1,16 @@
 import * as React from 'react'
-import { useState } from 'react'
-import { Icons, SvgIcon } from '../SvgIcon/SvgIcon'
-import * as styles from './Search.module.scss'
-import { cls } from '../../common/utils'
+import { useState, FormEventHandler } from 'react'
 
-type Props = {
-  onSearch: (query: string) => void
-  query?: string
-  bordered?: boolean
-}
+import { SvgIcon } from '../SvgIcon/SvgIcon'
+import { Icons } from '../SvgIcon/SvgIcon.types'
+import { cls } from '../../common/utils'
+import { Props } from './Search.types'
+import * as styles from './Search.module.scss'
 
 export const Search = ({ onSearch, query = '', bordered }: Props) => {
   const [value, setValue] = useState(query)
-  const onSubmit = (e) => {
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSearch(value)
   }

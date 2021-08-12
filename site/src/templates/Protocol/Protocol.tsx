@@ -1,20 +1,17 @@
 import * as React from 'react'
 import { graphql, PageProps } from 'gatsby'
-import { Layout } from '../components/Layout/Layout'
-import { Header } from '../components/Header/Header'
-import { MDProtocol, Protocol as ProtocolType } from '../common/types'
+
+import { Avatar } from '../../components/Avatar/Avatar'
+import { Header } from '../../components/Header/Header'
+import { Status } from '../../components/Status/Status'
+import { Layout } from '../../components/Layout/Layout'
+import { Tags } from '../../components/Tags/Tags'
+import { Search } from '../../components/Search/Search'
+import { cls } from '../../common/utils'
+import { mdRemark, Props } from './Protocol.types'
 import * as styles from './Protocol.module.scss'
-import { Search } from '../components/Search/Search'
-import { Tags } from '../components/Tags/Tags'
-import { Avatar } from '../components/Avatar/Avatar'
-import { cls } from '../common/utils'
-import { Status } from '../components/Status/Status'
 
-type mdRemark = {
-  markdownRemark: MDProtocol
-}
-
-const Protocol = ({ html, tags, licence, title, avatar, username, version, status }: ProtocolType) => (
+const Protocol = ({ html, tags, licence, title, avatar, username, version, status }: Props) => (
   <main>
     <h1 className={styles.title}>
       {title}&nbsp;<span className={cls('font-footnote', styles.version)}>{version}</span>

@@ -1,13 +1,10 @@
 import * as React from 'react'
 
-import { Icons, SvgIcon } from '../SvgIcon/SvgIcon'
+import { SvgIcon } from '../SvgIcon/SvgIcon'
 import { cls } from '../../common/utils'
+import { Props } from './Button.types'
 import * as styles from './Button.module.scss'
 
-type Props = {
-  icon?: Icons
-  secondary?: boolean
-} & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export const Button = ({ icon, children, secondary, className, ...props }: Props) => {
   return (

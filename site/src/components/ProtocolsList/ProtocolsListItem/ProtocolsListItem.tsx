@@ -1,16 +1,14 @@
 import * as React from 'react'
+
 import { Status } from '../../Status/Status'
 import { Tags } from '../../Tags/Tags'
 import { Link } from 'gatsby'
 import { Avatar } from '../../Avatar/Avatar'
-import * as styles from './ProtocolsListItem.module.scss'
 import { cls } from '../../../common/utils'
 import { LastModified } from '../../LastModified/LastModified'
-import { Protocol } from '../../../common/types'
+import { Props } from './ProtocolsListItem.types'
+import * as styles from './ProtocolsListItem.module.scss'
 
-type Props = {
-  protocol: Protocol
-}
 export const ProtocolsListItem = ({ protocol }: Props) => {
   const { title, slug, version, status, summary, tags, username, avatar, modifiedTime, licence } = protocol
 

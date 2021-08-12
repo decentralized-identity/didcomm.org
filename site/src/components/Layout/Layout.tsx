@@ -1,14 +1,9 @@
 import * as React from 'react'
-import { PropsWithChildren } from 'react'
-import { Seo } from '../Seo/Seo'
-import * as styles from './Layout.module.scss'
-import { cls } from '../../common/utils'
 
-type Props = PropsWithChildren<{
-  title?: string
-  primary?: boolean
-  accent?: boolean
-}>
+import { Seo } from '../Seo/Seo'
+import { cls } from '../../common/utils'
+import { Props } from './Layout.types'
+import * as styles from './Layout.module.scss'
 
 export const Layout = ({ title, primary, accent, children }: Props) => {
   return (

@@ -69,8 +69,8 @@
 }
 
 .metaContent {
-  align-items: start;
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
   margin-bottom: $grid-base-5x;
   @media screen and (max-width: $bp-mobile), print {

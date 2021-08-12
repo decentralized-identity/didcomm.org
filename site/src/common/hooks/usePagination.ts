@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { NumberParam, useQueryParam } from 'use-query-params'
 import { ITEMS_PER_PAGE } from '../constants'
 
-type Pagination<TItem> = {
+export type Pagination<TItem> = {
   next: () => void
   pagesCount: number
   prev: () => void

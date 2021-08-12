@@ -1,15 +1,11 @@
 import * as React from 'react'
-import { PropsWithChildren } from 'react'
 import { Link } from 'gatsby'
 
-import * as styles from './Header.module.scss'
 import { cls } from '../../common/utils'
-import { Icons, SvgIcon } from '../SvgIcon/SvgIcon'
-
-type Props = PropsWithChildren<{
-  primary?: boolean
-  className?: string
-}>
+import { SvgIcon } from '../SvgIcon/SvgIcon'
+import { Icons } from '../SvgIcon/SvgIcon.types'
+import { Props } from './Header.types'
+import * as styles from './Header.module.scss'
 
 export const Header = ({ children, primary, className }: Props) => {
   return (

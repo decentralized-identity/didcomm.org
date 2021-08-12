@@ -1,13 +1,8 @@
 import * as React from 'react'
 
-import * as styles from './Checkbox.module.scss'
 import { cls } from '../../common/utils'
-
-type Props = {
-  value: boolean
-  onChange: (value: boolean) => void
-  label: string
-}
+import { Props } from './Checkbox.types'
+import * as styles from './Checkbox.module.scss'
 
 export const Checkbox = ({ value, onChange, label }: Props) => {
   return (

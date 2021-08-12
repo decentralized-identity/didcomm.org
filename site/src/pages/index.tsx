@@ -3,16 +3,10 @@ import { graphql, PageProps } from 'gatsby'
 
 import { Layout } from '../components/Layout/Layout'
 import { Header } from '../components/Header/Header'
-import { Feature, Features } from '../components/Features/Features'
+import { Features } from '../components/Features/Features'
 import { Hero } from '../components/Hero/Hero'
+import { QueryData } from './index.types'
 
-type QueryData = {
-  markdownRemark: {
-    frontmatter: {
-      features: Array<Feature>
-    }
-  }
-}
 
 const IndexPage = ({ navigate, data }: PageProps<QueryData>) => {
   return (

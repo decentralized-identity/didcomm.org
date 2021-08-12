@@ -1,10 +1,11 @@
 import * as React from 'react'
+import { PageProps } from 'gatsby'
+
 import { Layout } from '../components/Layout/Layout'
 import { Header } from '../components/Header/Header'
 import { cls } from '../common/utils'
-import * as styles from './404.module.scss'
 import { Search } from '../components/Search/Search'
-import { PageProps } from 'gatsby'
+import * as styles from './404.module.scss'
 
 const NotFoundPage = ({ navigate }: PageProps) => (
   <Layout accent title="Page not Found">

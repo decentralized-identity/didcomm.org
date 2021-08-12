@@ -1,17 +1,9 @@
 import * as React from 'react'
-import { Icons, SvgIcon } from '../SvgIcon/SvgIcon'
-import * as styles from './Features.module.scss'
+
+import { SvgIcon } from '../SvgIcon/SvgIcon'
 import { cls } from '../../common/utils'
-
-export type Feature = {
-  icon: Icons
-  title: string
-  text: string
-}
-
-type Props = {
-  features?: Array<Feature>
-}
+import { Props } from './Features.type'
+import * as styles from './Features.module.scss'
 
 export const Features = ({ features }: Props) => {
   return (
