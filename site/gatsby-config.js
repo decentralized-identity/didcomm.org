@@ -24,6 +24,7 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-use-query-params`
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {
