@@ -1,0 +1,119 @@
+@import "colors";
+@import "mixins";
+@import "constants";
+@import "reset";
+
+body {
+  font-family: Inter, sans-serif;
+  color: var(--color-text-primary);
+  @include font-body;
+}
+
+.content {
+  max-width: 1296px;
+  margin: 0 auto;
+  padding: $grid-base-9x $grid-base-4x;
+  @media screen and (max-width: $bp-mobile) {
+    padding: $grid-base-6x $grid-base-2x;
+  }
+}
+
+.font-caption {
+  @include font-caption;
+}
+
+.font-footnote {
+  @include font-footnote;
+
+}
+
+.font-subheadline {
+  @include font-subheadline;
+
+}
+
+.font-callout {
+  @include font-callout;
+}
+
+.font-body {
+  @include font-body;
+}
+
+.font-headline {
+  @include font-headline;
+}
+
+.font-title-3 {
+  @include font-title-3;
+}
+
+.font-title-2 {
+  @include font-title-2;
+}
+
+.font-title-1 {
+  @include font-title-1;
+}
+
+.font-title-large {
+  @include font-title-large;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.rounded {
+  @include rounded;
+}
+
+.shadow-medium {
+  @include shadow-medium;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: $grid-base-9x;
+  grid-row-gap: $grid-base-3x;
+  width: 100%;
+  height: 100%;
+
+  @media screen and (max-width: $bp-mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hide-mobile {
+  @media screen and (max-width: $bp-mobile) {
+    display: none;
+  }
+}
+
+.hide-desktop {
+  @media screen and (min-width: $bp-mobile) {
+    display: none;
+  }
+}
+
+.hide-print {
+  @media print {
+    display: none;
+  }
+}
+
+button {
+  &:hover,
+  &:focus {
+    outline: none;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,74 @@
+@import 'src/styles/constants';
+@import "src/styles/mixins";
+
+$search-max-width: 514px;
+
+.search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: $search-max-width;
+  width: 100%;
+}
+
+.input {
+  padding: $grid-base-extra $grid-base-9x $grid-base-extra $grid-base-2x;
+  flex-shrink: 0;
+  background-color: var(--color-background);
+  @include font-body;
+  width: 100%;
+  @include shadow-medium;
+  border: $border-small solid transparent;
+  &:hover,
+  &:focus {
+    border-color: var(--color-tertiary);
+    outline: none;
+    @include shadow-large;
+  }
+}
+.bordered {
+  border-color: var(--color-tertiary);
+}
+.input::placeholder {
+  @include font-body;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  opacity: 1;
+  @media screen and (max-width: $bp-mobile) {
+    width: 8rem;
+  }
+}
+.button {
+  position: absolute;
+  right: $grid-base-2x;
+  color: var(--color-tertiary);
+  &:hover,
+  &:focus {
+    color: var(--color-secondary-hover);
+  }
+}
+
+.iconMagnify {
+  height: $grid-base-3x;
+  width: $grid-base-3x;
+  color: currentColor;
+}
+.clearButton {
+  height: $grid-base-3x;
+  width: $grid-base-3x;
+  position: absolute;
+  right: $grid-base-6x;
+  color: var(--color-text-primary);
+  &:hover,
+  &:focus {
+    color: var(--color-secondary-hover);
+  }
+}
+.input:placeholder-shown + .clearButton {
+  display: none;
+}
+.iconCross {
+  color: inherit;
+  height: $grid-base-3x;
+  width: $grid-base-3x;
+}

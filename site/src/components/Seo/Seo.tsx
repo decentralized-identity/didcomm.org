@@ -2,25 +2,7 @@ import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
-type Meta = {
-  content: string
-  name: string
-}
-
-type Props = {
-  description?: string
-  meta?: Meta[]
-  title?: string
-}
-
-interface QueryData {
-  site: {
-    siteMetadata: {
-      title: string
-      description: string
-    }
-  }
-}
+import { Props, QueryData } from './Seo.types'
 
 export const Seo = ({ description, meta = [], title }: Props) => {
   const { site } = useStaticQuery<QueryData>(
@@ -37,7 +19,6 @@ export const Seo = ({ description, meta = [], title }: Props) => {
   )
 
   const metaDescription = description || site.siteMetadata.description
-
   return (
     <Helmet
       htmlAttributes={{
@@ -65,6 +46,9 @@ export const Seo = ({ description, meta = [], title }: Props) => {
         },
       ].concat(meta)}
     >
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     </Helmet>
   )
 }

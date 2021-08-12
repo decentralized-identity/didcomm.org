@@ -1,44 +1,46 @@
 import * as React from 'react'
-import { graphql, Link, useStaticQuery } from 'gatsby'
+import { Link } from 'gatsby'
 
-import * as styles from './Header.module.css'
-import { PropsWithChildren } from 'react'
+import { cls } from '../../common/utils'
+import { SvgIcon } from '../SvgIcon/SvgIcon'
+import { Icons } from '../SvgIcon/SvgIcon.types'
+import { Props } from './Header.types'
+import * as styles from './Header.module.scss'
 
-
-type QueryData = {
-  logo: {
-    publicURL: string
-  }
-}
-
-type Props = PropsWithChildren<{}>
-
-export const Header = ({children}: Props) => {
-  const { logo } = useStaticQuery<QueryData>(query)
-
+export const Header = ({ children, primary, className }: Props) => {
   return (
-    <header>
-      <Link to="/" aria-label="Link to home">
-        <img className={styles.logo} src={logo.publicURL} />
-        <span>DID Communication</span>
-      </Link>
-      <div>
-        {children}
+    <header className={cls(styles.header, primary && styles.primary, className)}>
+      <div className={styles.container}>
+        <Link title="Link to home" activeClassName={styles.active} className={styles.logo} to="/" aria-label="Link to home">
+          <SvgIcon icon={Icons.logo} className={styles.logoImg} />
+          <span className={cls(styles.logoText, 'hide-mobile')}>DIDComm</span>
+        </Link>
+        <div className={styles.search}>{children}</div>
+        <nav className="hide-mobile font-footnote">
+          <ul className={styles.links}>
+            <li>
+              <a
+                className={styles.link}
+                rel="noreferrer noopener nofollow"
+                href="https://github.com/decentralized-identity/didcomm.org"
+                target="_blank"
+              >
+                GitHub repo
+              </a>
+            </li>
+            <li>
+              <a
+                className={styles.link}
+                rel="noreferrer noopener nofollow"
+                href="https://identity.foundation/didcomm-messaging/spec/"
+                target="_blank"
+              >
+                Specification
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <ul>
-          <li><a rel="noreferrer noopener nofollow" href="https://github.com/decentralized-identity/didcomm.org" target="_blank">GitHub repo</a></li>
-          <li><a rel="noreferrer noopener nofollow" href="https://identity.foundation/didcomm-messaging/spec/" target="_blank">Specification</a></li>
-        </ul>
-      </nav>
     </header>
   )
 }
-
-const query = graphql`
-  {
-    logo: file(base: { eq: "didcomm-logo.svg" }) {
-      publicURL
-    }
-  }
-`

@@ -1,0 +1,5 @@
+import { Protocol } from '../../common/types'
+
+export type Props = {
+  protocols: Protocol[]
+}

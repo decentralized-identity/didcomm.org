@@ -1,17 +1,15 @@
 import * as React from 'react'
-import { PropsWithChildren } from 'react'
+
 import { Seo } from '../Seo/Seo'
+import { cls } from '../../common/utils'
+import { Props } from './Layout.types'
+import * as styles from './Layout.module.scss'
 
-type Props = PropsWithChildren<{
-  title?: string
-}>
-
-
-export const Layout = ({ title, children }: Props) => {
+export const Layout = ({ title, primary, accent, children }: Props) => {
   return (
     <>
       <Seo title={title} />
-      <div>{children}</div>
+      <div className={cls(styles.layout, primary && styles.primary, accent && styles.accent)}>{children}</div>
     </>
   )
 }

@@ -1,24 +1,23 @@
-import { Link } from 'gatsby'
 import * as React from 'react'
-import { usePagination } from '../../common/hooks/usePagination'
-import { Pagination } from '../Pagination/Pagination'
-import { Protocol } from '../../common/types'
 
-type Props = {
-  protocols: Protocol[]
-}
+import { Pagination } from '../Pagination/Pagination'
+import { ProtocolsListItem } from './ProtocolsListItem/ProtocolsListItem'
+import { usePagination } from '../../common/hooks/usePagination'
+import { Props } from './ProtocolsList.types'
+import * as styles from './ProtocolsList.module.scss'
 
 export const ProtocolsList = ({ protocols }: Props) => {
-  const {items: paginatedProtocols, setPage, pagesCount} = usePagination(protocols)
-
+  const { items: paginatedProtocols, setPage, pagesCount, page, next, hasNext } = usePagination(protocols)
   return (
-    <>
-      <ul>
-        {paginatedProtocols.map(protocol => (
-          <li key={protocol.slug}><Link to={`/${protocol.slug}`}>{protocol.title}</Link></li>
+    <div>
+      <ul className={styles.list}>
+        {paginatedProtocols.map((protocol) => (
+          <li key={protocol.slug}>
+            <ProtocolsListItem protocol={protocol} />
+          </li>
         ))}
       </ul>
-      <Pagination pageCount={pagesCount} setPage={setPage} />
-    </>
+      <Pagination hasNext={hasNext} next={next} currentPage={page} pageCount={pagesCount} setPage={setPage} />
+    </div>
   )
 }

@@ -1,0 +1,88 @@
+@import 'src/styles/constants';
+@import "src/styles/mixins";
+
+.title {
+  margin-bottom: $grid-base-9x;
+  @media screen and (max-width: $bp-mobile) {
+    margin-bottom: $grid-base-3x;
+
+    @include font-title-1;
+  }
+}
+
+.body {
+  grid-column: span 2;
+  overflow: hidden;
+  word-break: break-word;
+  @media print {
+    grid-column: span 3;
+  }
+
+  h1,h2 {
+    @include font-title-2;
+  }
+  h3,h4,h5,h6 {
+    @include font-title-3;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    margin: $grid-base-3x 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  a {
+    color: var(--color-primary);
+    &:hover {
+      color: var(--color-primary-hover);
+    }
+    &:focus {
+      color: var(--color-primary-pressed);
+    }
+  }
+  ul {
+    list-style: disc;
+  }
+  ol {
+    list-style: decimal;
+  }
+  ul,ul {
+    padding-left: 1.5em;
+  }
+  pre {
+    white-space: pre-wrap;
+    padding: $grid-base-3x $grid-base-4x;
+    background-color: var(--color-background-primary);
+  }
+}
+
+.meta {
+  @media screen and (max-width: $bp-mobile), print {
+    grid-row: 1;
+  }
+}
+
+.metaTitle {
+  margin-bottom: $grid-base-2x;
+  @media screen and (max-width: $bp-mobile) {
+    display: none;
+  }
+}
+
+.metaContent {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: $grid-base-5x;
+  @media screen and (max-width: $bp-mobile), print {
+    margin-bottom: $grid-base-3x;
+  }
+}
+
+.version {
+  display: none;
+  @media screen and (max-width: $bp-mobile), print {
+    display: inline;
+    margin-left: $grid-base;
+    color: var(--color-text-secondary);
+  }
+}

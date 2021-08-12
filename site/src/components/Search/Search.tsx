@@ -1,30 +1,43 @@
 import * as React from 'react'
-import { FormEventHandler, useState } from 'react'
+import { useState, FormEventHandler } from 'react'
 
-type Props = {
-  onSearch: (query: string) => void
-  query?: string
-}
+import { SvgIcon } from '../SvgIcon/SvgIcon'
+import { Icons } from '../SvgIcon/SvgIcon.types'
+import { cls } from '../../common/utils'
+import { Props } from './Search.types'
+import * as styles from './Search.module.scss'
 
-export const Search = ({onSearch, query = ''}: Props) => {
+export const Search = ({ onSearch, query = '', bordered }: Props) => {
   const [value, setValue] = useState(query)
-  const onSubmit = (e) => {
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     onSearch(value)
   }
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label>
-            <span>Search</span>
-            <input value={value} onChange={e => setValue(e.target.value)} autoCorrect='off' placeholder='Search protocols to use in your own software' autoComplete='off'
-                   type='search' aria-label='Search protocols definitions' />
-          </label>
-        </div>
-        <button type='submit'>Search</button>
-      </form>
-    </div>
+    <form className={styles.search} onSubmit={onSubmit} role="search">
+      <label className="visually-hidden" htmlFor="search">
+        Search protocols definitions
+      </label>
+      <input
+        className={cls(styles.input, 'rounded', bordered && styles.bordered)}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        autoCorrect="off"
+        placeholder="Search protocols to use in your own software"
+        autoComplete="off"
+        type="text"
+        aria-required="true"
+        required
+        id="search"
+      />
+      <button className={styles.clearButton} onClick={(_) => setValue('')} aria-label="Clear search text" type="button">
+        <SvgIcon icon={Icons.cross} className={styles.iconCross} />
+      </button>
+      <button className={styles.button} type="submit" aria-label="Search for protocols">
+        <SvgIcon icon={Icons.magnify} className={styles.iconMagnify} />
+      </button>
+    </form>
   )
 }

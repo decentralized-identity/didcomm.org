@@ -1,25 +1,29 @@
 import * as React from 'react'
 
-type Props = {
-  pageCount: number
-  setPage: (page: number) => void
+import { cls } from '../../common/utils'
+import { getPages } from './utils'
+import { Props } from './Pagination.types'
+import * as styles from './Pagination.module.scss'
+
+export const Pagination = ({ setPage, pageCount, currentPage, next, hasNext }: Props) => {
+  const pages = getPages(pageCount, currentPage)
+  return pageCount > 1 ? (
+    <nav className={styles.pagination}>
+      {hasNext && (
+        <button onClick={next} className={cls('font-callout', styles.next)}>
+          Next
+        </button>
+      )}
+      <ul className={styles.pages}>
+        {pages.map((page) => (
+          <li key={page}>
+            <button className={cls('font-callout', styles.page, page === currentPage && styles.current)} onClick={() => setPage(page)}>
+              {page}
+            </button>
+          </li>
+        ))}
+      </ul>
+      {pages[pages.length - 1] < pageCount && <div className={styles.ellipsis}>...</div>}
+    </nav>
+  ) : null
 }
-
-export const Pagination = ({ setPage, pageCount }: Props) => (
-  pageCount > 1
-    ? (
-      <nav>
-        <ul>
-          {getPages(pageCount).map(page => (
-            <li key={page}>
-              <button onClick={() => setPage(page)}>{page}</button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    )
-    : null
-)
-
-
-const getPages = (pageCount: number) => (Array.from({ length: pageCount }, (_, i) => i + 1))

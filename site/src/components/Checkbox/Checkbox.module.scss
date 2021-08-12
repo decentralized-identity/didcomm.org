@@ -1,0 +1,43 @@
+@import "src/styles/mixins";
+@import 'src/styles/constants';
+
+$checkedIcon: url("data:image/svg+xml,%3Csvg width='13' height='10' viewBox='0 0 13 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.9902 2.00008L11.5802 0.580078L4.99023 7.17008L2.41023 4.60008L0.990234 6.01008L4.99023 10.0001L12.9902 2.00008Z' fill='white'/%3E%3C/svg%3E%0A");
+
+.check {
+  display: grid;
+  align-items: center;
+  grid-column-gap: $grid-base-2x;
+  grid-template-columns: auto 1fr;
+}
+
+.checkbox {
+  height: $grid-base-4x;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $grid-base-4x;
+  &::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    border: $border-base solid var(--color-text-primary);
+    @include rounded;
+  }
+}
+
+.input:hover + .checkbox,
+.input:focus + .checkbox{
+  background-color: var(--color-background-primary);
+}
+.input:hover + .checkbox::before,
+.input:focus + .checkbox::before {
+  border-color: var(--color-primary);
+}
+.input:checked + .checkbox::before {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-image: $checkedIcon;
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+}
