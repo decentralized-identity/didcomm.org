@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit()
 
-// TODO move all exports to separate files 
+// TODO move all exports to separate files
 
 module.exports.onCreateNode = async ({ node, actions, getNode }) => {
   if (node.internal.type === 'MarkdownRemark') {
@@ -120,7 +120,7 @@ module.exports.createPages = async ({ actions, graphql }) => {
   const pages = allMarkdown.data.protocols.nodes
   pages.forEach((page) => {
     const { id, fields } = page
-    console.log('created ' + fields.slug)
+
     actions.createPage({
       path: fields.slug,
       component: protocolTemplate,
@@ -131,21 +131,19 @@ module.exports.createPages = async ({ actions, graphql }) => {
   createSearchPage(actions.createPage, allMarkdown.data.protocols.nodes)
 }
 
-const normalizeProtocol = (node) => ({
-  slug: node.fields.slug,
-  title: node.frontmatter.title,
-  tags: node.frontmatter.tags,
-  licence: node.frontmatter.licence,
-  username: node.frontmatter.username,
-  avatar: node.fields.avatar,
-  version: node.fields.version,
-  status: node.frontmatter.status,
-  summary: node.frontmatter.summary,
-  modifiedTime: node.fields.modifiedTime,
-})
-
 const createSearchPage = (createPage, protocols) => {
-  const normalizedProtocols = protocols.map(normalizeProtocol)
+  const normalizedProtocols = protocols.map((node) => ({
+    slug: node.fields.slug,
+    title: node.frontmatter.title,
+    tags: node.frontmatter.tags,
+    licence: node.frontmatter.licence,
+    username: node.frontmatter.username,
+    avatar: node.fields.avatar,
+    version: node.fields.version,
+    status: node.frontmatter.status,
+    summary: node.frontmatter.summary,
+    modifiedTime: node.fields.modifiedTime,
+  }))
   const allLicences = Array.from(new Set(normalizedProtocols.map(({ licence }) => licence)))
   const searchComponent = path.resolve('src/templates/Search/Search.tsx')
   createPage({
