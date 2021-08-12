@@ -15,19 +15,17 @@ export const ProtocolsListItem = ({ protocol }: Props) => {
   return (
     <article className={cls(styles.item, 'rounded')}>
       <div className={styles.header}>
-        <div className={styles.titleContainer}>
-          <Link to={`/${slug}`} className={styles.title}>
-            <h2 className="font-title-2">
-              {title}&nbsp;<span className={cls('font-footnote', styles.version)}>{version}</span>
-            </h2>
-          </Link>
-        </div>
+        <Link to={`/${slug}`} className={styles.title}>
+          <h2 className="font-title-2">
+            {title}&nbsp;<span className={cls('font-footnote', styles.version)}>{version}</span>
+          </h2>
+        </Link>
         <Status type={status} />
       </div>
       <p className={styles.summary}>{summary}</p>
       <Tags tags={tags} />
       <div className={styles.footer}>
-        <Avatar avatar={avatar} username={username} />
+        <div className={styles.avatar}><Avatar avatar={avatar} username={username} /></div>
         <span className="font-footnote">{licence}</span>
         <LastModified className={cls(styles.lastModified, 'font-footnote')} lastModified={modifiedTime} />
       </div>
