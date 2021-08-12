@@ -15,7 +15,7 @@ const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
   const { protocols, loading } = useProtocolsSearch(pageContext.allProtocols, query)
 
   return (
-    <Layout primary>
+    <Layout primary title={query ? `${query} - search` : 'Browse All'}>
       <Header>
         <SearchComponent bordered query={query} onSearch={(q) => setQuery(q, 'push')} />
       </Header>

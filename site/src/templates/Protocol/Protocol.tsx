@@ -56,7 +56,7 @@ export const ProtocolTemplate = ({ data, navigate }: PageProps<mdRemark>) => {
   } = data
 
   return (
-    <Layout>
+    <Layout title={frontmatter.title}>
       <Header className="hide-print">
         <Search bordered onSearch={(query) => navigate(`/search/?q=${query}&page=1`)} />
       </Header>
