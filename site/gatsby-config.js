@@ -28,21 +28,26 @@ module.exports = {
       },
     },
     `gatsby-transformer-remark`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-use-query-params`,
+    {
+      resolve: `gatsby-plugin-page-creator`,
+      options: {
+        path: `${__dirname}/src/pages`,
+        ignore: [`*.types.(js|ts)?(x)`],
+      },
+    },
     `gatsby-plugin-sass`,
-    // {
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     name: `DIDComm`,
-    //     short_name: `DIDComm`,
-    //     start_url: `/`,
-    //     background_color: `#663399`,
-    //     theme_color: `#663399`,
-    //     display: `minimal-ui`,
-    //     icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-    //   },
-    // }
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `DIDComm`,
+        short_name: `DIDComm`,
+        start_url: `/`,
+        background_color: `#FFF`,
+        theme_color: `#FFF`,
+        display: `minimal-ui`,
+        icon: `src/images/didcomm-logo.svg`, // This path is relative to the root of the site.
+      },
+    },
   ],
 }

@@ -105,6 +105,7 @@ module.exports.createPages = async ({ actions, graphql }) => {
             licence
             username
             status
+            summary
           }
         }
       }
@@ -115,7 +116,7 @@ module.exports.createPages = async ({ actions, graphql }) => {
     throw Error(allMarkdown.errors)
   }
 
-  const protocolTemplate = path.resolve(`src/templates/Protocol.tsx`)
+  const protocolTemplate = path.resolve(`src/templates/Protocol/Protocol.tsx`)
   const pages = allMarkdown.data.protocols.nodes
   pages.forEach((page) => {
     const { id, fields } = page
@@ -139,13 +140,14 @@ const normalizeProtocol = (node) => ({
   avatar: node.fields.avatar,
   version: node.fields.version,
   status: node.frontmatter.status,
+  summary: node.frontmatter.summary,
   modifiedTime: node.fields.modifiedTime,
 })
 
 const createSearchPage = (createPage, protocols) => {
   const normalizedProtocols = protocols.map(normalizeProtocol)
   const allLicences = Array.from(new Set(normalizedProtocols.map(({ licence }) => licence)))
-  const searchComponent = path.resolve('src/templates/Search.tsx')
+  const searchComponent = path.resolve('src/templates/Search/Search.tsx')
   createPage({
     path: '/search/',
     component: searchComponent,
