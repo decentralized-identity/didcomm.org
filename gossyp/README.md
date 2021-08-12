@@ -8,13 +8,15 @@
 
 ## Summary
 
-Defines how to maintain a shared view of changing state, despite the complex connectivity challenges of decentralized, n-wise interactions. Since shared state can drive a workflow, we recommend [implementing n-wise DIDComm protocols atop gossyp](#building-on-gossyp); its abstraction over point-to-point communication[<a id="ref1" href="note1">1</a>] can make such protocols easier to design and impliment, and far more robust. 
+Defines how to maintain a shared view of changing state, despite the complex connectivity challenges of decentralized, n-wise interactions. Since shared state can drive a workflow, we recommend [implementing n-wise DIDComm protocols atop gossyp](#building-on-gossyp); its abstraction over point-to-point communication[<a id="ref1" href="note1">1</a>] can make such protocols easier to design and implement, and far more robust. 
 
 >Note: Careful students of this protocol will recognize overlaps between this protocol and several other technologies in SSI and distributed systems. For an analysis of how gossyp's solution to this problem compares to other approaches, see [Appendix 1: Alternatives](#appendix-1-alternatives).
 
 ## Roles
 
-Many [participants](https://github.com/dhh1128/didcomm-terms/wiki/participant) may run this protocol, but they all share a single role, `peer`. In some cases, all `peers` belong to a single [party](https://github.com/dhh1128/didcomm-terms/wiki/party) (e.g., Alice is syncing state among all her devices); in other cases, the participants may span sovereign domain boundaries (e.g., they are syncing the state of n-wise peer DID docs).
+Many [participants](https://github.com/dhh1128/didcomm-terms/wiki/participant) may run this protocol, but they all share a single role, `peer`.
+
+In some cases, all `peers` belong to a single [party](https://github.com/dhh1128/didcomm-terms/wiki/party) (e.g., Alice is using gossyp to sync state among all her devices); in other cases, the participants may span sovereign domain boundaries (e.g., multiple individuals are using gossyp to sync the state of n-wise peer DID docs).
 
 ## Connectivity
 
@@ -28,7 +30,7 @@ This is an [infinite protocol](https://github.com/dhh1128/didcomm-terms/wiki/inf
 
 It only has one state, `syncing`.
 
-## Abstract flow
+## Basic Principles
 
 Humans gossip like this:
 
@@ -396,29 +398,28 @@ in the [Localization RFC](https://github.com/hyperledger/aries-rfcs/tree/master/
 
 <hr>
 
-## Appendix A: Alternatives
+## Appendix 1: Alternatives
 
 The broadest conception of gossyp's problem domain &mdash; providing a dynamic and decentralized source of truth &mdash; has mature solutions when systems are simple, uniform, governed by consistent policy, and/or (semi-)centralized. This includes sophisticated replication mechanisms, distributed databases, distributed hash tables and ledgers, and blockchains. All of these allow multiple parties to interact via a shared source of truth that tolerates a lot of real-world complexity.
 
-However, gossyp accepts requirements that these technologies do not address well:
+However, gossyp accepts requirements that these technologies do not address well. This includes situations where:
 
 * There is little guarantee of commonality among participants. They may use different operating systems, software packages, and network protocols to interact &mdash; and there is no single "system" or data repository that binds them all together.
 * Consensus may be impossible or undesirable &mdash; meaning that conflicting views of "truth" can be permanent rather than temporary.
 * Connectivity is spotty and unpredictable.
 * The number of [parties](https://github.com/dhh1128/didcomm-terms/wiki/party) is not stable across time.
 * Each party may be represented by multiple [participants](https://github.com/dhh1128/didcomm-terms/wiki/participant) (devices or software packages).
-* Participants use dramatically different levels of automation, and interact on time scales that vary from microseconds with IoT devices to days or weeks for humans.
+* Participants use dramatically different levels of automation, and interact on time scales that vary from microseconds with IoT devices to days or weeks with humans.
 * Each participant may contribute to state, or may disengage, at any time.
 * Legal constraints may vary for each participant.
 
 In the aggregate, these requirements have profound consequences for architecture. Consider how they might color efforts to build a 3-party payment protocol involving a buyer, a seller, and witness (an auditor capable of enforcing rules; perhaps a point-of-sale terminal. Should we assume the buyer and the seller can talk to one another directly, or that all messages pass through the witness, or even that the buyer and the seller have unequal access to the network? Should we assume that all three parties are available at the same time, or that the protocol can pause while a next step waits on renewed connectivity? How much is the witness trusted? If the buyer and seller each have a smartphone, we may want to skip the witness and assume direct connectivity &mdash; but what if the buyer and the seller are each using smartcards that depend on something else for power?
 
-<figure>
-  <img src="nwise-connectivity.png" alt="possible connectivity assumptions" style="width:100%">
-  <figcaption>A few of the connectivity assumptions that are possible with just 3 parties in an interaction. (No one-way or limited-in-time possibilities are shown.) How could these change protocol design?</figcaption>
-</figure>
+The diagram below shows a few of the connectivity assumptions that are possible with just 3 parties in an interaction. No one-way or limited-in-time possibilities are shown. Designing a single protocol that handles all the possibilities is nearly impossible, because the message flows and trust requirements are different.
 
-Gossyp is for cases when easy, centralized, online assumptions don't hold. This is the chaotic, ever-evolving world of mesh computing on the digital landscape as a whole &mdash; encompassing the TCP/IP internet, but also BLE, NFC, sneakernet, air-gapped LANs, [LoRa](https://en.wikipedia.org/wiki/LoRa), serial ports, [LEO comms like Iridium](https://www.its.bldrdoc.gov/media/30335/red_s.pdf), and anything else that speaks in bits. It is hard-core decentralized. Nobody will ever unify or normalize it all.
+![a few different connectivity possibilities](nwise-connectivity.png)
+
+Gossyp is for cases when easy, centralized, online, permanent two-way-connectivity assumptions don't hold. This is the chaotic, ever-evolving world of mesh computing on the digital landscape as a whole &mdash; encompassing the TCP/IP internet, but also BLE, NFC, sneakernet, air-gapped LANs, [LoRa](https://en.wikipedia.org/wiki/LoRa), serial ports, [LEO comms like Iridium](https://www.its.bldrdoc.gov/media/30335/red_s.pdf), and anything else that speaks in bits. It is hard-core decentralized. Nobody will ever unify or normalize it all.
 
 Faced with that kind of landscape, the identity community has proposed several solutions. It's worth comparing them to gossyp.
 
@@ -426,7 +427,7 @@ Faced with that kind of landscape, the identity community has proposed several s
    
     Thirty years into the modern web, this is traditional wisdom, and we know it works: build a web service and have all parties call it. The complexities of the chaotic digital landscape all resolve into orderly behavior (or give up and go away) when funneled through an API. WeChat does this for chat and payments; Uber does this for ride sharing; eBay does it for auctions; SAP does it for complex supply chains. So why can't a government or enterprise do it to issue verifiable credentials, for example?
 
-    The answer is that this CAN work. It may be a reasonable expedient in some cases, because today's human institutions and behaviors match the technical architecture ([Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law)). However, it is really just a modest tweak on traditional centralization.
+    The answer is that this CAN work, and it may be a reasonable expedient in some cases, because today's human institutions and behaviors match the technical architecture ([Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law)). However, it is really just a modest tweak on traditional centralization.
    
     Although individual participants might manage some state with autonomy (e.g., on a public, permissionless blockchain), there is still an oracle (the web service) unifying the reality of multiple participants; Alice and Bob can't short-circuit the intermediary. They must conform to the governance, the networking assumptions, the timing constraints, the "system" of the institution. And each institution is a different silo with a different API; consider how much functionality you can re-use if you have an Uber client and you want to talk to the WeChat ecosystem. And this solution only works for institutions; it's impractical for ordinary humans to host 24x7x365 web services. It thus perpetuates power imbalances and privacy problems that are insidious in today's ["you're not the customer, you're the product"](https://quoteinvestigator.com/2017/07/16/product/) economy.
  
