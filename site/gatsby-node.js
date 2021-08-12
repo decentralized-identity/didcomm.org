@@ -20,12 +20,14 @@ module.exports.onCreateNode = async ({ node, actions, getNode }) => {
         const response = await octokit.request('GET /users/{username}', {
           username: node.frontmatter.username,
         })
+
         if (response.status >= 400) {
-          throw new Error()
+          console.error(`Can't fetch avatar for username: ${node.frontmatter.username}. Server responded with status: ${response.status}.`)
+        } else {
+          avatar = `${response.data.avatar_url}&s=48`
         }
-        avatar = `${response.data.avatar_url}&s=48`
       } catch (e) {
-        console.error(`Can't fetch avatar for username: ${node.frontmatter.username}`)
+        console.error(`Can't fetch avatar for username: ${node.frontmatter.username}. Server is not available.`)
       }
 
       actions.createNodeField({
