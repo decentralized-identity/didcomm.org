@@ -1,11 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { NumberParam, useQueryParam } from 'use-query-params'
 import { ITEMS_PER_PAGE } from '../constants'
 
 
-export const usePagination = <TItem extends {}>(list: Array<TItem>): {
-  next: () => void; pagesCount: number; prev: () => void; hasNext: boolean; items: TItem[]; setPage: (page: number) => void
-} => {
+type Pagination<TItem> = {
+  next: () => void
+  pagesCount: number
+  prev: () => void
+  hasNext: boolean
+  items: TItem[]
+  setPage: (page: number) => void
+}
+
+export const usePagination = <TItem extends {}>(list: Array<TItem>): Pagination<TItem> => {
   const [page, setPage] = useQueryParam('page', NumberParam)
 
   useEffect(() => setPage(1), [list])

@@ -1,5 +1,7 @@
 const path = require('path')
 
+// TODO move all exports to separate files 
+
 module.exports.onCreateNode = ({ node, actions, getNode }) => {
   if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent)
