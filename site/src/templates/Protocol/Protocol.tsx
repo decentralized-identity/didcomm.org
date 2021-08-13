@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql, PageProps } from 'gatsby'
+import { graphql, PageProps, navigate } from 'gatsby'
 
 import { Avatar } from '../../components/Avatar/Avatar'
 import { Header } from '../../components/Header/Header'
@@ -56,7 +56,7 @@ const Protocol = ({ html, tags, licence, title, avatar, publisher, version, stat
   </main>
 )
 
-export const ProtocolTemplate = ({ data, navigate }: PageProps<mdRemark>) => {
+export const ProtocolTemplate = ({ data }: PageProps<mdRemark>) => {
   const {
     markdownRemark: { frontmatter, html, fields },
   } = data
