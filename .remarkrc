@@ -29,6 +29,14 @@
           "licence": {
             "type": "string",
             "required": true
+          },
+          "summary": {
+            "type": "string",
+            "required": true
+          },
+          "publisher": {
+            "type": "string",
+            "required": true
           }
         }
       ]

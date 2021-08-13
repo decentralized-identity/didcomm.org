@@ -5,6 +5,7 @@ const {
   VERSION_PATTERN,
   MARKDOWN_FILENAME,
   LEVENSHTIEN_TRESHOLD,
+  PROTOCOLS_FOLDER,
 } = require('./constants')
 
 function testStructure(dirs) {
@@ -46,27 +47,28 @@ function testPIURI(changedFilePaths, logger) {
 
     const parsedFilePath = path.parse(filePath)
     const dirs = parsedFilePath.dir.split('/').slice(3) // strip site/content/protocols
-    const [name, version] = dirs
+    
 
     if (!testStructure(dirs)) {
-      logger.error('should have correct path')
+      logger.error(`A new protocol must be in ${PROTOCOLS_FOLDER}/<protocol_name>/<protocol_version> folder`)
       countErrors++
+      return
     }
+    
+    const [name, version] = dirs
 
     if (!testName(name)) {
-      logger.error('should have correct name folder')
+      logger.error('Should have correct name folder. Only letters, digits and "-" as separator allowed e.g my-cool-protocol')
       countErrors++
     }
 
     if (!testVersion(version)) {
-      logger.error('should have correct verstion folder')
+      logger.error('Should have correct version folder e.g 1.0')
       countErrors++
     }
 
     if (!testFileName(parsedFilePath.base)) {
-      logger.error(
-        'should have correct markdowm file name ' + parsedFilePath.base,
-      )
+      logger.error(`Markdown file name should be equal to ${MARKDOWN_FILENAME}`)
       countErrors++
     }
   })
