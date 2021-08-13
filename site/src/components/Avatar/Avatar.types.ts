@@ -1,4 +1,4 @@
 export type Props = {
-  username: string
+  publisher: string
   avatar: string
 }

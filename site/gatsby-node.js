@@ -18,16 +18,16 @@ module.exports.onCreateNode = async ({ node, actions, getNode }) => {
       let avatar = ''
       try {
         const response = await octokit.request('GET /users/{username}', {
-          username: node.frontmatter.username,
+          username: node.frontmatter.publisher,
         })
 
         if (response.status >= 400) {
-          console.error(`Can't fetch avatar for username: ${node.frontmatter.username}. Server responded with status: ${response.status}.`)
+          console.error(`Can't fetch avatar for username: ${node.frontmatter.publisher}. Server responded with status: ${response.status}.`)
         } else {
           avatar = `${response.data.avatar_url}&s=48`
         }
       } catch (e) {
-        console.error(`Can't fetch avatar for username: ${node.frontmatter.username}. Server is not available.`)
+        console.error(`Can't fetch avatar for username: ${node.frontmatter.publisher}. Server is not available.`)
       }
 
       actions.createNodeField({
@@ -75,8 +75,10 @@ module.exports.createSchemaCustomization = ({ actions }) => {
       title: String
       tags: [String]
       licence: String
-      username: String
+      publisher: String
       status: String
+      piuri: String
+      summary: String
     }
     type Fields {
       collection: String
@@ -105,9 +107,10 @@ module.exports.createPages = async ({ actions, graphql }) => {
             title
             tags
             licence
-            username
+            publisher
             status
             summary
+            piuri
           }
         }
       }
@@ -139,12 +142,13 @@ const createSearchPage = (createPage, protocols) => {
     title: node.frontmatter.title,
     tags: node.frontmatter.tags,
     licence: node.frontmatter.licence,
-    username: node.frontmatter.username,
+    publisher: node.frontmatter.publisher,
     avatar: node.fields.avatar,
     version: node.fields.version,
     status: node.frontmatter.status,
     summary: node.frontmatter.summary,
     modifiedTime: node.fields.modifiedTime,
+    piuri: node.frontmatter.piuri,
   }))
   const allLicences = Array.from(new Set(normalizedProtocols.map(({ licence }) => licence)))
   const searchComponent = path.resolve('src/templates/Search/Search.tsx')

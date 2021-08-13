@@ -11,16 +11,22 @@ import { cls } from '../../common/utils'
 import { mdRemark, Props } from './Protocol.types'
 import * as styles from './Protocol.module.scss'
 
-const Protocol = ({ html, tags, licence, title, avatar, username, version, status }: Props) => (
+const Protocol = ({ html, tags, licence, title, avatar, publisher, version, status, piuri, summary }: Props) => (
   <main>
     <h1 className={styles.title}>
       {title}&nbsp;<span className={cls('font-footnote', styles.version)}>{version}</span>
     </h1>
     <div className="grid-3">
       <article className={styles.body}>
+        <h2>Summary</h2>
+        <p>{summary}</p>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </article>
       <div className={styles.meta}>
+        <div className={styles.metaContent}>
+          <div className={cls('font-subheadline', styles.metaTitle)}>PIURI</div>
+          <div className="font-footnote">{piuri}</div>
+        </div>
         <div className={styles.metaContent}>
           <div className={cls('font-subheadline', styles.metaTitle)}>Status</div>
           <Status type={status} />
@@ -30,8 +36,8 @@ const Protocol = ({ html, tags, licence, title, avatar, username, version, statu
           <Tags tags={tags} />
         </div>
         <div className={styles.metaContent}>
-          <div className={cls('font-subheadline', styles.metaTitle)}>Author</div>
-          <Avatar username={username} avatar={avatar} />
+          <div className={cls('font-subheadline', styles.metaTitle)}>Publisher</div>
+          <Avatar publisher={publisher} avatar={avatar} />
         </div>
 
         <div className="hide-mobile hide-print">
@@ -77,8 +83,10 @@ export const query = graphql`
         title
         tags
         licence
-        username
+        publisher
         status
+        piuri
+        summary
       }
       fields {
         avatar

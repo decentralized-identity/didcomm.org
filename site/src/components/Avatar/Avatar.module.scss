@@ -11,18 +11,18 @@
   margin-right: $grid-base;
 }
 
-.username {
+.publisher {
   color: var(--color-primary);
 }
 
 .avatar:hover {
-  .username {
+  .publisher {
     color: var(--color-primary-hover);
   }
 }
 
 .avatar:focus {
-  .username {
+  .publisher {
     color: var(--color-primary-pressed);
   }
 }

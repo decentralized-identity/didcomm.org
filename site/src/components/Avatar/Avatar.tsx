@@ -5,11 +5,11 @@ import { Props } from './Avatar.types'
 import * as styles from './Avatar.module.scss'
 
 
-export const Avatar = ({ username, avatar }: Props) => {
+export const Avatar = ({ publisher, avatar }: Props) => {
   return (
-    <a rel="noreferrer noopener nofollow" className={styles.avatar} target="_blank" href={`${GITHUB_URL}/${username}`}>
-      <img className={cls(styles.img, 'font-footnote')} src={avatar} alt={`${username} avatar`} />
-      <span className={cls('font-footnote', styles.username)}>@{username}</span>
+    <a rel="noreferrer noopener nofollow" className={styles.avatar} target="_blank" href={`${GITHUB_URL}/${publisher}`}>
+      <img className={cls(styles.img, 'font-footnote')} src={avatar} alt={`${publisher} avatar`} />
+      <span className={cls('font-footnote', styles.publisher)}>@{publisher}</span>
     </a>
   )
 }

@@ -21,8 +21,9 @@ export type MDProtocol = {
     title: string
     licence: string
     status: StatusType
-    username: string
+    publisher: string
     summary: string
+    piuri: string
   }
   html: string
 }
@@ -35,8 +36,9 @@ export type Protocol = {
   html: string
   version: string
   status: StatusType
-  username: string
+  publisher: string
   avatar: string
   modifiedTime: string
   summary: string
+  piuri: string
 }
