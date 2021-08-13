@@ -3,25 +3,13 @@ title: My not cool protocol
 publisher: ashcherbakov
 licence: FreeBSD
 piuri: https://didcomm.org/not-cool/1.0
-status: beta
+status: Production
 summary: Instructions of publishing a new not cool protocol
 tags:
-  - star-war
+  - star-wars
   - tag4
   - tag5
 ---
-
-## Metadata
-
-- Authors: your name – email is optional
-- Status: beta
-- PIURI: https://didcomm.org/your_protocol_name/%VER
-- Tags: #faster-than-light-travel, #star-wars
-
-## Summary
-
-In one or two sentences, explain what problem this protocol solve, how it works, and other key characteristics.
-
 ## Roles
 
 Provides a formal name (using backticks in markdown) for each role in the protocol, says who and how many can play each role, and describes constraints associated with those roles (e.g., “You can only issue a credential if you have a DID on the public ledger”). The issue of qualification for roles can also be explored (e.g., “The holder of the credential must be known to the issuer”).
@@ -44,4 +32,6 @@ $ json --version
 json 9.0.0
 ```
 ## Html
+```
 <h1>Title</h1>
+```
