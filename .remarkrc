@@ -1,0 +1,45 @@
+{
+  "plugins": [
+    ["remark-lint-no-dead-urls", ["error"]],
+    ["remark-lint-no-html", ["error"]],
+    [
+      "remark-frontmatter",
+      [
+        "yaml"
+      ]
+    ],
+    [
+      "remark-frontmatter-validator",
+      [
+        "error",
+        {
+          "title": {
+            "type": "string",
+            "required": true
+          },
+          "tags": {
+            "type": "array",
+            "required": true
+          },
+          "status": {
+            "type": "string",
+            "required": true,
+            "oneOf": ["Production", "Demonstrated", "Proposed"]
+          },
+          "licence": {
+            "type": "string",
+            "required": true
+          },
+          "summary": {
+            "type": "string",
+            "required": true
+          },
+          "publisher": {
+            "type": "string",
+            "required": true
+          }
+        }
+      ]
+    ]
+  ]
+}

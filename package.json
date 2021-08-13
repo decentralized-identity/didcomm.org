@@ -1,0 +1,17 @@
+{
+  "name": "didcomm.org",
+  "version": "1.0.0",
+  "license": "Apache",
+  "dependencies": {
+    "@actions/core": "^1.4.0",
+    "damerau-levenshtein": "^1.0.7",
+    "gray-matter": "^4.0.3",
+    "remark-cli": "^10.0.0",
+    "remark-frontmatter": "^4.0.0",
+    "remark-frontmatter-validator": "^0.4.0",
+    "remark-lint": "^9.0.0",
+    "remark-lint-no-dead-urls": "^1.1.0",
+    "remark-lint-no-html": "^3.0.0",
+    "walk-sync": "^3.0.0"
+  }
+}
