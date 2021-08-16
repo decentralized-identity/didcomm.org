@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Search } from 'js-search'
 import { Protocol } from '../types'
 
-const fieldsToIndex = ['title', 'keywords', 'licence']
+const fieldsToIndex: Array<keyof Protocol> = ['title', 'tags', 'licence', 'summary', 'publisher']
 
 export const useProtocolsSearch = (allProtocols: Protocol[], query: string): { protocols: Protocol[]; loading: boolean } => {
   const s = useRef<Search | null>(null)

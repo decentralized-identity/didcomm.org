@@ -17,7 +17,7 @@ const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
   return (
     <Layout primary title={query ? `${query} - search` : 'Browse All'}>
       <Header>
-        <SearchComponent bordered query={query} onSearch={(q) => setQuery(q, 'push')} />
+        <SearchComponent bordered query={query} onSearch={(q) => setQuery(q, 'pushIn')} />
       </Header>
       <div className="content">
         <h1 className={styles.title}>

@@ -27,7 +27,7 @@ export const usePagination = <TItem extends {}>(
   const next = () => setPage(page + 1)
   const prev = () => setPage(page - 1)
   const hasNext = list.length > page * ITEMS_PER_PAGE
-  const pagesCount = Math.floor(list.length / ITEMS_PER_PAGE)
+  const pagesCount = Math.ceil(list.length / ITEMS_PER_PAGE)
 
   return {
     hasNext,
