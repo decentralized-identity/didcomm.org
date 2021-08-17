@@ -10,8 +10,9 @@ import { Search } from '../../components/Search/Search'
 import { cls } from '../../common/utils'
 import { mdRemark, Props } from './Protocol.types'
 import * as styles from './Protocol.module.scss'
+import { LastModified } from '../../components/LastModified/LastModified'
 
-const Protocol = ({ html, tags, licence, title, avatar, publisher, version, status, piuri, summary }: Props) => (
+const Protocol = ({ html, tags, licence, title, avatar, publisher, version, status, piuri, summary, modifiedDate }: Props) => (
   <main>
     <h1 className={styles.title}>
       {title}&nbsp;<span className={cls('font-footnote', styles.version)}>{version}</span>
@@ -39,17 +40,19 @@ const Protocol = ({ html, tags, licence, title, avatar, publisher, version, stat
           <div className={cls('font-subheadline', styles.metaTitle)}>Publisher</div>
           <Avatar publisher={publisher} avatar={avatar} />
         </div>
-
         <div className="hide-mobile hide-print">
           <div className={styles.metaContent}>
             <div className={cls('font-subheadline', styles.metaTitle)}>Version</div>
             <div className="font-footnote">{version}</div>
           </div>
         </div>
-
         <div className={styles.metaContent}>
           <div className={cls('font-subheadline', styles.metaTitle)}>Licence</div>
           <div className="font-footnote">{licence}</div>
+        </div>
+        <div className={styles.metaContent}>
+          <div className={cls('font-subheadline', styles.metaTitle)}>Last publish</div>
+          <LastModified className="font-footnote" lastModified={modifiedDate} />
         </div>
       </div>
     </div>
@@ -89,6 +92,7 @@ export const query = graphql`
         summary
       }
       fields {
+        modifiedDate
         avatar
         version
       }
