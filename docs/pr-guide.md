@@ -20,13 +20,13 @@
     * send a PR to the main branch
     * add `[fix]` postfix to the PR title
 4. If update is a `compatible change`
-    - define a new version where minor part must be incremented (for example from 0.1 to 0.2)
+    - define a new version where minor part must be incremented (for example, from 0.1 to 0.2)
     - copy the previous readme.md to the new folder `site/content/protocols/<protocol-name>/<new-protocol-version>`
     - make changes in the `readme.md`
     - send a PR to the main branch
     - add `[compatible]` postfix to the PR title
 5. If update is a `non-compatible change`
-    - define a new version where major part must be incremented (for example from 0.1 to 1.0)
+    - define a new version where major part must be incremented (for example, from 0.1 to 1.0)
     - copy the previous `readme.md` to the new folder `site/content/protocols/<protocol-name>/<new-protocol-version>`
     - make changes in the `readme.md`
     - send a Pull Rrequest to the main branch
@@ -35,11 +35,11 @@
 
 ## Details
 #### Protocol Name
-`<protocol-name>` folder — It's the name of your protocol. It follows SLUG pattern and may consist of only lower cased latin letters, digits and `-` as separator e.g `my-cool-protocol`. Must be unique. For example, `my-protocol` and `myprotocol` are the same
+`<protocol-name>` folder — It's the name of your protocol. It follows SLUG pattern and may consist of only lower cased latin letters, digits and `-` as separator e.g `my-cool-protocol`. Must be unique. For example, `my-protocol` and `myprotocol` are the same.
 
 
 #### Protocol Version
-`<protocol-version>` folder — follows [semver](https://github.com/hyperledger/aries-rfcs/blob/main/concepts/0003-protocols/README.md#semver-rules-for-protocols) without patch version. Two digits (major and minor version) separated by `.` e.g `1.0`
+`<protocol-version>` folder — follows [semver](https://github.com/hyperledger/aries-rfcs/blob/main/concepts/0003-protocols/README.md#semver-rules-for-protocols) without patch version. Two digits (major and minor version) separated by `.` e.g `1.0`.
 
 
 #### Metadata
