@@ -2,15 +2,20 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit()
+const gitDateExtractor = require('git-date-extractor')
 
 // TODO move all exports to separate files
+
+let protocolDatesCache = {}
+exports.onPreBootstrap = async () => {
+  protocolDatesCache = await gitDateExtractor.getStamps({ onlyIn: 'content/protocols' })
+}
 
 module.exports.onCreateNode = async ({ node, actions, getNode }) => {
   if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent)
     const parsedFilePath = path.parse(fileNode.relativePath)
     const { sourceInstanceName } = fileNode
-
     if (sourceInstanceName === 'protocols') {
       const [protocolName, protocolVersion] = parsedFilePath.dir.split('/')
       const slug = `${protocolName}/${protocolVersion}/`
@@ -29,6 +34,8 @@ module.exports.onCreateNode = async ({ node, actions, getNode }) => {
       } catch (e) {
         console.error(`Can't fetch avatar for username: ${node.frontmatter.publisher}. Server is not available.`)
       }
+
+      const date = protocolDatesCache[`content/protocols/${slug}readme.md`]
 
       actions.createNodeField({
         name: 'slug',
@@ -55,9 +62,9 @@ module.exports.onCreateNode = async ({ node, actions, getNode }) => {
       })
 
       actions.createNodeField({
-        name: 'modifiedTime',
+        name: 'modifiedDate',
         node,
-        value: new Date(fileNode.modifiedTime),
+        value: new Date(date.modified * 1000),
       })
     }
   }
@@ -85,7 +92,7 @@ module.exports.createSchemaCustomization = ({ actions }) => {
       slug: String
       version: String
       avatar: String
-      modifiedTime: Date
+      modifiedDate: Date
     }
   `
   createTypes(typeDefs)
@@ -101,7 +108,7 @@ module.exports.createPages = async ({ actions, graphql }) => {
             slug
             version
             avatar
-            modifiedTime
+            modifiedDate
           }
           frontmatter {
             title
@@ -147,7 +154,7 @@ const createSearchPage = (createPage, protocols) => {
     version: node.fields.version,
     status: node.frontmatter.status,
     summary: node.frontmatter.summary,
-    modifiedTime: node.fields.modifiedTime,
+    modifiedDate: node.fields.modifiedDate,
     piuri: node.frontmatter.piuri,
   }))
   const allLicences = Array.from(new Set(normalizedProtocols.map(({ licence }) => licence)))
