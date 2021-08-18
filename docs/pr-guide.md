@@ -39,7 +39,7 @@
 ## Details
 #### Protocol Name
 `<protocol-name>` folder — the name of your protocol. 
-* It follows SLUG pattern and may consist of only lower cased latin letters, digits and `-` as separator e.g `my-cool-protocol`.
+* It follows SLUG pattern and may consist of only lower cased latin letters, digits and `-` as separator, e.g `my-cool-protocol`.
 * It must be unique. For example, `my-protocol` and `myprotocol` are the same.
 
 
