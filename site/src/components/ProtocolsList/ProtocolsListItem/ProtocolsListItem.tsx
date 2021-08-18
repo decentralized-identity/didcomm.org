@@ -27,7 +27,7 @@ export const ProtocolsListItem = ({ protocol }: Props) => {
       <div className={styles.footer}>
         <div className={styles.avatar}><Avatar avatar={avatar} publisher={publisher} /></div>
         <span className="font-footnote">{licence}</span>
-        <LastModified className={cls(styles.lastModified, 'font-footnote')} lastModified={modifiedDate} />
+        <LastModified since className={cls(styles.lastModified, 'font-footnote')} lastModified={modifiedDate} />
       </div>
     </article>
   )
