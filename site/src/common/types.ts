@@ -14,7 +14,7 @@ export type MDProtocol = {
     slug: string
     version: string
     avatar: string
-    modifiedTime: string
+    modifiedDate: string
   }
   frontmatter: {
     tags: string[]
@@ -38,7 +38,7 @@ export type Protocol = {
   status: StatusType
   publisher: string
   avatar: string
-  modifiedTime: string
+  modifiedDate: string
   summary: string
   piuri: string
 }
