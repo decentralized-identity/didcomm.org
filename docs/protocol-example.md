@@ -1,6 +1,6 @@
 ---
 title: Light Speed Protocol
-publisher: Merciful12
+publisher: dhh1128
 licence: MIT
 piuri: https://didcomm.org/light-speed-protocol/0.9
 status: Production
