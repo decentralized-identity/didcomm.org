@@ -28,6 +28,11 @@ $header-side-width: 200px;
   display: flex;
   justify-content: center;
 }
+.search:empty + .linksContainer {
+  display: block;
+  grid-row: 1;
+  grid-column: 3;
+}
 .active {
   pointer-events: none;
 }

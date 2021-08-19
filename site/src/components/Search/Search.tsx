@@ -17,24 +17,24 @@ export const Search = ({ onSearch, query = '', bordered }: Props) => {
 
   return (
     <form className={styles.search} onSubmit={onSubmit} role="search">
-      <label className="visually-hidden" htmlFor="search">
-        Search protocols definitions
-      </label>
       <input
         className={cls(styles.input, 'rounded', bordered && styles.bordered)}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         autoCorrect="off"
-        placeholder="Search protocols to use in your own software"
+        placeholder=" "
         autoComplete="off"
         type="text"
-        aria-required="true"
-        required
         id="search"
       />
-      <button className={styles.clearButton} onClick={(_) => setValue('')} aria-label="Clear search text" type="button">
-        <SvgIcon icon={Icons.cross} className={styles.iconCross} />
-      </button>
+      <label className={styles.placeholder} htmlFor="search">
+        Search protocols<span className={styles.placeholderExtraText}> to use in your own software</span>
+      </label>
+      {value && (
+        <button className={styles.clearButton} onClick={(_) => setValue('')} aria-label="Clear search text" type="button">
+          <SvgIcon icon={Icons.cross} className={styles.iconCross} />
+        </button>
+      )}
       <button className={styles.button} type="submit" aria-label="Search for protocols">
         <SvgIcon icon={Icons.magnify} className={styles.iconMagnify} />
       </button>

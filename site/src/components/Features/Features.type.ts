@@ -1,4 +1,4 @@
-import { Icons } from "../SvgIcon/SvgIcon.types"
+import { Icons } from '../SvgIcon/SvgIcon.types'
 
 export type Feature = {
   icon: Icons

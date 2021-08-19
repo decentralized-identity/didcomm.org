@@ -1,4 +1,5 @@
 @import 'src/styles/constants';
+@import 'src/styles/mixins';
 .feature {
   display: grid;
   grid-template-rows: auto auto auto;
@@ -29,6 +30,7 @@
     margin: 0 0 $grid-base-extra;
     grid-row: 1;
     grid-column: 1;
+    @include font-title-3;
   }
 }
 

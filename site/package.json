@@ -20,6 +20,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "sass": "^1.36.0",
+    "string-strip-html": "^8.3.0",
     "use-query-params": "^1.2.3"
   },
   "devDependencies": {

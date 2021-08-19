@@ -19,7 +19,7 @@ export type MDProtocol = {
   frontmatter: {
     tags: string[]
     title: string
-    licence: string
+    license: string
     status: StatusType
     publisher: string
     summary: string
@@ -32,7 +32,7 @@ export type Protocol = {
   slug: string
   tags: string[]
   title: string
-  licence: string
+  license: string
   html: string
   version: string
   status: StatusType

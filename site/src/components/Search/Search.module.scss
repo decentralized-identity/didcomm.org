@@ -29,15 +29,21 @@ $search-max-width: 514px;
 .bordered {
   border-color: var(--color-tertiary);
 }
-.input::placeholder {
-  @include font-body;
-  overflow: hidden;
-  color: var(--color-text-secondary);
-  opacity: 1;
-  @media screen and (max-width: $bp-mobile) {
-    width: 8rem;
+.input:not(:placeholder-shown) + .placeholder {
+  display: none;
+}
+.placeholderExtraText {
+  @media screen and (max-width: 920px) {
+    display: none;
   }
 }
+
+.placeholder {
+  left: $grid-base-2x;
+  color: var(--color-text-secondary);
+  position: absolute;
+}
+
 .button {
   position: absolute;
   right: $grid-base-2x;

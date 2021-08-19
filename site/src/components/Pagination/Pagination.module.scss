@@ -22,12 +22,23 @@
   width: 100%;
   height: $grid-base-6x;
   background-color: var(--color-background);
+  &:hover,
+  &:focus {
+    background-color: var(--color-background-secondary);
+  }
+  &:disabled {
+    color: var(--color-text);
+  }
 }
 .next {
   padding: $grid-base-extra $grid-base-3x;
   background-color: var(--color-background);
   @media screen and (max-width: $bp-mobile) {
     grid-column: span 2;
+  }
+  &:hover,
+  &:focus {
+    background-color: var(--color-background-secondary);
   }
 }
 .current {

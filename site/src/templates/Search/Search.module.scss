@@ -4,6 +4,8 @@
 .title {
   @include font-title-large;
   margin-bottom: $grid-base-6x;
+
+  word-wrap: break-word;
   @media screen and (max-width: $bp-mobile) {
     @include font-title-1;
     margin-bottom: $grid-base-3x;

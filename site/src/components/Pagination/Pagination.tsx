@@ -8,7 +8,7 @@ import * as styles from './Pagination.module.scss'
 export const Pagination = ({ setPage, pageCount, currentPage, next, hasNext }: Props) => {
   const pages = getPages(pageCount, currentPage)
   return pageCount > 1 ? (
-    <nav className={styles.pagination}>
+    <nav aria-label="pagination" className={styles.pagination}>
       {hasNext && (
         <button onClick={next} className={cls('font-callout', styles.next)}>
           Next
@@ -17,8 +17,13 @@ export const Pagination = ({ setPage, pageCount, currentPage, next, hasNext }: P
       <ul className={styles.pages}>
         {pages.map((page) => (
           <li key={page}>
-            <button className={cls('font-callout', styles.page, page === currentPage && styles.current)} onClick={() => setPage(page)}>
-              {page}
+            <button
+              aria-current={page === currentPage ? 'page' : undefined}
+              disabled={page === currentPage}
+              className={cls('font-callout', styles.page, page === currentPage && styles.current)}
+              onClick={() => setPage(page)}
+            >
+              <span className="visually-hidden">page </span> {page}
             </button>
           </li>
         ))}

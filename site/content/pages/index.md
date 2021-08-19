@@ -3,11 +3,11 @@ layout: index
 features:
   - icon: idea
     title: Learn about DIDComm
-    text: <a rel="noreferrer noopener nofollow" href="https://identity.foundation/didcomm-messaging/spec/">Read</a> how to control your security and privacy — over the web, email, push notifications, QR codes, BLE, NFC, message queues, sneaker net... <a rel="noreferrer noopener nofollow" href="https://github.com/decentralized-identity/didcomm-messaging#implementations">Find libraries</a>  or <a rel="noreferrer noopener nofollow" href="https://github.com/decentralized-identity/didcomm-messaging/issues">connect with DIDComm's authors.</a>
+    text: <a rel="noreferrer noopener nofollow" target="_blank" href="https://identity.foundation/didcomm-messaging/spec/">Read</a> how to control your security and privacy — over the web, email, push notifications, QR codes, BLE, NFC, message queues, sneaker net... <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/decentralized-identity/didcomm-messaging#implementations">Find libraries</a>  or <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/decentralized-identity/didcomm-messaging/issues">connect with DIDComm's authors.</a>
   - icon: document
-    title: Build a Protocol
-    text: Application-level decentralized protocols are built atop DIDComm. These support activities like secure chat, verifiable credential exchange, buying and selling, scheduling, escrow, bidding, ticketing, and so forth.
+    title: Build a protocol
+    text: Application-level decentralized protocols are <a rel="noreferrer noopener nofollow" target="_blank"  href="https://github.com/hyperledger/aries-rfcs/blob/main/concepts/0003-protocols/README.md">built atop DIDComm</a>. These support activities like secure chat, verifiable credential exchange, buying and selling, scheduling, escrow, bidding, ticketing, and so forth.
   - icon: share
     title: Share a protocol
-    text: To register or modify a protocol definition, submit a PR against the /protocols folder of the <a rel="noreferrer noopener nofollow" href="https://github.com/decentralized-identity/didcomm.org">repo</a>.
+    text: To register or modify a protocol definition, submit a PR against the /protocols folder of the <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/decentralized-identity/didcomm.org">repo</a>.
 ---

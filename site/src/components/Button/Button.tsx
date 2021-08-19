@@ -5,7 +5,6 @@ import { cls } from '../../common/utils'
 import { Props } from './Button.types'
 import * as styles from './Button.module.scss'
 
-
 export const Button = ({ icon, children, secondary, className, ...props }: Props) => {
   return (
     <button

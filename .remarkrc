@@ -26,7 +26,7 @@
             "required": true,
             "oneOf": ["Production", "Demonstrated", "Proposed"]
           },
-          "licence": {
+          "license": {
             "type": "string",
             "required": true
           },
@@ -37,7 +37,11 @@
           "publisher": {
             "type": "string",
             "required": true
-          }
+          },
+          "piuri": {
+            "type": "string",
+            "required": true
+          },
         }
       ]
     ]

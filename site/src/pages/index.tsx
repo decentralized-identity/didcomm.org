@@ -7,7 +7,6 @@ import { Features } from '../components/Features/Features'
 import { Hero } from '../components/Hero/Hero'
 import { QueryData } from './index.types'
 
-
 const IndexPage = ({ data }: PageProps<QueryData>) => {
   return (
     <Layout>

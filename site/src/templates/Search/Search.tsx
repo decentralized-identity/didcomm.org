@@ -17,11 +17,12 @@ const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
   return (
     <Layout primary title={query ? `${query} - search` : 'Browse All'}>
       <Header>
-        <SearchComponent bordered query={query} onSearch={(q) => setQuery(q, 'pushIn')} />
+        <SearchComponent bordered query={query} onSearch={(q) => setQuery(q, 'push')} />
       </Header>
       <div className="content">
         <h1 className={styles.title}>
-          <mark className={styles.mark}>{query ? protocols.length : 'All'}</mark> protocols {query ? `found for "${query}"` : ''}
+          <mark className={styles.mark}>{query ? protocols.length : 'All'}</mark>{' '}
+          {query && protocols.length === 1 ? 'protocol' : 'protocols'} {query ? `found for "${query}"` : ''}
         </h1>
         <div className="grid-3">
           <main className={styles.main}>{loading ? 'Loading...' : <ProtocolsList protocols={protocols} />}</main>

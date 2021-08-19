@@ -12,10 +12,10 @@ export type Pagination<TItem> = {
   setPage: (page: number) => void
 }
 
-export const usePagination = <TItem extends {}>(
-  list: Array<TItem>,
-): Pagination<TItem> => {
+export const usePagination = <TItem extends {}>(list: Array<TItem>): Pagination<TItem> => {
   const [page, setPage] = useQueryParam('page', NumberParam)
+
+  let fallbackPage = page ?? 1
 
   useEffect(() => {
     if (page === undefined) {
@@ -23,10 +23,10 @@ export const usePagination = <TItem extends {}>(
     }
   }, [list])
 
-  const items = list.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
-  const next = () => setPage(page + 1)
-  const prev = () => setPage(page - 1)
-  const hasNext = list.length > page * ITEMS_PER_PAGE
+  const items = list.slice((fallbackPage - 1) * ITEMS_PER_PAGE, fallbackPage * ITEMS_PER_PAGE)
+  const next = () => setPage(fallbackPage + 1)
+  const prev = () => setPage(fallbackPage - 1)
+  const hasNext = list.length > fallbackPage * ITEMS_PER_PAGE
   const pagesCount = Math.ceil(list.length / ITEMS_PER_PAGE)
 
   return {
@@ -36,6 +36,6 @@ export const usePagination = <TItem extends {}>(
     items,
     pagesCount,
     setPage,
-    page,
+    page: fallbackPage,
   }
 }
