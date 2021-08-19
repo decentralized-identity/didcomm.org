@@ -1,10 +1,10 @@
 ---
-title: My test layout loooooooooooooooooooooooooooooooooooooooooooooooonooooooooooog protocol
+title: My test layout loooooooooooooooooooooooooooooooooooooooooooooooonooooooooooong protocol protocol protocol protocolprotocolprotocol
 publisher: annaShatkovskaya
-licence: MITLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
+licence: MITLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong protocol protocol protocol
 piuri: https://didcomm.org/test-layout/0.1
 status: Production
-summary: My test-layout protocol loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong summary
+summary: My test-layout protocol loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong summary
 tags:
   - star-wars
   - tag4
@@ -12,7 +12,7 @@ tags:
   - tag6
   - tag7
   - loooooooooooooooooooooooooooooooooongtag
-  - tag8
+  - taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaag8
   - tag9
   - tag10
   - tatatatatattaattaatag
