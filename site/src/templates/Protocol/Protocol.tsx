@@ -63,7 +63,6 @@ export const ProtocolTemplate = ({ data }: PageProps<mdRemark>) => {
   const {
     markdownRemark: { frontmatter, html, fields },
   } = data
-  console.log(frontmatter.license)
 
   return (
     <Layout title={frontmatter.title}>
