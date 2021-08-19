@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit()
 const gitDateExtractor = require('git-date-extractor')
+const { stripHtml } = require('string-strip-html')
 
 // TODO move all exports to separate files
 
@@ -81,7 +82,7 @@ module.exports.createSchemaCustomization = ({ actions }) => {
     type Frontmatter {
       title: String
       tags: [String]
-      licence: String
+      license: String
       publisher: String
       status: String
       piuri: String
@@ -101,9 +102,13 @@ module.exports.createSchemaCustomization = ({ actions }) => {
 module.exports.createPages = async ({ actions, graphql }) => {
   const allMarkdown = await graphql(`
     {
-      protocols: allMarkdownRemark(filter: { fields: { collection: { eq: "protocols" } } }) {
+      protocols: allMarkdownRemark(
+        filter: { fields: { collection: { eq: "protocols" } } }
+        sort: { order: ASC, fields: frontmatter___title }
+      ) {
         nodes {
           id
+          html
           fields {
             slug
             version
@@ -113,7 +118,7 @@ module.exports.createPages = async ({ actions, graphql }) => {
           frontmatter {
             title
             tags
-            licence
+            license
             publisher
             status
             summary
@@ -148,7 +153,7 @@ const createSearchPage = (createPage, protocols) => {
     slug: node.fields.slug,
     title: node.frontmatter.title,
     tags: node.frontmatter.tags,
-    licence: node.frontmatter.licence,
+    license: node.frontmatter.license,
     publisher: node.frontmatter.publisher,
     avatar: node.fields.avatar,
     version: node.fields.version,
@@ -156,15 +161,16 @@ const createSearchPage = (createPage, protocols) => {
     summary: node.frontmatter.summary,
     modifiedDate: node.fields.modifiedDate,
     piuri: node.frontmatter.piuri,
+    html: stripHtml(node.html).result.replace('\n', ' '),
   }))
-  const allLicences = Array.from(new Set(normalizedProtocols.map(({ licence }) => licence)))
+  const allLicenses = Array.from(new Set(normalizedProtocols.map(({ license }) => license)))
   const searchComponent = path.resolve('src/templates/Search/Search.tsx')
   createPage({
     path: '/search/',
     component: searchComponent,
     context: {
       allProtocols: normalizedProtocols,
-      allLicences,
+      allLicenses,
     },
   })
 }

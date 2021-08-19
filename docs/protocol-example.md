@@ -1,7 +1,7 @@
 ---
 title: Light Speed Protocol
 publisher: dhh1128
-licence: MIT
+license: MIT
 piuri: https://didcomm.org/light-speed-protocol/0.9
 status: Production
 summary: In one or two sentences, explain what problem this protocol solve, how it works, and other key characteristics.

@@ -18,4 +18,8 @@
   @include font-caption;
   padding: $grid-small $grid-base;
   border: $border-base solid var(--color-text-primary);
+  @media print {
+    padding: 0;
+    border: none;
+  }
 }

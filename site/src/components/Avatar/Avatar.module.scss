@@ -9,6 +9,11 @@
   width: $grid-base-3x;
   border-radius: 50%;
   margin-right: $grid-base;
+  background-color: var(--color-text-secondary);
+  background-size: cover;
+  @media print {
+    display: none;
+  }
 }
 
 .publisher {

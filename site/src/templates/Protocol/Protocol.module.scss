@@ -1,12 +1,17 @@
 @import 'src/styles/constants';
-@import "src/styles/mixins";
+@import 'src/styles/mixins';
 
 .title {
   margin-bottom: $grid-base-9x;
+  word-break: break-word;
+
   @media screen and (max-width: $bp-mobile) {
     margin-bottom: $grid-base-3x;
 
     @include font-title-1;
+  }
+  @media print {
+    margin-bottom: $grid-base-5x;
   }
 }
 
@@ -14,21 +19,45 @@
   grid-column: span 2;
   overflow: hidden;
   word-break: break-word;
+
+  @media screen and (max-width: $bp-mobile) {
+    grid-column: 1;
+  }
   @media print {
     grid-column: span 3;
+    overflow: visible;
   }
 
   > :first-child {
     margin-top: 0;
   }
-  h1,h2 {
+  h1,
+  h2 {
     @include font-title-2;
   }
-  h3,h4,h5,h6 {
+  h3 {
     @include font-title-3;
   }
-  h1,h2,h3,h4,h5,h6 {
-    margin: $grid-base-3x 0;
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: $grid-base-3x;
+    margin-bottom: $grid-base-2x;
+  }
+  p,
+  ul,
+  ol,
+  table {
+    margin-bottom: $grid-base;
   }
   a {
     color: var(--color-primary);
@@ -45,19 +74,68 @@
   ol {
     list-style: decimal;
   }
-  ul,ul {
+  ol,
+  ul {
     padding-left: 1.5em;
+  }
+  hr {
+    margin: $grid-base 0;
   }
   pre {
     white-space: pre-wrap;
     padding: $grid-base-3x $grid-base-4x;
     background-color: var(--color-background-primary);
+    margin-bottom: $grid-base;
+  }
+  code,
+  tt {
+    background-color: var(--color-background-primary);
+    padding: 0 0.2em;
+  }
+  pre code,
+  pre tt {
+    background-color: transparent;
+  }
+  iframe,
+  video,
+  img {
+    max-width: 100%;
+    margin-bottom: $grid-base;
+  }
+  blockquote {
+    padding: 0 1em;
+    color: var(--color-text-secondary);
+    border-left: 0.25em solid var(--color-tertiary);
+  }
+  table {
+    width: 100%;
+    overflow: auto;
+    word-break: keep-all;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  table tr {
+    background-color: var(--color-background);
+    border-top: $border-small solid var(--color-tertiary);
+  }
+  table th {
+    font-weight: bold;
+    padding: $grid-small $grid-base;
+    border: $border-small solid var(--color-tertiary);
+    text-align: left;
+  }
+  table td {
+    padding: $grid-small $grid-base;
+    border: $border-small solid var(--color-tertiary);
   }
 }
 
 .meta {
   @media screen and (max-width: $bp-mobile), print {
     grid-row: 1;
+  }
+  @media print {
+    grid-column: span 3;
   }
 }
 
@@ -66,15 +144,29 @@
   @media screen and (max-width: $bp-mobile) {
     display: none;
   }
+  @media print {
+    flex-shrink: 0;
+    &::after {
+      content: ': ';
+      padding-right: 1em;
+    }
+    margin-bottom: 0;
+  }
 }
 
 .metaContent {
+  word-break: break-word;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   margin-bottom: $grid-base-5x;
   @media screen and (max-width: $bp-mobile), print {
     margin-bottom: $grid-base-3x;
+  }
+  @media print {
+    flex-direction: row;
+    align-items: baseline;
+    margin-bottom: $grid-base;
   }
 }
 

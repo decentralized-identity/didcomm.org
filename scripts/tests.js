@@ -52,7 +52,7 @@ function testPIURI(changedFilePaths, logger) {
     if (!testStructure(dirs)) {
       logger.error(`A new protocol must be in ${PROTOCOLS_FOLDER}/<protocol_name>/<protocol_version> folder`)
       countErrors++
-      return
+      return countErrors
     }
     
     const [name, version] = dirs

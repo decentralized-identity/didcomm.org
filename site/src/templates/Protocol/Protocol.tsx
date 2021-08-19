@@ -12,9 +12,9 @@ import { mdRemark, Props } from './Protocol.types'
 import * as styles from './Protocol.module.scss'
 import { LastModified } from '../../components/LastModified/LastModified'
 
-const Protocol = ({ html, tags, licence, title, avatar, publisher, version, status, piuri, summary, modifiedDate }: Props) => (
+const Protocol = ({ html, tags, license, title, avatar, publisher, version, status, piuri, summary, modifiedDate }: Props) => (
   <main>
-    <h1 className={styles.title}>
+    <h1 className={cls('font-title-1', styles.title)}>
       {title}&nbsp;<span className={cls('font-footnote', styles.version)}>{version}</span>
     </h1>
     <div className="grid-3">
@@ -47,11 +47,11 @@ const Protocol = ({ html, tags, licence, title, avatar, publisher, version, stat
           </div>
         </div>
         <div className={styles.metaContent}>
-          <div className={cls('font-subheadline', styles.metaTitle)}>Licence</div>
-          <div className="font-footnote">{licence}</div>
+          <div className={cls('font-subheadline', styles.metaTitle)}>License</div>
+          <div className="font-footnote">{license}</div>
         </div>
         <div className={styles.metaContent}>
-          <div className={cls('font-subheadline', styles.metaTitle)}>Last publish</div>
+          <div className={cls('font-subheadline', styles.metaTitle)}>Last modified</div>
           <LastModified className="font-footnote" lastModified={modifiedDate} />
         </div>
       </div>
@@ -67,7 +67,7 @@ export const ProtocolTemplate = ({ data }: PageProps<mdRemark>) => {
   return (
     <Layout title={frontmatter.title}>
       <Header className="hide-print">
-        <Search bordered onSearch={(query) => navigate(`/search/?q=${query}&page=1`)} />
+        <Search bordered onSearch={(query) => navigate(`/search/?q=${encodeURIComponent(query)}&page=1`)} />
       </Header>
       <div className="content">
         <Protocol {...frontmatter} html={html} {...fields} />
@@ -85,7 +85,7 @@ export const query = graphql`
       frontmatter {
         title
         tags
-        licence
+        license
         publisher
         status
         piuri
