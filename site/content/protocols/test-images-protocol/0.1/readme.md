@@ -88,7 +88,7 @@ described here and checked in with the RFC.
 
 ## Implementations
 ![Image](Untitled-Diagram.png)
-![Image1](Untitled-Diagram.pdf)
+[PDF Version](Untitled-Diagram.pdf)
 
 ## Endnotes
 
