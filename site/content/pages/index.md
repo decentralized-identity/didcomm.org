@@ -9,5 +9,5 @@ features:
     text: Application-level decentralized protocols are <a rel="noreferrer noopener nofollow" target="_blank"  href="https://github.com/hyperledger/aries-rfcs/blob/main/concepts/0003-protocols/README.md">built atop DIDComm</a>. These support activities like secure chat, verifiable credential exchange, buying and selling, scheduling, escrow, bidding, ticketing, and so forth.
   - icon: share
     title: Share a protocol
-    text: To register or modify a protocol definition, submit a PR against the /protocols folder of the <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/decentralized-identity/didcomm.org">repo</a>.
+    text: To register or modify a protocol definition, follow the <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/Merciful12/didcomm.org/blob/main/docs/pr-guide.md">instructions</a> and submit a PR against the /site/content/protocols folder of the <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/decentralized-identity/didcomm.org">repo</a>.
 ---
