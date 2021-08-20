@@ -41,7 +41,7 @@
           "piuri": {
             "type": "string",
             "required": true
-          },
+          }
         }
       ]
     ]
