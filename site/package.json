@@ -12,6 +12,7 @@
     "gatsby-plugin-react-helmet": "^4.10.0",
     "gatsby-plugin-sass": "^4.10.0",
     "gatsby-plugin-use-query-params": "^1.0.1",
+    "gatsby-remark-copy-linked-files": "^4.9.0",
     "gatsby-source-filesystem": "^3.10.0",
     "gatsby-transformer-remark": "^4.7.0",
     "git-date-extractor": "^4.0.1",
