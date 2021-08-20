@@ -28,7 +28,19 @@ module.exports = {
         path: `${__dirname}/content/pages`,
       },
     },
-    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-copy-linked-files',
+            options: {
+              ignoreFileExtensions: [],
+            },
+          },
+        ],
+      },
+    },
     `gatsby-plugin-use-query-params`,
     {
       resolve: `gatsby-plugin-page-creator`,
