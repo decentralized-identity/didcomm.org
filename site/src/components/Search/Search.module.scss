@@ -70,7 +70,7 @@ $search-max-width: 514px;
     color: var(--color-secondary-hover);
   }
 }
-.input:placeholder-shown + .clearButton {
+.input:placeholder-shown + .placeholder + .clearButton {
   display: none;
 }
 .iconCross {
