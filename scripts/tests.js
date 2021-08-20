@@ -67,7 +67,7 @@ function testPIURI(changedFilePaths, logger) {
       countErrors++
     }
 
-    if (!testFileName(parsedFilePath.base)) {
+    if (parsedFilePath.ext === 'md' && !testFileName(parsedFilePath.base)) {
       logger.error(`Markdown file name should be equal to ${MARKDOWN_FILENAME}`)
       countErrors++
     }
