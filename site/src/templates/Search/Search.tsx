@@ -27,7 +27,8 @@ const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
         <div className="grid-3">
           <main className={styles.main}>{loading ? 'Loading...' : <ProtocolsList protocols={protocols} />}</main>
           <aside className="hide-mobile">
-            <h3>Filters</h3>
+            {/* TODO filters */}
+            <h3>&nbsp;</h3>
           </aside>
         </div>
       </div>

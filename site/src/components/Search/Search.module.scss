@@ -42,6 +42,8 @@ $search-max-width: 514px;
   left: $grid-base-2x;
   color: var(--color-text-secondary);
   position: absolute;
+  cursor: text;
+  user-select: none;
 }
 
 .button {

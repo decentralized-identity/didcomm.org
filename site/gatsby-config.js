@@ -2,7 +2,7 @@ module.exports = {
   pathPrefix: '/didcomm.org',
   siteMetadata: {
     title: `DIDComm`,
-    description: `TODO description`,
+    description: `DIDComm lets people and software use DIDs to communicate securely and privately over many channels: the web, email, mobile push notifications, QR codes, Bluetooth, message queues, sneakernet, and more.`,
     author: `DIDComm`,
   },
   plugins: [
