@@ -54,6 +54,9 @@ The following fields must be specified:
   - `title` — the official name of the protocol. Should be the same as `<protocol-name>` folder but user friendy. Will be displayed in search results and at protocol details page. 
   - `piuri` — DIDComm protocols are uniquely identified by a special URI called a PIURI `https://didcomm.org/<protocol-name>/<version>`, e.g `https://didcomm.org/my-cool-protocol/1.0`.
   - `publisher` — the GitHub username of the person who publishes the protocol.
+  - `authors` — list of authors. Author object has next fields:
+    - name
+    - email (optional)
   - `license` — protocol license.
   - `tags` — some hashtags that might be used to associate the protocol with topics. It's recommended to re-use existing tags before creating new similar ones (for example, consider re-using existing `finance` tag instead of creating a new one called `financial`).
   - `summary` — in one or two sentences, explain what problem this protocol solve, how it works, and other key characteristics.

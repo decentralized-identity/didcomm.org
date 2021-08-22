@@ -87,6 +87,7 @@ module.exports.createSchemaCustomization = ({ actions }) => {
       status: String
       piuri: String
       summary: String
+      authors: [Author]
     }
     type Fields {
       collection: String
@@ -94,6 +95,10 @@ module.exports.createSchemaCustomization = ({ actions }) => {
       version: String
       avatar: String
       modifiedDate: Date
+    }
+    type Author {
+      name: String
+      email: String
     }
   `
   createTypes(typeDefs)

@@ -9,6 +9,12 @@ export const Status = {
 
 export type StatusType = keyof typeof Status
 
+
+export type Author = {
+  name: string
+  email?: string
+}
+
 export type MDProtocol = {
   fields: {
     slug: string
@@ -24,6 +30,7 @@ export type MDProtocol = {
     publisher: string
     summary: string
     piuri: string
+    authors: Array<Author>
   }
   html: string
 }
@@ -41,4 +48,5 @@ export type Protocol = {
   modifiedDate: string
   summary: string
   piuri: string
+  authors: Array<Author>
 }
