@@ -11,7 +11,6 @@
     "remark-frontmatter-validator": "^0.4.0",
     "remark-lint": "^9.0.0",
     "remark-lint-no-dead-urls": "^1.1.0",
-    "remark-lint-no-html": "^3.0.0",
     "walk-sync": "^3.0.0"
   }
 }
