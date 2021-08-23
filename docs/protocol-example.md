@@ -8,11 +8,12 @@ summary: In one or two sentences, explain what problem this protocol solve, how 
 tags:
   - faster-than-light-travel
   - star-wars
+authors:
+  - name: Your name
+    email: you@github-email
+  - name: Author without email
+
 ---
-
-## Authors
-  - [your name](you@github-email) -- email is optional
-
 
 ## Roles
 

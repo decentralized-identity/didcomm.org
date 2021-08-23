@@ -1,7 +1,6 @@
 {
   "plugins": [
     ["remark-lint-no-dead-urls", ["error"]],
-    ["remark-lint-no-html", ["error"]],
     [
       "remark-frontmatter",
       [
@@ -40,6 +39,10 @@
           },
           "piuri": {
             "type": "string",
+            "required": true
+          },
+          "authors": {
+            "type": "object",
             "required": true
           }
         }

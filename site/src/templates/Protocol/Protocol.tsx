@@ -11,8 +11,9 @@ import { cls } from '../../common/utils'
 import { mdRemark, Props } from './Protocol.types'
 import * as styles from './Protocol.module.scss'
 import { LastModified } from '../../components/LastModified/LastModified'
+import { Authors } from '../../components/Authors/Authors'
 
-const Protocol = ({ html, tags, license, title, avatar, publisher, version, status, piuri, summary, modifiedDate }: Props) => (
+const Protocol = ({ html, tags, license, title, avatar, publisher, version, status, piuri, summary, modifiedDate, authors }: Props) => (
   <main>
     <h1 className={cls('font-title-1', styles.title)}>
       {title}&nbsp;<span className={cls('font-footnote', styles.version)}>{version}</span>
@@ -39,6 +40,10 @@ const Protocol = ({ html, tags, license, title, avatar, publisher, version, stat
         <div className={styles.metaContent}>
           <div className={cls('font-subheadline', styles.metaTitle)}>Publisher</div>
           <Avatar publisher={publisher} avatar={avatar} />
+        </div>
+        <div className={styles.metaContent}>
+          <div className={cls('font-subheadline', styles.metaTitle)}>Authors</div>
+          <Authors authors={authors} />
         </div>
         <div className="hide-mobile hide-print">
           <div className={styles.metaContent}>
@@ -90,6 +95,10 @@ export const query = graphql`
         status
         piuri
         summary
+        authors {
+          name
+          email
+        }
       }
       fields {
         modifiedDate
