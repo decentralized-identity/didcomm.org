@@ -7,7 +7,9 @@
 4. Create a protocol definition document in that folder as a markdown file named`readme.md`. Use the following example as a [reference](./protocol-example.md).
 5. Send a pull request to the `main` branch.
 6. Wait until all CI checks are complete, and fix the errors if there are any. 
-
+7. Check for warnings in validation details, and consider fixing them. 
+    - Example of warnings: `tag: star-war is similar to existing tags: star-wars. Make sure you can't use existing one.`
+    - Where to find the warning details: go to Details - Test meta - Validate tags similarity (see [example](https://github.com/Merciful12/didcomm.org/runs/3320669302?check_suite_focus=true#step:6:7))
 
 ## Update an existing protocol definition
 1. Fork the repo.
@@ -33,7 +35,10 @@
     - make changes in the `readme.md`
     - send a pull request to the `main` branch
     - add `[non-compatible]` postfix to the PR title
-6. Wait until all CI checks are complete, and fix the errors if there are any. 
+6. Wait until all CI checks are complete, and fix the errors if there are any.
+7. Check for warnings in validation details, and consider fixing them. 
+    - Example of warnings: `tag: star-war is similar to existing tags: star-wars. Make sure you can't use existing one.`
+    - Where to find the warning details: go to Details - Test meta - Validate tags similarity (see [example](https://github.com/Merciful12/didcomm.org/runs/3320669302?check_suite_focus=true#step:6:7))
 
 
 ## Details
