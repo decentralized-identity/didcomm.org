@@ -1,0 +1,44 @@
+@import "src/styles/constants";
+
+.main {
+  width: 100%;
+  max-width: 620px;
+  margin: auto;
+}
+
+.oops {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 90px;
+  line-height: 90px;
+  text-align: center;
+  margin-bottom: $grid-base-6x;
+  color: transparent;
+ -webkit-text-stroke: 2px var(--color-secondary);
+}
+
+.title {
+  color: var(--color-background);
+  text-align: center;
+  margin-bottom: $grid-base-3x;
+
+}
+
+.subtitle {
+  color: var(--color-secondary);
+  text-align: center;
+  margin-bottom: $grid-base-4x;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  @media screen and (max-width: $bp-mobile) {
+    position: absolute;
+    width: 100%;
+    padding: 0 $grid-base-2x;
+    align-items: center;
+    left: 0;
+    bottom: $grid-base-2x;
+  }
+}

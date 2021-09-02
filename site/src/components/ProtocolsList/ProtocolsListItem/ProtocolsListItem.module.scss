@@ -1,0 +1,66 @@
+@import "src/styles/mixins";
+@import 'src/styles/constants';
+
+.item {
+  width: 100%;
+  padding: $grid-base-3x $grid-base-4x;
+  background-color: var(--color-background);
+  word-break: break-word;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: $bp-mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.title {
+  color: var(--color-primary);
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+  &:focus {
+    color: var(--color-primary-pressed);
+  }
+  @media screen and (max-width: $bp-mobile) {
+    margin-bottom: $grid-base-extra;
+  }
+}
+.version {
+  margin-left: $grid-base;
+  color: var(--color-text-secondary);
+}
+.summary {
+  margin: $grid-base-extra 0;
+}
+
+.lastModified {
+  margin-right: $grid-base-2x;
+}
+.avatar {
+  margin-right: $grid-base-2x;
+  @media screen and (max-width: $bp-mobile) {
+    margin-top: $grid-base-extra;
+    width: 100%;
+  }
+}
+
+.footer {
+  margin-top: $grid-base-3x;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  & > * {
+    @include reverseOrder;
+  }
+}
+
+
+

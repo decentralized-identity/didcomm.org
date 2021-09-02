@@ -1,0 +1,32 @@
+@import 'src/styles/constants';
+.hero {
+  height: 50%;
+
+  background-color: var(--color-primary);
+  padding: $grid-base-9x $grid-base-4x;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-background);
+  text-align: center;
+}
+.subtitle {
+  margin: $grid-base-2x 0 $grid-base-6x;
+
+  @media screen and (max-width: $bp-mobile) {
+    margin-bottom: $grid-base-4x;
+  }
+}
+.browseAll {
+  margin-top: $grid-base-2x;
+}
+.browseAllLink {
+  color: inherit;
+  text-decoration: underline;
+  &:hover {
+    color: var(--color-secondary-hover);
+  }
+  &:focus {
+    color: var(--color-secondary-pressed);
+  }
+}

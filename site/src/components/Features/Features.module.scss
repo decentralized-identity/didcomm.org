@@ -1,0 +1,48 @@
+@import 'src/styles/constants';
+@import 'src/styles/mixins';
+.feature {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto;
+  @media screen and (max-width: $bp-mobile) {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+.icon {
+  grid-row: 1;
+  width: $grid-base-9x;
+  height: $grid-base-9x;
+  @media screen and (max-width: $bp-mobile) {
+    width: $grid-base-4x;
+    grid-column: 2;
+    height: $grid-base-4x;
+    margin-left: $grid-base;
+  }
+}
+
+.title {
+  margin: $grid-base-4x 0 $grid-base-3x;
+  grid-row: 2;
+  grid-column: span 2;
+  @media screen and (max-width: $bp-mobile) {
+    margin: 0 0 $grid-base-extra;
+    grid-row: 1;
+    grid-column: 1;
+    @include font-title-3;
+  }
+}
+
+.text {
+  grid-column: span 2;
+  a {
+    color: var(--color-primary);
+    &:hover {
+      color: var(--color-primary-hover);
+    }
+    &:focus {
+      color: var(--color-primary-pressed);
+    }
+  }
+}

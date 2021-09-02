@@ -1,0 +1,54 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
+
+.pagination {
+  margin-top: $grid-base-6x;
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+  grid-column-gap: $grid-base-3x;
+  @media screen and (max-width: $bp-mobile) {
+    grid-template-columns: auto auto;
+    grid-row-gap: $grid-base-2x;
+  }
+}
+.pages {
+  display: grid;
+  grid-template-columns: repeat(5, 42px);
+  grid-column-gap: $grid-base;
+}
+
+.page {
+  width: 100%;
+  height: $grid-base-6x;
+  background-color: var(--color-background);
+  &:hover,
+  &:focus {
+    background-color: var(--color-background-secondary);
+  }
+  &:disabled {
+    color: var(--color-text);
+  }
+}
+.next {
+  padding: $grid-base-extra $grid-base-3x;
+  background-color: var(--color-background);
+  @media screen and (max-width: $bp-mobile) {
+    grid-column: span 2;
+  }
+  &:hover,
+  &:focus {
+    background-color: var(--color-background-secondary);
+  }
+}
+.current {
+  background-color: var(--color-background-secondary);
+  @include shadow-medium;
+  pointer-events: none;
+}
+
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

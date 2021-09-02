@@ -1,0 +1,49 @@
+{
+  "name": "didcomm-website",
+  "private": true,
+  "description": "didcomm-website",
+  "version": "0.1.0",
+  "author": "didcomm",
+  "dependencies": {
+    "@octokit/core": "^3.5.1",
+    "dayjs": "^1.10.6",
+    "gatsby": "^3.11.1",
+    "gatsby-plugin-manifest": "^3.10.0",
+    "gatsby-plugin-react-helmet": "^4.10.0",
+    "gatsby-plugin-sass": "^4.10.0",
+    "gatsby-plugin-use-query-params": "^1.0.1",
+    "gatsby-remark-copy-linked-files": "^4.9.0",
+    "gatsby-source-filesystem": "^3.10.0",
+    "gatsby-transformer-remark": "^4.7.0",
+    "git-date-extractor": "^4.0.1",
+    "js-search": "^2.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
+    "sass": "^1.36.0",
+    "string-strip-html": "^8.3.0",
+    "use-query-params": "^1.2.3"
+  },
+  "devDependencies": {
+    "@types/js-search": "^1.4.0",
+    "@types/react": "^17.0.14",
+    "@types/react-helmet": "^6.1.2",
+    "prettier": "2.3.2"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
+  "keywords": [
+    "didcomm"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  }
+}
