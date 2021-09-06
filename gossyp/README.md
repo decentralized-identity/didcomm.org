@@ -8,19 +8,45 @@
 
 ## Summary
 
-Defines how to maintain a shared view of changing state, despite the complex connectivity challenges of decentralized, n-wise interactions. Since shared state can drive a workflow, we recommend [implementing n-wise DIDComm protocols atop gossyp](#building-on-gossyp); its abstraction over point-to-point communication[<a id="ref1" href="note1">1</a>] can make such protocols easier to design and implement, and far more robust. 
+Maintains shared history on an arbitrary topic, even when connectivity is constrained and unpredictable. Provides a useful abstraction for [building n-wise protocols](#appendix-1-building-on-gossyp) that are flexible and robust.
 
->Note: Careful students of this protocol will recognize overlaps between this protocol and several other technologies in SSI and distributed systems. For an analysis of how gossyp's solution to this problem compares to other approaches, see [Appendix 1: Alternatives](#appendix-1-alternatives).
+>Note: Careful students of this protocol will recognize overlaps between this protocol and several other techniques in SSI and distributed systems. For a deeper view of the problem space, and an analysis of how gossyp's solution to this problem compares to others, see [Appendix 2: Other Approaches](#appendix-2-other-approaches).
+
+## Overview
+
+Human gossip is simple &mdash; but as way to share data, it works surprisingly well. Its algorithm is:
+
+1. Identify a gossip-worthy topic.
+2. Repeat the following behaviors, in any order, as much as desired, with any relevant parties:
+   * Deliberately reach out to share new information: "I have to tell you what Alice said about lunch!"
+   * Deliberately solicit new information: "Have you heard anything about lunch?"
+   * Casually check whether old information is already familiar: "You saw the note about lunch, right?"
+   * Listen and react.
+
+The gossyp protocol follows the same pattern, but at machine speed and with integrity guarantees:
+
+1. Define a topic of shared interest:
+   * How will the topic be identified?
+   * What properties does the topic have?
+   * What rules will allow us to agree on its current state?
+
+2. Repeat the following behaviors, in any order, as much as desired, with any relevant parties:
+   * Reach out to *share* new information.
+   * *Ask* new information.
+   * *Check* for synchronization.
+   * *Listen* (and react).
+
+![flowchart](flowchart.png)
 
 ## Roles
 
 Many [participants](https://github.com/dhh1128/didcomm-terms/wiki/participant) may run this protocol, but they all share a single role, `peer`.
 
-In some cases, all `peers` belong to a single [party](https://github.com/dhh1128/didcomm-terms/wiki/party) (e.g., Alice is using gossyp to sync state among all her devices); in other cases, the participants may span sovereign domain boundaries (e.g., multiple individuals are using gossyp to sync the state of n-wise peer DID docs).
+In some cases, all `peers` belong to a single [party](https://github.com/dhh1128/didcomm-terms/wiki/party) (e.g., Alice gossyps to sync state among all her devices); in other cases, the participants may span [sovereign domains](https://github.com/dhh1128/didcomm-terms/wiki/sovereign-domain) (e.g., multiple individuals gossyp to sync knowledge of n-wise peer DID docs).
 
 ## Connectivity
 
-There can be no synchronization without at least *some* connectivity. Thus, when viewed across time, the participants and connections in this protocol MUST come to constitute a [connected graph](https://en.wikipedia.org/wiki/Connectivity_(graph_theory)) in order to achieve the goals of the protocol. However, gossyp is specifically intended to provide value if connectivity is intermittent or the graph has a number of edges where data flows in only one direction.
+There can be no synchronization without at least *some* connectivity. Thus, when viewed across time, the participants and connections in this protocol MUST comprise a minimally [connected graph](https://en.wikipedia.org/wiki/Connectivity_(graph_theory)) in order to achieve the goals of the protocol. However, gossyp is specifically intended to provide value if connectivity is intermittent or the graph has a number of edges where data flows in only one direction (<var>t<sub>0</sub></var> through <var>t<sub>2</sub></var> in the diagram below).
 
 ![connected graph over time](connected-graph.png)
 
@@ -30,43 +56,17 @@ This is an [infinite protocol](https://github.com/dhh1128/didcomm-terms/wiki/inf
 
 It only has one state, `syncing`.
 
-## Principles
-
-Human gossip is remarkably flexible, efficient, and decentralized. It works like this:
-
-1. Identify a gossip-worthy topic.
-2. Repeat the following behaviors, in any order, as much as desired, with any relevant parties:
-    * Deliberately reach out to share new information: "I have to tell you what Alice said about lunch!"
-    * Deliberately solicit new information: "Have you heard anything about lunch?"
-    * Casually check whether old information is already familiar: "You saw the note about lunch, right?"
-    * Listen and react.
-
-The same basic pattern is followed by gossyp:
-
-1. Define a topic of shared interest:
-    * How will the topic be identified?
-    * What properties does the topic have?
-    * What rules will allow us to agree on its current state?
-
-2. Repeat the following behaviors, in any order, as much as desired, with any relevant parties:
-     * Reach out to *share* new information.
-     * *Ask* new information.
-     * *Check* for synchronization.
-     * *Listen* (and react).
-   
-![flowchart](flowchart.png)
-
 ## Basic Walkthrough
 
-Although gossyp can be applied to many state synchronization problems, it will be easiest to describe it in a concrete scenario. Let's imagine using gossyp to run a casual group chat in which Alice, Bob, and Carol (three business partners) each play the role of `peer`.
+Although gossyp can be applied to many state synchronization problems, it will be easiest to describe it in a concrete scenario. Let's imagine using gossyp to run a casual group chat in which Alice, Bob, and Carol (three business partners) are the `peers`.
 
-The goal of each [instance](https://github.com/dhh1128/didcomm-terms/wiki/protocol-instance) of gossyp is to give all `peers` a shared view of something called the **transcript**. Gossyp defines this concept loosely, allowing different situations to imagine transcripts with different details. However, it requires that all transcripts evolve through a series of discrete **events** in an [event-sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) paradigm.
+The goal of each [instance](https://github.com/dhh1128/didcomm-terms/wiki/protocol-instance) of gossyp is to give all `peers` a shared view of something called the **transcript**. Gossyp defines this concept loosely, allowing different situations to have transcripts with different details. However, it requires that all transcripts evolve through a series of discrete **events** in an [event-sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) paradigm, such that the transcript implies an unambiguous state.
 
 In this case, we'll say that *transcript* is the text of the 3-party chat among Alice, Bob, and Carol. *Events* will be individual posts. Gossyp will help each party stay up-to-date on what has been said by the others, even if connectivity between the parties comes and goes. 
 
 ### Define + first share
 
-In our example, the group chat begins when Alice decides that group chat is needed. Perhaps she wants to talk about the meeting that the three business partners are planning for noon today, so she writes the following note as markdown:
+In our example, the group chat begins when Alice decides that group chat is needed. Perhaps she wants to talk about the meeting that she and her partners are planning for noon today, so she writes the following note as markdown:
 
 ```markdown
 I'll be hungry. Let's get lunch.
@@ -134,17 +134,17 @@ Once Alice has this message ready, she makes a best effort to send it to Bob and
 
 ### Second share
 
-Suppose Bob writes a post for the group chat a couple minutes later, using the following markdown:
+Suppose Bob, now aware of the group chat, writes a response a couple minutes later, using the following markdown:
 
 ```markdown
 Great!
 ```
 
-Bob needs to use a `gossyp/1.0/sync` message to distribute this post as an event in the transcript. We'll describe how that's done eventually &mdash; but for now, let's imagine that he loses his internet connectivity just as he finishes writing, and is unable to contact either Alice or Carol. The connectivity of our graph is not improving... Bob shrugs his shoulders and goes on to other work; it's a temporary problem for computers to solve. Meanwhile, the `sync` message containing this post could remain in his outbox, or it could be discarded, *as long as Bob retains the full topic transcript that includes his new event.*
+Bob needs to use a `gossyp/1.0/sync` message to distribute this post as an event in the transcript. We'll describe how that's done eventually &mdash; but for now, let's imagine that he loses his internet connectivity just as he finishes writing, and is unable to contact either Alice or Carol. The connectivity of our graph is not improving... Bob shrugs his shoulders and goes on to other work; it's a temporary problem for computers to solve. Meanwhile, the `sync` message containing this post could remain in an outbox, or it could be discarded, *as long as Bob retains the full topic transcript that includes his new event.*
 
 To demonstrate gossyp features more clearly, let's assume Bob doesn't have any outbox mechanism, so he simply gives up on delivery and discards his message &mdash; but NOT his transcript update. His post is part of the group chat, as far as he's concerned...
 
-Gossyp does not dictate how transcripts are stored internally, but the transcript history that Bob MUST retain MUST contain all the events for topic `5937004527`. It might simply capture attachment structures (suppressing "id" fields that are now useless), looking something like this:
+Gossyp does not dictate how transcripts are stored internally, but the transcript history that Bob MUST retain MUST contain all the events for topic `5937004527`. It might simply persist the attachment structures from individual `sync` messages (suppressing "id" fields that are now useless), looking something like this:
 
 ```jsonc
 [
@@ -174,7 +174,7 @@ Gossyp does not dictate how transcripts are stored internally, but the transcrip
 
 ### First check
 
-An hour later, Bob finishes revising the partnership's *Articles of Incorporation* doc. He wants Alice and Carol to sign. Maybe he uses a DIDComm `collect-signatures` protocol for this. This would NOT be a message in the gossyp protocol -- but the act of sending a `collect-signatures` message might cause his phone to retry the internet connection, and he might discover that now he's online again. Suppose what Bob ends up sending to Alice and Carol, in this span of connectivity, begins just with this non-gossyp message &mdash; *but notice the `gossyp` header it carries*:
+Suppose that an hour after his untransmitted post, Bob finishes revising the partnership's *Articles of Incorporation* doc. He wants Alice and Carol to sign. Maybe he uses a DIDComm `collect-signatures` protocol for this. This would NOT be a message in the gossyp protocol -- but the act of sending a `collect-signatures` message might cause his phone to retry the internet connection, and he might discover that now he's online again. Maybe what Bob ends up sending to Alice and Carol, in this new span of connectivity, begins just with a non-gossyp message &mdash; *but notice the `gossyp` header it carries*:
 
 ```jsonc
 {
@@ -199,7 +199,7 @@ The `gossyp` header that Carol sees on an arbitrary DIDComm message thus models 
 
 ### First ask
 
-When Carol's software sees this message, it knows she is not synchronized with Bob on this gossyp topic; she's never seen topic `5937004527`, and she has no idea what [snap hash](#snap-hashes) `e8b02e1` means. Carol's software can now step outside the `collect-signatures` thread to plug the gap in her knowledge about gossyp topic `5937004527`.
+When Carol's software sees this message, it knows she is not synchronized with Bob on this gossyp topic; she's never seen topic `5937004527`, and she has no idea what [snap hash](#snap-hashes) `e8b02e1` means. Carol's software can continue with the `collect-signatures` protocol however it likes &mdash; but it can also step outside that thread and work in parallel to plug the gap in her knowledge about gossyp topic `5937004527`.
 
 So Carol's software asks Bob a question. She uses another `gossyp/1.0/sync` message to do that. In the message, she tells Bob what she knows about the `gossyp` topic he alluded to (nothing, in this case), and asks him to fill in the gaps:
 
@@ -256,11 +256,11 @@ Seeing that Carol's knowledge of the topic is deficient, Bob's software helpfull
 }
 ```
 
-When Carol receives this, she can now build a transcript that matches Bob's, and respond with an ACK that includes a `gossyp` header showing that they are in sync.
+When Carol receives this, she can now build a transcript that matches Bob's, and (optionally) respond with an ACK that includes a `gossyp` header showing that they are in sync.
 
 ### Second check (What about Alice?)
 
-In our scenario, nobody is being particularly proactive about spreading knowledge of the group chat. Obviously this could be fixed by sending `gossyp/1.0/sync` messages proactively. But let's stick with the the laissez-faire approach a while longer. Suppose at some subsequent time, Alice and Carol have a direct interaction (e.g., about collecting signatures). Maybe Carol sends a non-gossyp message to Alice, but it has this header on it:
+In our scenario, nobody is being particularly proactive about spreading knowledge of the group chat. Obviously latency could be decreased by sending `gossyp/1.0/sync` messages proactively &mdash; and some protocols built on gossyp may do exactly that. But let's stick with the laissez-faire approach a while longer. Suppose at some subsequent time, Alice and Carol have a direct interaction (e.g., about collecting signatures). Maybe Carol sends a non-gossyp message to Alice, but it has this header on it:
 
 ```jsonc
   "gossyp": [
@@ -325,7 +325,7 @@ A snap hash is computed as follows:
 
 A snap hash is NOT intended to be cryptographically robust or globally unique. Like commit hashes in git, which only have to reference a commit in the context of a single repo, snap hashes only have to reference a state in the context of a single n-wise relationship.
 
-Note step 3, where events are sorted in a non-chronological order. Gossyp does not expect participants to have synchronized clocks, and does not depend on message ordering to recognize state. Participants may disagree about the order in which events occur, but still agree that they are looking at the same transcript. (Protocols [built atop gossyp](#building-on-gossyp) can solve sequencing problems with a variety of strategies.) 
+Note step 3, where events are sorted in a non-chronological order. Gossyp does not expect participants to have synchronized clocks, and does not depend on message ordering to recognize state. Participants may disagree about the order in which events occur, but still agree that they are looking at the same transcript. (Protocols [built atop gossyp](#appendix-1-building-on-gossyp) can solve sequencing problems with a variety of strategies.) 
 
 ### Metadata
 
@@ -338,22 +338,6 @@ friendly_name | An optional human-friendly name for the gossyp topic. This might
 style | A URI that points to documentation clarifying the semantics or rules that sit above this instance of gossyp. An n-wise chat protocol allows every `peer` to declare events, and accepts them all as definitive contributions. An auction protocol might say that, although bidders can submit bids however they like, the state built by reading the transcript will only list bids that an auctioneer acknowledges -- meaning that a `bid` event must be followed by an `ack` event before it registers. A protocol for synchronizing DID docs might stipulate that update events must be signed by appropriate keys for their respective DID docs before they are viewed as legitimate. In all of these cases, the event sourcing model preserves every gossyped event, but higher-level semantics filter how the events are imputed to state.
 
 Metadata is communicated by encoding the fields above as CBOR, with the magic bytes "gossyp-meta" prepended. A byte stream matching this format should be recognized as the `application/gossyp-meta` media type.
-
-### Building on gossyp
-
-When defining an n-wise protocol, it is easy to get lost in the weeds of different connectivity assumptions. We'd like to say that Role X sends a message to Role Y -- but what if there's no direct connectivity between them, either temporarily or permanently?
-
-Gossyp lets you ignore this issue. A gossyp-based n-wise protocol describes logical flows, but ignores how messages actually get from A to B. Messages will get there, as long as the graph is connected over time and enough gossyp occurs. This means a "Help me find a doctor in the house!" app will work over mesh networking just as well as it would by having every app instance phone home to a central server.
-
-Gossyp also answers the question of how n-wise relationships are built and maintained: any party can start gossyping and include other parties in their circle. As long as those parties participate in the gossyp as well, they are recognized as parties to the relationship. An event can be added to the transcript that changes `participants` in the gossyp to add or remove members.
-
-To define a gossyp-based protocol:
-
-1. Design (and document) the semantics whereby a stream of events will produce a view of "current state" for your protocol. The URL where you publish your answer to this question is what you will reference in your [transcript's `metadata.style` property](#metadata).
-1. Instead of describing messages as being physically and directly transferred from A to B, describe them as attachments to `gossyp/1.0/sync` messages.
-1. Instead of assuming that the recipient of a message is always expected to process it, assume that all recipients learn about shared state; choose a different way for recipients to know they are the intended handler. 
-    For example, in a non-gossyp approach to an auction protocol, the assumption would be that all `bid` messages flow to the `auctioneer` in point-to-point interactions. In a gossyp approach, the assumption would be that `bidders` create `bid` messages and gossyp them. They eventually end up at the `auctioneer`, but they may pass through zero or more other `bidders` in between. The `auctioneer` processes all bids; the `bidders` do nothing directly with them, but retain them as fodder for gossyp.
-1. Evaluate the security properties that your protocol needs, and how your transcript will provide them. (See [Security](#security).)
 
 ## Design By Contract
 
@@ -420,19 +404,6 @@ relevant standards, oracles, test suites, or other artifacts that would
 be useful to an implementer. In general, collateral should be checked in
 with the RFC.
 
-## L10n
-
-If communication in the protocol involves humans, then localization of
-message content may be relevant. Default settings for localization of
-all messages in the protocol can be specified in an `l10n.json` file
-described here and checked in with the RFC. See ["Decorators at Message
-Type Scope"](https://github.com/hyperledger/aries-rfcs/tree/master/concepts/0011-decorators#decorator-scope)
-in the [Localization RFC](https://github.com/hyperledger/aries-rfcs/tree/master/features/0043-l10n).
-
-## Implementations
-
-<hr>
-
 ## Endnotes
 
 [<a id="note1" href="#ref1">1</a>] 
@@ -440,7 +411,23 @@ in the [Localization RFC](https://github.com/hyperledger/aries-rfcs/tree/master/
 
 <hr>
 
-## Appendix 1: Alternatives
+## Appendix 1: Building on Gossyp
+
+When defining an n-wise protocol, it is easy to get lost in the weeds of different connectivity assumptions. We'd like to say that Role X sends a message to Role Y -- but what if there's no direct connectivity between them, either temporarily or permanently?
+
+Gossyp lets you ignore this issue. A gossyp-based n-wise protocol describes logical flows, but ignores how messages actually get from A to B. Messages will get there, as long as the graph is connected over time and enough gossyp occurs. This means a "Help me find a doctor in the house!" app will work over mesh networking just as well as it would by having every app instance phone home to a central server.
+
+Gossyp also answers the question of how n-wise relationships are built and maintained: any party can start gossyping and include other parties in their circle. As long as those parties participate in the gossyp as well, they are recognized as parties to the relationship. An event can be added to the transcript that changes `participants` in the gossyp to add or remove members.
+
+To define a gossyp-based protocol:
+
+1. Design (and document) the semantics whereby a stream of events will produce a view of "current state" for your protocol. The URL where you publish your answer to this question is what you will reference in your [transcript's `metadata.style` property](#metadata).
+1. Instead of describing messages as being physically and directly transferred from A to B, describe them as attachments to `gossyp/1.0/sync` messages.
+1. Instead of assuming that the recipient of a message is always expected to process it, assume that all recipients learn about shared state; choose a different way for recipients to know they are the intended handler.
+   For example, in a non-gossyp approach to an auction protocol, the assumption would be that all `bid` messages flow to the `auctioneer` in point-to-point interactions. In a gossyp approach, the assumption would be that `bidders` create `bid` messages and gossyp them. They eventually end up at the `auctioneer`, but they may pass through zero or more other `bidders` in between. The `auctioneer` processes all bids; the `bidders` do nothing directly with them, but retain them as fodder for gossyp.
+1. Evaluate the security properties that your protocol needs, and how your transcript will provide them. (See [Security](#security).)
+
+## Appendix 2: Other Approaches
 
 The broadest conception of gossyp's problem domain &mdash; providing a dynamic and decentralized source of truth &mdash; has mature solutions when systems are simple, uniform, governed by consistent policy, and/or (semi-)centralized. This includes sophisticated replication mechanisms, distributed databases, distributed hash tables and ledgers, and blockchains. All of these allow multiple parties to interact via a shared source of truth that tolerates a lot of real-world complexity.
 
