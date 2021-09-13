@@ -5,7 +5,7 @@ export const Status = {
   Proposed: 'proposed',
   Demonstrated: 'demonstrated',
   Production: 'production',
-}
+} as const
 
 export type StatusType = keyof typeof Status
 

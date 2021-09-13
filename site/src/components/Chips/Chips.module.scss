@@ -1,0 +1,32 @@
+@import "src/styles/constants";
+$chips-radius: 20px;
+
+.chips {
+  display: flex;
+  align-items: center;
+  border-radius: $chips-radius;
+  padding: $grid-base $grid-base-2x;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.content {
+  margin-right: $grid-base;
+  word-break: break-word;
+}
+
+.action {
+  color: inherit;
+  &:hover {
+    color: var(--color-secondary-hover);
+  }
+  &:focus-visible {
+    color: var(--color-secondary-focus);
+  }
+}
+
+.actionIcon {
+  height: $grid-base-3x;
+  width: $grid-base-3x;
+  color: inherit;
+}
