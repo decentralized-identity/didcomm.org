@@ -18,4 +18,5 @@ export enum Icons {
   idea = 'idea',
   document = 'document',
   share = 'share',
+  filter = 'filter',
 }

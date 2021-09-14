@@ -5,7 +5,7 @@ $chips-radius: 20px;
   display: flex;
   align-items: center;
   border-radius: $chips-radius;
-  padding: $grid-base $grid-base-2x;
+  padding: $grid-small $grid-base-2x;
   background-color: var(--color-primary);
   color: var(--color-background);
 }
@@ -21,7 +21,7 @@ $chips-radius: 20px;
     color: var(--color-secondary-hover);
   }
   &:focus-visible {
-    color: var(--color-secondary-focus);
+    color: var(--color-secondary-pressed);
   }
 }
 
