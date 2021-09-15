@@ -16,8 +16,18 @@
 .tag {
   @include rounded;
   @include font-caption;
+  color: var(--color-text-primary);
   padding: $grid-small $grid-base;
   border: $border-base solid var(--color-text-primary);
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+
+  &:focus-visible {
+    color: var(--color-primary-pressed);
+  }
+
   @media print {
     padding: 0;
     border: none;

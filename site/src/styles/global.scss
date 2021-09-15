@@ -109,7 +109,10 @@ body {
     display: none;
   }
 }
-
+.no-scroll {
+  height: 100%;
+  overflow: hidden;
+}
 button {
   &:hover,
   &:focus {

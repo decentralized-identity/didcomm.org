@@ -18,7 +18,55 @@
   padding-bottom: 0.5em;
   background-color: var(--color-secondary);
 }
-
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -$grid-base;
+  margin-bottom: $grid-base-3x;
+}
+.chips {
+  margin-top: $grid-base;
+  &:not(:last-child) {
+    margin-right: $grid-base;
+  }
+}
 .main {
   grid-column: span 2;
+}
+.filters {
+  @media screen and (max-width: $bp-mobile) {
+    z-index: 1000;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: $grid-base-5x $grid-base-2x;
+    height: 100vh;
+    height: fill-available;
+    width: 100vw;
+    overflow-y: auto;
+    background-color: var(--color-background);
+  }
+}
+
+.close {
+  position: absolute;
+  right: $grid-base-3x;
+  top: $grid-base-5x;
+  &:hover {
+    color: var(--color-secondary-hover);
+  }
+  &:focus-visible {
+    color: var(--color-secondary-pressed);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.closeIcon {
+  width: $grid-base-3x;
+  height: $grid-base-3x;
+}
+.showFilters {
+  margin-bottom: $grid-base-3x;
 }
