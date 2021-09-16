@@ -1,6 +1,6 @@
 ---
 title: My not cool protocol
-publisher: ashcherbakov
+publisher: Merciful12
 license: FreeBSD
 piuri: https://didcomm.org/not-cool/1.0
 status: Proposed
