@@ -4,6 +4,7 @@
   "license": "Apache",
   "dependencies": {
     "@actions/core": "^1.4.0",
+    "@actions/github": "^5.0.0",
     "damerau-levenshtein": "^1.0.7",
     "gray-matter": "^4.0.3",
     "remark-cli": "^10.0.0",

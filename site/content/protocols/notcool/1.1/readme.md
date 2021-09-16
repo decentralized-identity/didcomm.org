@@ -6,7 +6,7 @@ piuri: https://didcomm.org/not-cool/1.0
 status: Proposed
 summary: Instructions of publishing a new not cool protocol
 tags:
-  - star-war
+  - star-wars
   - tag4
   - tag5
 authors:
