@@ -1,5 +1,5 @@
 ---
-title: My test layout loooooooooooooooooooooooooooooooooooooooooooooooonooooooooooong protocol protocol protocol protocolprotocolprotocol
+title: Test layout
 publisher: annaShatkovskaya
 license: MITLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong protocol protocol protocol
 piuri: https://didcomm.org/test-layout/0.1
