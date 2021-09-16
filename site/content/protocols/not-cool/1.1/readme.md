@@ -1,12 +1,12 @@
 ---
-title: My not cool protocol
-publisher: ashcherbakov
+title: Not cool
+publisher: Merciful12
 license: FreeBSD
-piuri: https://didcomm.org/not-cool/1.0
+piuri: https://didcomm.org/not-cool/1.1
 status: Proposed
 summary: Instructions of publishing a new not cool protocol
 tags:
-  - star-wars
+  - star-war
   - tag4
   - tag5
 authors:

@@ -1,5 +1,5 @@
 ---
-title: My A protocol
+title: A
 publisher: Merciful12
 license: MIT
 piuri: https://didcomm.org/a/1.0

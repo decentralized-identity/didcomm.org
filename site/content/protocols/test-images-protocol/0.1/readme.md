@@ -1,6 +1,6 @@
 ---
-title: Images testing protocol
-publisher: annaShatkovskaya
+title: Test images protocol
+publisher: Merciful12
 license: MIT
 piuri: https://didcomm.org/test-images-protocol/0.1
 status: Production
@@ -87,7 +87,7 @@ described here and checked in with the RFC.
 ## Implementations
 
 ![Image](Untitled-Diagram.png)
-[PDF Version](Untitled-Diagram.pdf)
+[PDF Version](Untitled-Diagramm.pdf)
 
 ## Endnotes
 

@@ -1,6 +1,6 @@
 ---
-title: Images testing protocol
-publisher: annaShatkovskaya
+title: Test images protocol
+publisher: Mercilful12
 license: MIT
 piuri: https://didcomm.org/test-images-protocol/0.2
 status: Production

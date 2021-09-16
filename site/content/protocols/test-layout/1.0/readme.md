@@ -1,8 +1,8 @@
 ---
-title: My test layout loooooooooooooooooooooooooooooooooooooooooooooooonooooooooooong protocol protocol protocol protocolprotocolprotocol
+title: Test layout
 publisher: annaShatkovskaya
 license: MITLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong protocol protocol protocol
-piuri: https://didcomm.org/test-layout/0.1
+piuri: https://didcomm.org/test-layout/1.0
 status: Production
 summary: My test-layout protocol loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong summary
 tags:

@@ -1,6 +1,7 @@
 {
   "plugins": [
     ["remark-lint-no-dead-urls", ["error"]],
+    ["remark-validate-links", ["error"]],
     [
       "remark-frontmatter",
       [
