@@ -4,7 +4,9 @@ const { testScenario } = require('./tests')
 const { extractBodyWithMeta } = require('./utils')
 const { PROTOCOLS_FOLDER } = require('./constants')
 
-const modifiedProtocolPaths = process.argv.slice(2).filter(p => p.endsWith('.md'))
+const modifiedProtocolPaths = process.argv
+  .slice(2)
+  .filter((p) => p.endsWith('.md'))
 
 async function run() {
   let countErrors = 0
