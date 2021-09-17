@@ -8,10 +8,8 @@ summary: In one or two sentences, explain what problem this protocol solve, how 
 tags:
   - faster-than-light-travel
   - star-wars
-  - star-wars
 authors:
   - name: Author without email
-	email: sds
 ---
 
 <script>alert('tets')</script>
