@@ -13,10 +13,10 @@ export const objectFromEntries = <T, T2 extends string>(entries: Array<[T2, T]>)
 }
 
 export enum formatDateUnit {
-  year = 'This year',
-  month = 'This month',
-  week = 'This week',
-  day = 'Today',
+  year = 'Last year',
+  month = 'Last month',
+  week = 'Last week',
+  day = 'Last 24 hours',
 }
 
 export const noScroll = (on: boolean) => (on ? document.body.classList.add('no-scroll') : document.body.classList.remove('no-scroll'))

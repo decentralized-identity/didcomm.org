@@ -8,7 +8,7 @@ import { Layout } from '../../components/Layout/Layout'
 import { Tags } from '../../components/Tags/Tags'
 import { Search } from '../../components/Search/Search'
 import { cls } from '../../common/utils'
-import { mdRemark, Props } from './Protocol.types'
+import { mdRemark, PageContext, Props } from './Protocol.types'
 import * as styles from './Protocol.module.scss'
 import { LastModified } from '../../components/LastModified/LastModified'
 import { Authors } from '../../components/Authors/Authors'
@@ -64,9 +64,9 @@ const Protocol = ({ html, tags, license, title, avatar, publisher, version, stat
   </main>
 )
 
-export const ProtocolTemplate = ({ data }: PageProps<mdRemark>) => {
+export const ProtocolTemplate = ({ data, pageContext }: PageProps<mdRemark, PageContext>) => {
   const {
-    markdownRemark: { frontmatter, html, fields },
+    markdownRemark: { frontmatter, fields },
   } = data
 
   return (
@@ -75,7 +75,7 @@ export const ProtocolTemplate = ({ data }: PageProps<mdRemark>) => {
         <Search bordered onSearch={(query) => navigate(`/search/?q=${encodeURIComponent(query)}&page=1`)} />
       </Header>
       <div className="content">
-        <Protocol {...frontmatter} html={html} {...fields} />
+        <Protocol {...frontmatter} html={pageContext.html} {...fields} />
       </div>
     </Layout>
   )
