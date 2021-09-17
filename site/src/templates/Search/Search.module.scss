@@ -41,8 +41,8 @@
     top: 0;
     left: 0;
     padding: $grid-base-5x $grid-base-2x;
-    height: 100vh;
-    height: fill-available;
+    max-height: 100vh;
+    max-height: -webkit-fill-available;
     width: 100vw;
     overflow-y: auto;
     background-color: var(--color-background);

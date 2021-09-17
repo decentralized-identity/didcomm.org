@@ -4,7 +4,7 @@ const { Octokit } = require('@octokit/core')
 const octokit = new Octokit()
 const gitDateExtractor = require('git-date-extractor')
 const { stripHtml } = require('string-strip-html')
-
+const { sanitizer } = require('./sanitizer')
 // TODO move all exports to separate files
 
 let protocolDatesCache = {}
@@ -141,12 +141,15 @@ module.exports.createPages = async ({ actions, graphql }) => {
   const protocolTemplate = path.resolve(`src/templates/Protocol/Protocol.tsx`)
   const pages = allMarkdown.data.protocols.nodes
   pages.forEach((page) => {
-    const { id, fields } = page
+    const { id, fields, html } = page
 
     actions.createPage({
       path: fields.slug,
       component: protocolTemplate,
-      context: { id },
+      context: {
+        id,
+        html: sanitizer(html),
+      },
     })
   })
 
@@ -166,7 +169,7 @@ const createSearchPage = (createPage, protocols) => {
     summary: node.frontmatter.summary,
     modifiedDate: node.fields.modifiedDate,
     piuri: node.frontmatter.piuri,
-    html: stripHtml(node.html).result.replace('\n', ' '),
+    html: stripHtml(node.html).result,
   }))
   const allLicenses = Array.from(new Set(normalizedProtocols.map(({ license }) => license)))
   const searchComponent = path.resolve('src/templates/Search/Search.tsx')
