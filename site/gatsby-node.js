@@ -138,8 +138,6 @@ module.exports.createPages = async ({ actions, graphql }) => {
     throw Error(allMarkdown.errors)
   }
 
-  console.log()
-
   const protocolTemplate = path.resolve(`src/templates/Protocol/Protocol.tsx`)
   const pages = allMarkdown.data.protocols.nodes
   pages.forEach((page) => {
