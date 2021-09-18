@@ -6,14 +6,14 @@ import { usePagination } from '../../common/hooks/usePagination'
 import { Props } from './ProtocolsList.types'
 import * as styles from './ProtocolsList.module.scss'
 
-export const ProtocolsList = ({ protocols }: Props) => {
+export const ProtocolsList = ({ protocols, onTagClick }: Props) => {
   const { items: paginatedProtocols, setPage, pagesCount, page, next, hasNext } = usePagination(protocols)
   return (
     <div>
       <ul className={styles.list}>
         {paginatedProtocols.map((protocol) => (
           <li key={protocol.slug}>
-            <ProtocolsListItem protocol={protocol} />
+            <ProtocolsListItem onTagClick={onTagClick} protocol={protocol} />
           </li>
         ))}
       </ul>

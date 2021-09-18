@@ -37,6 +37,16 @@ const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
 
   const [showModal, _setShowModal] = useState(false)
 
+  const addTagFilter = (tag: string) => {
+    if (params.tag.includes(tag)) {
+      return
+    }
+    setParams({
+      ...params,
+      tag: [...params.tag, tag],
+    }, 'push')
+  }
+
   const setShowModal = (value: boolean) => {
     noScroll(value)
     _setShowModal(value)
@@ -127,7 +137,9 @@ const Search = ({ pageContext }: PageProps<{}, PageContext>) => {
                 />
               )}
             </div>
-            {loading ? 'Loading...' : <ProtocolsList protocols={protocols} />}
+            {loading ? 'Loading...' : (
+              <ProtocolsList onTagClick={addTagFilter} protocols={protocols} />
+            )}
           </main>
           <aside aria-modal={showModal} role={showModal ? 'dialog' : undefined} className={cls('hide-mobile', showModal && styles.filters)}>
             <button ref={closeModalRef} className={cls(styles.close, 'hide-desktop')} onClick={() => setShowModal(false)}>
