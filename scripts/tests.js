@@ -29,12 +29,35 @@ function testFileName(fileName) {
   return fileName === MARKDOWN_FILENAME
 }
 
+function testAuthors(authors) {
+  return (
+    Array.isArray(authors) &&
+    authors.every((a) => {
+      return (
+        typeof a === 'object' &&
+        typeof a.name === 'string' &&
+        (typeof a.email === 'string' || !a.email)
+      )
+    })
+  )
+}
+
 function testMetaPiuriAndFileStructire(piuri, folders) {
-  return piuri.replace(SITE_URL, '') === folders.join('/')
+  return (
+    piuri.replace(SITE_URL, '').replace(NOT_ALPHANUMERIC_PATTERN, '') ===
+    folders.join('').replace(NOT_ALPHANUMERIC_PATTERN, '')
+  )
 }
 
 function testTitleAndProtocolFolder(title, folder) {
-  return title.toLocaleLowerCase().replace(SPACE_PATTERN, '-') === folder
+  return (
+    title.toLocaleLowerCase().replace(SPACE_PATTERN, '') ===
+    folder.replace(SPACE_PATTERN, '')
+  )
+}
+
+function testTagsDuplicates(tags) {
+  return tags.length === new Set(tags).size
 }
 
 function testTagsSimilarity(oldTags, newTags) {
@@ -59,9 +82,13 @@ function testPRAuthor(prAuthore, metaAuthor) {
 
 function testUniqueName(name, existingNames) {
   const formattedName = name.replace(NOT_ALPHANUMERIC_PATTERN, '')
-  const formattedExistionNames = existingNames.map(n => n.replace(NOT_ALPHANUMERIC_PATTERN, ''))
+  const formattedExistiongNames = existingNames.map((n) =>
+    n.replace(NOT_ALPHANUMERIC_PATTERN, '')
+  )
 
-  const existingIndex = formattedExistionNames.findIndex(n => n === formattedName)
+  const existingIndex = formattedExistiongNames.findIndex(
+    (n, index) => (n === formattedName) && (name !== existingNames[index])
+  )
 
   return {
     isUnique: existingIndex === -1,
@@ -71,6 +98,13 @@ function testUniqueName(name, existingNames) {
 
 function testScenario({ newProtocols, oldProtocols, logger }) {
   let countErrors = 0
+
+  if (!newProtocols.find((p) => p.path.endsWith('.md'))) {
+    countErrors++
+    logger.error(`Markdown file name should be equal to ${MARKDOWN_FILENAME}`)
+    return countErrors
+  }
+
   const oldTags = Array.from(
     new Set(oldProtocols.map((p) => p.matter.data.tags).flat()),
   )
@@ -117,6 +151,13 @@ function testScenario({ newProtocols, oldProtocols, logger }) {
       countErrors++
     }
 
+    if (!testAuthors(matter.data.authors)) {
+      logger.error(
+        `Authors should be array of objects with next fields: name is string, email is optional string`,
+      )
+      countErrors++
+    }
+
     if (!testTitleAndProtocolFolder(matter.data.title, name)) {
       logger.error(
         `Meta field title should include the same letters and digits as protocol file structure`,
@@ -131,11 +172,18 @@ function testScenario({ newProtocols, oldProtocols, logger }) {
       countErrors++
     }
 
-    const uniqueNameTestResult = testUniqueName(filePath, oldProtocols.map(p => p.path))
+    const uniqueNameTestResult = testUniqueName(
+      filePath,
+      oldProtocols.map((p) => p.path),
+    )
     if (!uniqueNameTestResult.isUnique) {
       logger.error(
         `There is protocol with similar name and version = ${uniqueNameTestResult.existing}`,
       )
+      countErrors++
+    }
+    if (!testTagsDuplicates(matter.data.tags)) {
+      logger.error(`Tags should not have duplicates`)
       countErrors++
     }
 

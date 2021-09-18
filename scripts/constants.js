@@ -5,4 +5,4 @@ module.exports.PROTOCOLS_FOLDER = 'site/content/protocols'
 module.exports.LEVENSHTIEN_TRESHOLD = 2 / 3
 module.exports.SITE_URL = 'https://didcomm.org/'
 module.exports.NOT_ALPHANUMERIC_PATTERN = /[^\w\s]/gi
-module.exports.SPACE_PATTERN = /[\s]/gi
+module.exports.SPACE_PATTERN = /[\s-]/gi
