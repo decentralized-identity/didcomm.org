@@ -81,7 +81,6 @@ function testPRAuthor(prAuthore, metaAuthor) {
 }
 
 function testUniqueName(name, existingNames) {
-  console.log(name, existingNames)
   const formattedName = name.replace(NOT_ALPHANUMERIC_PATTERN, '')
   const formattedExistiongNames = existingNames.map((n) =>
     n.replace(NOT_ALPHANUMERIC_PATTERN, '')
