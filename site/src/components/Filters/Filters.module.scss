@@ -1,0 +1,21 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
+.title {
+  margin-bottom: $grid-base-5x;
+  @media screen and (max-width: $bp-mobile) {
+    @include font-title-1;
+  }
+}
+.group {
+  margin-bottom: $grid-base-5x;
+}
+.groupTitle {
+  margin-bottom: $grid-base-2x;
+}
+
+.filter {
+  margin-bottom: $grid-base;
+}
+
+

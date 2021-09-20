@@ -5,10 +5,16 @@ export const Status = {
   Proposed: 'proposed',
   Demonstrated: 'demonstrated',
   Production: 'production',
-}
+} as const
 
 export type StatusType = keyof typeof Status
 
+export enum DateUnit {
+  year = 'year',
+  month = 'month',
+  week = 'week',
+  day = 'day',
+}
 
 export type Author = {
   name: string
@@ -49,4 +55,11 @@ export type Protocol = {
   summary: string
   piuri: string
   authors: Array<Author>
+}
+
+export type Filters = {
+  status: Array<string>
+  license: Array<string>
+  dateUnit: DateUnit
+  tag: Array<string>
 }

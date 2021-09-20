@@ -1,8 +1,13 @@
 @import "src/styles/mixins";
 @import 'src/styles/constants';
 
+$max-width: 400px;
+
 .button {
   padding: $grid-base-extra $grid-base-3x;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover,
   &:focus {
@@ -11,12 +16,32 @@
   }
 }
 
-.buttonSecondary {
+.expanded {
+  width: 100%;
+  max-width: $max-width;
+}
+
+.primary {
+  background-color: var(--color-background-primary);
+  color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-background-primary-hover);
+  }
+
+  &:focus-visible {
+    background-color: var(--color-background-primary-pressed);
+  }
+}
+
+.secondary {
   background-color: var(--color-secondary);
+
   &:hover {
     background-color: var(--color-secondary-hover);
   }
-  &:focus {
+
+  &:focus-visible {
     background-color: var(--color-secondary-pressed);
   }
 }
@@ -25,4 +50,5 @@
   height: $grid-base-3x;
   width: $grid-base-3x;
   color: var(--color-primary);
+  margin-right: $grid-base-2x;
 }

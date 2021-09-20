@@ -4,9 +4,9 @@ import { cls } from '../../common/utils'
 import { Props } from './Checkbox.types'
 import * as styles from './Checkbox.module.scss'
 
-export const Checkbox = ({ value, onChange, label }: Props) => {
+export const Checkbox = ({ value, onChange, label, className }: Props) => {
   return (
-    <label className={styles.check}>
+    <label className={cls(styles.check, className)}>
       <input
         type="checkbox"
         checked={value}

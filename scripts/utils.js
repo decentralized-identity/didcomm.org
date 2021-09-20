@@ -13,6 +13,15 @@ async function extractTags(paths) {
   return Array.from(tagsSet)
 }
 
+async function extractBodyWithMeta(paths) {
+  const contents = await Promise.all(paths.map((path) => readFile(path)))
+  return contents.map((content, index) => ({
+    matter: matter(content),
+    path: paths[index],
+  }))
+}
+
 module.exports = {
   extractTags,
+  extractBodyWithMeta,
 }

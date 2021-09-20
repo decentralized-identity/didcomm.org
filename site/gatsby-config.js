@@ -33,6 +33,21 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              icon: false,
+              maintainCase: true,
+            },
+          },
+          {
+            resolve: 'gatsby-remark-emojis',
+            options: {
+              active: true,
+              class: 'emoji-icon',
+              size: 64,
+            },
+          },
+          {
             resolve: 'gatsby-remark-copy-linked-files',
             options: {
               ignoreFileExtensions: [],
