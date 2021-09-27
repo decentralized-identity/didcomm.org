@@ -260,7 +260,7 @@ When Carol receives this, she can now build a transcript that matches Bob's, and
 
 ### Second check (What about Alice?)
 
-In our scenario, nobody is being particularly proactive about spreading knowledge of the group chat. Obviously latency could be decreased by sending `gossyp/1.0/sync` messages proactively &mdash; and some protocols built on gossyp may do exactly that. But let's stick with the laissez-faire approach a while longer. Suppose at some subsequent time, Alice and Carol have a direct interaction (e.g., about collecting signatures). Maybe Carol sends a non-gossyp message to Alice, but it has this header on it:
+In our scenario, nobody is being particularly proactive about spreading knowledge of the group chat. Obviously latency could be decreased by sending `gossyp/1.0/sync` messages proactively &mdash; and some protocols built on gossyp may do exactly that. But let's stick with the laissez-faire approach a while longer. Suppose at some subsequent time, Alice and Carol have a direct interaction (e.g., about our imaginary side-task of collecting signatures). Maybe Carol sends a non-gossyp message to Alice, but it has this header on it:
 
 ```jsonc
   "gossyp": [
