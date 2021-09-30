@@ -1,10 +1,12 @@
 const core = require('@actions/core')
 const walkSync = require('walk-sync')
-const { testTagsSimilarity, testPIURI } = require('./tests')
-const { extractTags } = require('./utils')
+const { testScenario } = require('./tests')
+const { extractBodyWithMeta } = require('./utils')
 const { PROTOCOLS_FOLDER } = require('./constants')
 
-const modifiedProtocolPaths = process.argv.slice(2)
+const modifiedProtocolPaths = process.argv
+  .slice(2)
+  .filter((p) => p.endsWith('.md'))
 
 async function run() {
   let countErrors = 0
@@ -12,35 +14,19 @@ async function run() {
     const allProtocolsPaths = walkSync(PROTOCOLS_FOLDER, {
       directories: false,
       includeBasePath: true,
+      globs: ['**/*.md'],
     })
 
     const oldProtocolsPaths = allProtocolsPaths.filter(
       (protocolPath) => !modifiedProtocolPaths.includes(protocolPath),
     )
 
-    core.startGroup('Validate PIURI')
-    countErrors += testPIURI(modifiedProtocolPaths, core)
-    core.endGroup()
-
-    core.startGroup('Validate tags similarity')
-    const [oldTags, protocolTags] = await Promise.all([
-      extractTags(oldProtocolsPaths),
-      extractTags(modifiedProtocolPaths),
+    const [oldProtocols, newProtocols] = await Promise.all([
+      extractBodyWithMeta(oldProtocolsPaths),
+      extractBodyWithMeta(modifiedProtocolPaths),
     ])
-    const newTags = protocolTags.filter((tag) => !oldTags.includes(tag))
 
-    testTagsSimilarity(oldTags, newTags).forEach((result) => {
-      if (result.similars.length > 0) {
-        core.warning(
-          `tag: ${
-            result.tag
-          } is similar to existing tags: ${result.similars.join(
-            ', ',
-          )}. Make sure you can't use existing one.`)
-      }
-    })
-
-    core.endGroup()
+    countErrors += testScenario({ newProtocols, oldProtocols, logger: core })
   } catch (e) {
     countErrors++
     core.error(e)
@@ -51,4 +37,4 @@ async function run() {
   }
 }
 
-run()
+void run()

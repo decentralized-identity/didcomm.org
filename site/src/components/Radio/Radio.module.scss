@@ -1,0 +1,58 @@
+@import "src/styles/constants";
+
+.label {
+  margin-left: $grid-base;
+  word-break: break-word;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.input {
+
+}
+.control {
+  width: $grid-base-4x;
+  height: $grid-base-4x;
+  color: var(--color-text-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    display: inline-block;
+    content: '';
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+
+  }
+  &::after {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: $border-base solid currentColor;
+  }
+}
+
+.input:checked + .control,
+.input:hover + .control {
+  color: var(--color-primary-hover);
+}
+
+.input:hover + .control,
+.input:focus-visible + .control {
+  background-color: var(--color-background-primary);
+  color: var(--color-primary-hover);
+}
+
+.input:checked + .control::before {
+  background-color: var(--color-primary);
+}

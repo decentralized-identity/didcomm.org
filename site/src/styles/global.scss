@@ -109,10 +109,25 @@ body {
     display: none;
   }
 }
-
+.no-scroll {
+  height: 100%;
+  overflow: hidden;
+}
 button {
   &:hover,
   &:focus {
     cursor: pointer;
   }
+}
+
+.emoji-icon {
+  display: inline !important;
+  margin: 0  !important;
+  margin-top: 1px  !important;
+  position: relative  !important;
+  top: 5px  !important;
+  width: 25px  !important;
+}
+.task-list-item {
+  list-style-type: none;
 }

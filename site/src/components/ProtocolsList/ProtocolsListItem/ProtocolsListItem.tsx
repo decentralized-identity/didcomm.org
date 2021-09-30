@@ -9,7 +9,7 @@ import { LastModified } from '../../LastModified/LastModified'
 import { Props } from './ProtocolsListItem.types'
 import * as styles from './ProtocolsListItem.module.scss'
 
-export const ProtocolsListItem = ({ protocol }: Props) => {
+export const ProtocolsListItem = ({ protocol, onTagClick }: Props) => {
   const { title, slug, version, status, summary, tags, publisher, avatar, modifiedDate, license } = protocol
   return (
     <article className={cls(styles.item, 'rounded')}>
@@ -22,7 +22,7 @@ export const ProtocolsListItem = ({ protocol }: Props) => {
         <Status type={status} />
       </div>
       <p className={styles.summary}>{summary}</p>
-      <Tags tags={tags} />
+      <Tags onClick={onTagClick} tags={tags} />
       <div className={styles.footer}>
         <div className={styles.avatar}>
           <Avatar avatar={avatar} publisher={publisher} />

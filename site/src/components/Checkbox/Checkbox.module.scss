@@ -8,6 +8,8 @@ $checkedIcon: url("data:image/svg+xml,%3Csvg width='13' height='10' viewBox='0 0
   align-items: center;
   grid-column-gap: $grid-base-2x;
   grid-template-columns: auto 1fr;
+  cursor: pointer;
+  word-break: break-word;
 }
 
 .checkbox {
@@ -27,11 +29,11 @@ $checkedIcon: url("data:image/svg+xml,%3Csvg width='13' height='10' viewBox='0 0
 }
 
 .input:hover + .checkbox,
-.input:focus + .checkbox{
+.input:focus-visible  + .checkbox{
   background-color: var(--color-background-primary);
 }
 .input:hover + .checkbox::before,
-.input:focus + .checkbox::before {
+.input:focus-visible + .checkbox::before {
   border-color: var(--color-primary);
 }
 .input:checked + .checkbox::before {
