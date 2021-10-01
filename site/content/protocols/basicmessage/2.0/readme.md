@@ -2,12 +2,10 @@
 title: BasicMessage
 publisher: Sam Curren
 license: MIT
-piuri: https://didcomm.org/basicmessage/1.0
+piuri: https://didcomm.org/basicmessage/2.0
 status: Production
 summary: The BasicMessage protocol describes a stateless, easy to support user message protocol. It has a single message type used to communicate.
-tags:
-  - faster-than-light-travel
-  - star-wars
+tags: []
 authors:
   - name: Sam Curren
     email: telegramsam@gmail.com
@@ -20,7 +18,7 @@ There are two roles in this protocol: `sender` and `receiver`. It is anticipated
 
 ## Connectivity
 
-TODO: Describe any assumptions about simplex vs. duplex, which parties need to talk to which parties, etc.
+There are no assumptions about this protocol. It can be used to send a message, and there is no protocol level expectation of a response.
 
 ## States
 
@@ -38,7 +36,7 @@ No protocol specific errors exist. Any errors related to headers or other core f
 
 ## Security
 
-TODO: What abuse could occur with malicious participants, eavesdroppers, denial-of-service, etc? What should be true about the [message trust contexts](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0029-message-trust-contexts/README.md)? What should be [repudiable or non-repudiable](https://github.com/hyperledger/aries-rfcs/blob/master/concepts/0049-repudiation/README.md)? What mechanisms does the protocol offer to cope with such issues?
+This protocol expects messages to be encrypted during transmission, and repudiable. 
 
 ## Composition
 
@@ -53,7 +51,7 @@ Supported Goal Code | Notes
 
 **message**
 
-Message Type URI: `https://didcomm.org/basicmessage/1.0/message`
+Message Type URI: `https://didcomm.org/basicmessage/2.0/message`
 
 The `message` message is sent by the `sender` to the `recipient`. Note that the role is only specific to the creation of messages, and that both parties may play both roles.
 
@@ -71,7 +69,7 @@ DIDComm V1 Example:
 ```json
 {
     "@id": "123456780",
-    "@type": "https://didcomm.org/basicmessage/1.0/message",
+    "@type": "https://didcomm.org/basicmessage/2.0/message",
     "~l10n": { "locale": "en" },
     "sent_time": "2019-01-15 18:42:01Z",
     "content": "Your hovercraft is full of eels."
@@ -83,7 +81,7 @@ DIDComm V2 Example:
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/basicmessage/1.0/message",
+    "type": "https://didcomm.org/basicmessage/2.0/message",
     "lang": "en",
     "created_time": 1547577721,
     "body": {
@@ -91,8 +89,6 @@ DIDComm V2 Example:
     }
 }
 ```
-
-
 
 ## L10n
 
