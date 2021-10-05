@@ -24,8 +24,8 @@ Use the checklist below to stimulate thinking. Do not attempt deep curation; rat
 
 ## Making Decisions
    
-1. Trivial merge decisions (e.g., to fix a typo) can be merged immediately by any maintainer, including a maintainer who submits a PR.
+1. Trivial updates (e.g., to fix a typo) can be merged immediately by any maintainer, including the maintainer who submits the PR.
    
-2. Merge decisions about meaningful content or about website changes can be made by an single maintainer other than the submitter. At a maintainer's discretion, vetting may be extended to get additional comments or improvements.
+2. Merge decisions about meaningful content or about website changes can be made by an single maintainer other than the submitter. A maintainer may ask questions or request changes or comments first, at their discretion.
    
 3. Difficult merge decisions require a consensus of all maintainers. The consensus must be announced in the comment thread of the PR, and must be followed by at least 1 week of public comment. Longer comment periods may be used, at the discretion of the maintainers.
