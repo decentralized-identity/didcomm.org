@@ -1,6 +1,6 @@
 ---
 title: BasicMessage
-publisher: Sam Curren
+publisher: TelegramSam
 license: MIT
 piuri: https://didcomm.org/basicmessage/2.0
 status: Production
