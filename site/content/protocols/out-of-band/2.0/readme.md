@@ -1,6 +1,6 @@
 ---
 title: Out Of Band
-publisher: telegramsam
+publisher: TelegramSam
 license: MIT
 piuri: https://didcomm.org/out-of-band/2.0
 status: Production
