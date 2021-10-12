@@ -1,6 +1,6 @@
 ---
 title: Routing
-publisher: spec
+publisher: TelegramSam
 license: MIT
 piuri: https://didcomm.org/routing/2.0
 status: Production
@@ -12,5 +12,5 @@ authors: []
 
 ## Details
 
-This Spec is defined within the didcomm-messaging spec, currently located here: https://identity.foundation/didcomm-messaging/spec/#routing-protocol
+This protocol is defined within the didcomm-messaging spec, currently located here: https://identity.foundation/didcomm-messaging/spec/#routing-protocol
 
