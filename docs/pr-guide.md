@@ -1,6 +1,8 @@
 # Protocol Publishing Guide
+>Note: The [Maintainer Guide](maintainer-guide.md) discusses general PR best practices, including issues that are unrelated to protocols.
 
 ## Publish a new protocol definition
+
 1. Fork the repo.
 2. Choose protocol name and version. Example: `my-cool-protocol`, `0.1`.
 3. Create a folder `site/content/protocols/<protocol-name>/<protocol-version>`.
@@ -12,6 +14,7 @@
     - Where to find the warning details: go to Details - Test meta - Validate tags similarity (see [example](https://github.com/Merciful12/didcomm.org/runs/3320669302?check_suite_focus=true#step:6:7))
 
 ## Update an existing protocol definition
+
 1. Fork the repo.
 2. Decide if the update is
     - a fix
