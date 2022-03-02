@@ -12,7 +12,7 @@ export const Features = ({ features }: Props) => {
         <li key={feature.title}>
           <article className={styles.feature}>
             <SvgIcon role="presentation" ariaHidden icon={feature.icon} className={styles.icon} />
-            <h2 className={cls(styles.title, 'font-title-2')}>{feature.title}</h2>
+            <h2 className={cls(styles.title, 'font-title-2')}><a href={feature.link}>{feature.title}</a></h2>
             <p className={styles.text} dangerouslySetInnerHTML={{ __html: feature.text }} />
           </article>
         </li>
