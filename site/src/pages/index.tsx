@@ -33,6 +33,7 @@ export const query = graphql`
           icon
           title
           text
+          link
         }
       }
     }
