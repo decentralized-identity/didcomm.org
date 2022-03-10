@@ -1,6 +1,6 @@
 # Maintainer Guide
 
-The content for didcomm.org comes from a github repo. The repo has maintainers. This document explains the rules that maintainers follow as they evaluate pull requests.
+The content for didcomm.org comes from a [github repo](https://github.com/decentralized-identity/didcomm.org). The repo has maintainers. This document explains the rules that maintainers follow as they evaluate pull requests.
 
 ## Intent
 
