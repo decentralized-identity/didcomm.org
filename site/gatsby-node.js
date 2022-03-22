@@ -17,7 +17,22 @@ module.exports.onCreateNode = async ({ node, actions, getNode }) => {
     const fileNode = getNode(node.parent)
     const parsedFilePath = path.parse(fileNode.relativePath)
     const { sourceInstanceName } = fileNode
-    if (sourceInstanceName === 'protocols') {
+    if (sourceInstanceName === 'book') {
+        actions.createNodeField({
+            name: 'collection',
+            node,
+            value: sourceInstanceName,
+        })
+        let slug = `book/${parsedFilePath.dir}/${parsedFilePath.name}`
+        if (parsedFilePath.name == 'README') {
+            slug = `book/v2/`
+        }
+        actions.createNodeField({
+                name: 'slug',
+                node,
+                value: slug,
+        })
+    } else if (sourceInstanceName === 'protocols') {
       const [protocolName, protocolVersion] = parsedFilePath.dir.split('/')
       const slug = `${protocolName}/${protocolVersion}/`
 
@@ -107,6 +122,17 @@ module.exports.createSchemaCustomization = ({ actions }) => {
 module.exports.createPages = async ({ actions, graphql }) => {
   const allMarkdown = await graphql(`
     {
+      books: allMarkdownRemark(
+        filter: { fields: { collection: { eq: "book" } } }
+      ) {
+        nodes {
+          id
+          html
+          fields {
+              slug
+          }
+        }
+      }
       protocols: allMarkdownRemark(
         filter: { fields: { collection: { eq: "protocols" } } }
         sort: { order: ASC, fields: frontmatter___title }
@@ -146,6 +172,20 @@ module.exports.createPages = async ({ actions, graphql }) => {
     actions.createPage({
       path: fields.slug,
       component: protocolTemplate,
+      context: {
+        id,
+        html: sanitizer(html),
+      },
+    })
+  })
+
+  const bookTemplate = path.resolve(`src/templates/Book/Book.tsx`)
+  const bookPages = allMarkdown.data.books.nodes
+  bookPages.forEach((page) => {
+    const { id, fields, html } = page
+    actions.createPage({
+      path: fields.slug,
+      component: bookTemplate,
       context: {
         id,
         html: sanitizer(html),
