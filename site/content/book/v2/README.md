@@ -10,7 +10,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 
 1. [Why DIDComm?](why.md)
 2. Hello World
-    1. Choosing libraries and tools
+    1. [Choosing libraries and tools](libstools.md)
     3. Putting a message in an encrypted envelope
     4. Using a transport
     5. Receiving a message
