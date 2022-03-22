@@ -1,6 +1,6 @@
 # Choosing libraries and tools
 
-We start this DIDComm Hello World guide with the set of libraries and tools available to DIDComm developers.
+We start this DIDComm Hello World guide with a set of libraries and tools available to DIDComm developers.
 
 ## Reference Implemenations
 
