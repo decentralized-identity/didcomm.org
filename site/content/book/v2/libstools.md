@@ -1,10 +1,12 @@
 # Choosing libraries and tools
 
-Here is a list of libraries and tools available to DIDComm developers.
+This is a list of libraries and tools available to DIDComm developers.
 
-Much of this information comes from this presentation [IIW presentation](https://cloud.dsr-corporation.com/index.php/s/EzED9i2dQcMXi6w) and [slides](https://cloud.dsr-corporation.com/index.php/s/kZEMQeMR5c2sxG5) here.
+Much of this information comes from this [IIW presentation](https://cloud.dsr-corporation.com/index.php/s/EzED9i2dQcMXi6w) and [slides](https://cloud.dsr-corporation.com/index.php/s/kZEMQeMR5c2sxG5).
 
 ## Reference Implementations
+
+These reference implementations provide a demonstration and examples in several programming languages.
 
 * Python
     * [DIDComm Python](https://github.com/sicpa-dlab/didcomm-python)
@@ -20,7 +22,7 @@ Much of this information comes from this presentation [IIW presentation](https:/
     * [DIDComm RUST](https://github.com/sicpa-dlab/didcomm-rust)
         * [JavaScript/TypeScript via WASM](https://github.com/sicpa-dlab/didcomm-rust/tree/main/wasm)
         * [iOS via wrapper](https://github.com/sicpa-dlab/didcomm-rust/tree/main/wrappers/swift) is WIP
-        * other languages can be supported via wrappers
+            * other languages can be supported via wrappers
         * [Crate DIDComm Release](https://crates.io/crates/didcomm)
 
 ## Tools
@@ -37,5 +39,5 @@ DIDComm v2 developers are contributing to projects that provide important tools 
 * [DID rotation](https://identity.foundation/didcomm-messaging/spec/#did-rotation)
 * Forward protocol - Used by default for [routing](https://identity.foundation/didcomm-messaging/spec/#routing) DIDComm messages.
 * Peer DID
-    * Static layers of support only (similar to did:key method).  But allows more support for dynamic updates.
+    * Static layers of support only (similar to did:key method).  But more support for dynamic updates.
     
