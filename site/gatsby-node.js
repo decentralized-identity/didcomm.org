@@ -169,8 +169,10 @@ module.exports.createPages = async ({ actions, graphql }) => {
   pages.forEach((page) => {
     const { id, fields, html } = page
 
+    let matchPath = fields.slug + '*'
     actions.createPage({
       path: fields.slug,
+      matchPath: matchPath,
       component: protocolTemplate,
       context: {
         id,
