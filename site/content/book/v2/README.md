@@ -1,4 +1,4 @@
-# DIDComm Guidebook
+# DIDComm V2 Guidebook
 
 If you're a developer who wants to learn the practicalities of DIDComm -- getting started, common recipes, libraries and tools, the theory behind [the spec](https://identity.foundation/didcomm-messaging/spec/), or how your peers are solving interesting problems -- this is the place.
 
@@ -8,13 +8,13 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 
 ## Contents
 
-1. [Why DIDComm?](why.md)
+1. [Why DIDComm?](why)
 2. Hello World
     1. Choosing libraries and tools
     3. Putting a message in an encrypted envelope
     4. Using a transport
     5. Receiving a message
-3. [Threading](threading.md)
+3. [Threading](threading)
 4. Protocols
     1. Implementing a protocol
     2. Designing your own protocol
@@ -25,25 +25,24 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     4. Co-protocols
 5. Recipes
     1. Debugging
-    2. Timeouts
+    2. [Timeouts](timeouts)
     3. Retries
     4. Localization
     5. N-wise
     6. Bootstrapping
     7. Using DIDComm security outside DIDComm
 6. Safety
-    1. [Privacy](privacy.md)
+    1. [Privacy](privacy)
     2. Security
         1. Authcrypt vs. Anoncrypt
         2. Choosing curves
         3. Choosing DID methods
     3. Message security contexts
     4. DID rotation
-    5. [Perfect forward secrecy](pfs.md)
-    6. [Man in the middle](mitm.md)
-7. [Routing](routing.md)
-8. Appendix: 
-9. Appendix: Migration from DIDComm v1
-    1. [What's new](whatsnew.md)
+    5. [Perfect forward secrecy](pfs)
+    6. [Man in the middle](mitm)
+7. [Routing](routing)
+8. Appendix: Migration from DIDComm v1
+    1. [What's new](whatsnew)
     2. Migrator script
 
