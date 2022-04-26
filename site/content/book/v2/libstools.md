@@ -4,6 +4,14 @@ This is a list of libraries and tools available to DIDComm developers.
 
 Much of this information comes from this [IIW presentation](https://cloud.dsr-corporation.com/index.php/s/EzED9i2dQcMXi6w) and [slides](https://cloud.dsr-corporation.com/index.php/s/kZEMQeMR5c2sxG5).
 
+## Available Releases
+
+* https://pypi.org/project/didcomm/
+* https://pypi.org/project/peerdid/
+* https://mvnrepository.com/artifact/org.didcommx/peerdid/0.2.0
+* https://mvnrepository.com/artifact/org.didcommx/didcomm/0.1.0
+* https://crates.io/crates/didcomm
+
 ## Reference Implementations
 
 These reference implementations provide a demonstration and examples in several programming languages.
