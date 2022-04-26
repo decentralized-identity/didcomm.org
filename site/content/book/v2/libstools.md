@@ -38,6 +38,9 @@ DIDComm v2 developers are contributing to projects that provide important tools 
         * [Aries Askar](https://github.com/hyperledger/aries-askar/tree/main/askar-crypto)
 * [DID rotation](https://identity.foundation/didcomm-messaging/spec/#did-rotation)
 * Forward protocol - Used by default for [routing](https://identity.foundation/didcomm-messaging/spec/#routing) DIDComm messages.
+   * [Python example](https://github.com/sicpa-dlab/didcomm-python/blob/ca962db30ac7c1492ed6e3654575cce2dd3a5e0e/didcomm/protocols/routing/forward.py)
+   * [Kotlin example](https://github.com/sicpa-dlab/didcomm-jvm/blob/476fc3ed17d4dfe3b11ec891ae5bfa1f52ab7a4e/lib/src/main/kotlin/org/didcommx/didcomm/protocols/routing/ForwardMessage.kt)
+   * [RUST example](https://github.com/sicpa-dlab/didcomm-rust/tree/9a24b3b60f07a11822666dda46e5616a138af056/src/protocols/routing) 
 * Peer DID
     * Static layers of support only (similar to did:key method).  But more support for dynamic updates.
     
