@@ -6,11 +6,11 @@ Much of this information comes from this [IIW presentation](https://cloud.dsr-co
 
 ## Available Releases
 
-* https://pypi.org/project/didcomm/
-* https://pypi.org/project/peerdid/
-* https://mvnrepository.com/artifact/org.didcommx/peerdid/0.2.0
-* https://mvnrepository.com/artifact/org.didcommx/didcomm/0.1.0
-* https://crates.io/crates/didcomm
+* [PyPi DIDComm Release](https://pypi.org/project/didcomm/)
+* [PyPi Peer DID Release](https://pypi.org/project/peerdid/)
+* [Maven DIDComm Release](https://mvnrepository.com/artifact/org.didcommx/didcomm/0.1.0)
+* [Maven Peer DID Release](https://mvnrepository.com/artifact/org.didcommx/peerdid/0.2.0)
+* [Crate DIDComm Release](https://crates.io/crates/didcomm)
 
 ## Reference Implementations
 
@@ -18,20 +18,15 @@ These reference implementations provide a demonstration and examples in several 
 
 * Python
     * [DIDComm Python](https://github.com/sicpa-dlab/didcomm-python)
-        * [PyPi DIDComm Release](https://pypi.org/project/didcomm/)
     * [Peer DID Python](https://github.com/sicpa-dlab/peer-did-python)
-        * [PyPi Peer DID Release](https://pypi.org/project/peerdid/)
 * Java, Kotlin, Android 
     * [DIDComm Java, Kotlin, Android](https://github.com/sicpa-dlab/didcomm-jvm)
-        * [Maven DIDComm Release](https://mvnrepository.com/artifact/org.didcommx/didcomm/0.1.0)
     * [Peer DID Java, Kotlin, Android](https://github.com/sicpa-dlab/peer-did-jvm)
-        * [Maven Peer DID Release](https://mvnrepository.com/artifact/org.didcommx/peerdid/0.2.0)
 * RUST
     * [DIDComm RUST](https://github.com/sicpa-dlab/didcomm-rust)
         * [JavaScript/TypeScript via WASM](https://github.com/sicpa-dlab/didcomm-rust/tree/main/wasm)
         * [iOS via wrapper](https://github.com/sicpa-dlab/didcomm-rust/tree/main/wrappers/swift) is WIP
             * other languages can be supported via wrappers
-        * [Crate DIDComm Release](https://crates.io/crates/didcomm)
 
 ## Tools
 
