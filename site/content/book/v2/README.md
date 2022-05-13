@@ -10,8 +10,8 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 
 1. [Why DIDComm?](why)
 2. Hello World
-    1. Choosing libraries and tools
-    3. Putting a message in an encrypted envelope
+    1. [Choosing libraries and tools](hellolibstools.md)
+    3. [Putting a message in an encrypted envelope](helloencrypt.md)
     4. Using a transport
     5. Receiving a message
 3. [Threading](threading)
