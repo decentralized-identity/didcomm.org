@@ -8,7 +8,7 @@ We have sections of questions and questions underneath each section. They link d
 ******
 
 ### How kosher is it to do non encrypted messages?
-Since it is an option to not encrypt DID COMM messages, and we want to be clear on how you can reason about it
+Since it is an option to not encrypt DIDComm messages, and we want to be clear on how you can reason about it
 
 The answer to "how kosher" depends on two subquestions:
 
