@@ -7,7 +7,7 @@ pip install didcomm
 pip install peerdid
 pip install json
 ```
-The code in the following sections can be executed in a single python file or executed interactively in a [Jupyter notebook](https://jupyter.org).
+The code in the following sections can be executed in a single python file or executed online in this [Binder interactive Jupyter notebook](https://mybinder.org/v2/gh/rodolfomiranda/didcomm-hello-world-py/HEAD?labpath=HelloWorld.ipynb).
 
 ### Step 2: Imports
 First, we need to import all required functions, clases and types from `didcomm` and `peerdid` libraries as follows:
@@ -26,81 +26,21 @@ from peerdid.did_doc import DIDDocPeerDID
 from peerdid.types import VerificationMaterialAuthentication, VerificationMethodTypeAuthentication, VerificationMaterialAgreement, VerificationMethodTypeAgreement, VerificationMaterialFormatPeerDID
 import json
 ```
-### Step 3: Helpers
-In this step we add three helper functionalities:
-- **Secret resolver**
+### Step 3: Resolvers
+In this step we add two Resolvers needed by DIDComm and the libraries:
+
+**Secret resolver:**
+
 This sample code needs a storage to keep the generated key pair secrets. It will then be referenced by the library as a `secrets_resolver`. We can instantiate it as follows:
 `secrets_resolver = SecretsResolverDemo()`
 Note that the `SecretsResolverDemo` simply stores the keys in a text file named `secrets.json`. As you've just realized, this secret storage is anything but secure. Keep in mind that securing keys is of utmost importance for a self-sovereign identity; never use it in production.
-- **DID Resolver**
-The following class is needed by the library to resolve the DID Peer into a DID Document and put it in the format required by the library:
-```
-class DIDResolverPeerDID(DIDResolver):
-    async def resolve(self, did: DID) -> DIDDoc:
-        did_doc_json = peer_did.resolve_peer_did(did, format = VerificationMaterialFormatPeerDID.JWK)
-        did_doc = DIDDocPeerDID.from_json(did_doc_json)
 
-        return DIDDoc(
-            did=did_doc.did,
-            key_agreement_kids = did_doc.agreement_kids,
-            authentication_kids = did_doc.auth_kids,
-            verification_methods = [
-                VerificationMethod(
-                    id = m.id,
-                    type = VerificationMethodType.JSON_WEB_KEY_2020,
-                    controller = m.controller,
-                    verification_material = VerificationMaterial(
-                        format = VerificationMaterialFormat.JWK,
-                        value = json.dumps(m.ver_material.value)
-                    )
-                )
-                for m in did_doc.authentication + did_doc.key_agreement
-            ],
-            didcomm_services = [
-                DIDCommService(
-                    id = s.id,
-                    service_endpoint = s.service_endpoint,
-                    routing_keys = s.routing_keys,
-                    accept = s.accept
-                )
-                for s in did_doc.service
-                if isinstance(s, DIDCommServicePeerDID)
-            ] if did_doc.service else []
-        )
-```
-- **DID Peer creation**
-We add the following function to simplify key generation, key storage, and the creation of a DID Peer:
-```
-async def create_simple_peer_did() -> str:
-    agreem_keys = generate_x25519_keys_as_jwk_dict()
-    auth_keys = generate_ed25519_keys_as_jwk_dict()
-    did = peer_did.create_peer_did_numalgo_2(
-        [VerificationMaterialAgreement(
-                type = VerificationMethodTypeAgreement.JSON_WEB_KEY_2020,
-                format = VerificationMaterialFormatPeerDID.JWK,
-                value = agreem_keys[1])
-        ],
-        [VerificationMaterialAuthentication(
-                type = VerificationMethodTypeAuthentication.JSON_WEB_KEY_2020,
-                format = VerificationMaterialFormatPeerDID.JWK,
-                value = auth_keys[1])
-        ],
-        None
-    )
-    did_doc = DIDDocPeerDID.from_json(peer_did.resolve_peer_did(did))
-    pk = auth_keys[0]
-    pk["kid"] = did_doc.auth_kids[0]
-    await secrets_resolver.add_key(jwk_to_secret(pk))
-    private_key = agreem_keys[0]
-    private_key["kid"] = did_doc.agreement_kids[0]
-    await secrets_resolver.add_key(jwk_to_secret(private_key))
+**DID Resolver:**
 
-    return did
-```
-This function creates a basic DID Peer with only one *Agreement* key, one *Authentication* key, and no *Service* part. You can find more options in the library documentation.
+DIDComm only works if your code knows how to resolve DIDs to DID documents. There are various libraries that provide that feature. For example, the [Universal Resolver](https://github.com/decentralized-identity/universal-resolver) can be used. In this walk-through, we'll provide a simple stub that minimizes dependencies and keeps things as simple as possible. Click [here](https://mybinder.org/v2/gh/rodolfomiranda/didcomm-hello-world-py/HEAD?labpath=HelloWorld.ipynb) for full example where you'll find the code that do the trick.
 
 ### Step 4: Create DIDs
-Using our `create_simple_peer_did` helper function, Alice and Bob can create their DID Peer that they will share and use when communicating privately between each other:
+Using `create_simple_peer_did` helper function, Alice and Bob can create their DID Peer that they will share and use when communicating privately between each other. This function creates a basic DID Peer with only one Agreement key, one Authentication key, and no Service part. You can find the helper function and the full code [here](https://mybinder.org/v2/gh/rodolfomiranda/didcomm-hello-world-py/HEAD?labpath=HelloWorld.ipynb). 
 ```
 alice_did = await create_simple_peer_did()
 print("Alice's DID:", alice_did)
@@ -126,9 +66,9 @@ message = Message(
     to = [bob_did]
 )
 ```
-Note that the message includes an `id` that is mandatory and has to be unique to Alice. Also includes a `type`, also mandatory, that points to the protocol identifier that we've just invented. The `body` contains the actual message in an structured way associated by our `my-protocol/1.0`. Attributes `frm` and `to` are optional.
+Note that the message includes an `id` that is mandatory and has to be unique to Alice. Also includes a `type`, also mandatory, that points to the protocol identifier that we've just invented. The `body` contains the actual message in an structured way associated by our `my-protocol/1.0`. Attributes `from` and `to` are optional. Beware that in the code above the property `from` was replaced by `frm` due to a conflict of reserved words in Python; the conversion to the correct property (`from`) is handled internally by the library.
 
-[DIDComm](https://identity.foundation/didcomm-messaging/spec/#message-formats) defines three message formats: plain text, signed, and encryped. We are going to use the latter since it is the most common for most applications. In that case, the message will be encrypted so only Bob can see it.
+[DIDComm](https://identity.foundation/didcomm-messaging/spec/#message-formats) defines three message formats: plaintext, signed, and encrypted. We are going to use the latter since it is the most common for most applications. In that case, the message will be encrypted so only Bob can see it.
 The final packed message can be generated with this code:
 ```
 packed_msg = await pack_encrypted(
@@ -144,14 +84,14 @@ packed_msg = await pack_encrypted(
 )
 ```
 This library also offers the option of anonymous encryption, encryption with no repudation, and message signing. Note also that we pass a resolver configuration pointing to our secrets store and the DID resolver.
-If you take a look at the packed message, you'll see that the content was hiden in the encryption:
+If you take a look at the packed message, you'll see that the content was hidden in the encryption:
 ```
 print(packed_msg.packed_msg[:200]+"...")
 ```
 `{"protected":"eyJ0eXAiOiJhcHBsaWNhdGlvbi9kaWRjb21tLWVuY3J5cHRlZCtqc29uIiwiYWxnIjoiRUNESC0xUFUrQTI1NktXIiwiZW5jIjoiQTI1NkNCQy1IUzUxMiIsImFwdSI6IlpHbGtPbkJsWlhJNk1pNUZlalpNVTNJM1pWaFlObXBxYjI0MFpFVmFWaz...`
 
 ### Step 6: Receive and unpack the message
-Alice will send the packed message to Bob using a [transport](transport). Once received, Bob can unpack it with the following code:
+Alice will send the packed message to Bob using a transport. Once received, Bob can unpack it with the following code:
 ```
 unpack_msg = await unpack(
     resolvers_config=ResolversConfig(
