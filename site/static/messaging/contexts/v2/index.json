@@ -1,20 +1,9 @@
 {
-    "@context":{
-       "@version":1.1,
-       "@protected":true,
-       "DIDCommMessaging":"https://didcomm.org/messaging/v2/#DIDCommMessaging",
-	   "serviceEndpoint": {
-          "@id": "https://www.w3.org/ns/did#serviceEndpoint",
-          "@type": "@id"
-		  "@container": "@list"
-		  "@context": {
-			"uri": {
-				"@container": "@list",
-			},
-			"accept":"https://didcomm.org/messaging/v2/#accept",
-			"routingKeys":"https://didcomm.org/messaging/v2/#routingKeys"
-		  }
-        }
-       
-    }
- }
+	"@version": 1.1,
+	"id": "@id",
+	"type": "@type",
+	"DIDCommMessaging": "https://didcomm.org/messaging/v2#DIDCommMessaging",
+	"uri": "https://didcomm.org/messaging/v2#uri",
+	"accept": "https://didcomm.org/messaging/v2#accept",
+	"routingKeys":  "https://didcomm.org/messaging/v2#routingKeys"                
+}
