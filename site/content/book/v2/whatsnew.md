@@ -38,10 +38,10 @@ In V2, messages must evaluate the `from` and `from_prior` headers of every messa
 
 Ephemeral mode in V1 was a method of passing messages without first performing an exchange of DIDs. Given that we no longer have a need to perform an exchange of DIDs prior to passing messages of another protocol, we no longer need to designate a mode for ephemeral interactions.
 
-#### Use Peer DIDs (or other suitable DID method) in place of AnonCrypt
-
-Anoncrypt was a method present in V1 that allowed a message to be encrypted to a recipient using ephemeral sender keys, allowing the sender to remain anonymous. The ease of using Peer DIDs allows the sender to remain anonymous using the existing authenticated encryption method. The encryption properties are the same between the methods. Eliminating this option makes the spec simpler without loosing any features.
-
 #### Message Level Decorators now represented as Headers
 
 The adjusted structure of DIDComm messages now represents message level decorators as message headers. An example includes `thid`.
+
+#### Return-Route Moved to Extension
+
+The return-route mechanism has been moved to an extension due to it's limited application. This mechanism is useful in last-mile message delivery for mobile devices and agents without a public endpoint.
