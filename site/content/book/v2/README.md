@@ -10,11 +10,11 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 
 1. [Why DIDComm?](why.md)
 2. Hello World
-    1. [Choosing libraries and tools](hellolibstools.md)
-    3. [Putting a message in an encrypted envelope](helloencrypt.md)
-    4. [Hello World in Python](helloworldpy.md)
-    5. [Starting, using and ending a DIDComm connection](startConnection.md)
-3. [Threading](threading.md)
+    1. [Choosing libraries and tools](hellolibstools)
+    3. [Putting a message in an encrypted envelope](helloencrypt)
+    4. [Hello World in Python](helloworldpy)
+    5. [Starting, using and ending a DIDComm connection](startConnection)
+3. [Threading](threading)
 4. Protocols
     1. Implementing a protocol
     2. Designing your own protocol
@@ -25,26 +25,26 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     4. Co-protocols
 5. Recipes
     1. Debugging
-    2. [Timeouts](timeouts.md)
+    2. [Timeouts](timeouts)
     3. Retries
     4. Localization
     5. N-wise
     6. Bootstrapping
     7. Using DIDComm security outside DIDComm
-    8. [Dealing with mobile agents](mobileagents.md)
+    8. [Dealing with mobile agents](mobileagents)
 6. Safety
-    1. [Privacy](privacy.md)
+    1. [Privacy](privacy)
     2. Security
         1. Authcrypt vs. Anoncrypt
         2. Choosing curves
         3. Choosing DID methods
     3. Message security contexts
     4. DID rotation
-    5. [Perfect forward secrecy](pfs.md)
-    6. [Man in the middle](mitm.md)
-7. [Routing](routing.md)
-8. [Frequently Asked Questions](faq.md)
+    5. [Perfect forward secrecy](pfs)
+    6. [Man in the middle](mitm)
+7. [Routing](routing)
+8. [Frequently Asked Questions](faq)
 9. Appendix: Migration from DIDComm v1
-    1. [What's new](whatsnew.md)
+    1. [What's new](whatsnew)
     2. Migrator script
 
