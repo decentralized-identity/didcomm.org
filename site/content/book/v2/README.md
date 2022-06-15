@@ -8,7 +8,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 
 ## Contents
 
-1. [Why DIDComm?](why.md)
+1. [Why DIDComm?](why)
 2. Hello World
     1. [Choosing libraries and tools](hellolibstools)
     3. [Putting a message in an encrypted envelope](helloencrypt)
