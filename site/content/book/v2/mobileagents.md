@@ -1,8 +1,8 @@
 # Dealing with mobile agents
 
-Mobile agents are a key component in many decentralized identity solutions. Individuals holding Identity Wallets on their mobile phones, and IoT devices transmitting secure information from remote locations are some common examples of mobile agents. The ability to roam from different networks and change connectivity seamlessly is a great feature. However it comes at the expense that agents are unable to declare a unique network address where to be reached out. Also, that obstacle becomes more complex when agents are hidden inside network firewalls.
+Mobile agents are a key component in many decentralized identity solutions. Individuals holding Identity Wallets on their mobile phones, and IoT devices transmitting secure information from remote locations are some common examples of mobile agents. The ability to roam from different networks and change connectivity seamlessly is a great feature. However it comes at the expense that agents are unable to declare a unique network address where to be reached. Also, that obstacle becomes more complex when agents are hidden inside network firewalls.
 
-Additionally, [DIDComm Messaging](https://identity.foundation/didcomm-messaging/spec/) specify that:
+Additionally, [DIDComm Messaging](https://identity.foundation/didcomm-messaging/spec/) specifies that:
 * [Transports](https://identity.foundation/didcomm-messaging/spec/#transports) are _simplex_, they only transfer messages from sender to receiver. No information about the effects or results from a message is transmitted over the same connection.
 * Parties may declare a `serviceEndpoint` in their DID Document. However DID Documents are mainly static and updating them, if possible, is not an instant process.
 
@@ -11,7 +11,7 @@ Given the above mentioned situation, the question is **how a mobile agent can re
 The answer is based on two elements: **Routing Protocol** and **Return-Route** extension.
 
 ## Routing Protocol
-The [Routing Protocol](https://identity.foundation/didcomm-messaging/spec/#routing-protocol-20) defines a trusted party called _Mediator_ to facilitate message delivery. Senders can pass messages to a mediator, so next, the mediator can forwards them to the final destination. Of course, the final message to the receiver is encrypted and obscured to the intermediate mediator or mediators.
+The [Routing Protocol](https://identity.foundation/didcomm-messaging/spec/#routing-protocol-20) defines a partially trusted party called _Mediator_ to facilitate message delivery. Senders can pass messages to a mediator, so next, the mediator can forward them to the final destination. Of course, the final message to the receiver is encrypted and obscured to the intermediate mediator or mediators.
 
 Message from the sender to the mediator is of type `forward` and contains the encrypted messages to the receiver as `attachments` . Also, by this means, recipients can declare a mediator's `serviceEndpoint` as its own `serviceEndpoint` to receive messages.
 
