@@ -10,10 +10,10 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 
 1. [Why DIDComm?](why)
 2. Hello World
-    1. [Choosing libraries and tools](hellolibstools.md)
-    3. [Putting a message in an encrypted envelope](helloencrypt.md)
-    4. Using a transport
-    5. Receiving a message
+    1. [Choosing libraries and tools](hellolibstools)
+    3. [Putting a message in an encrypted envelope](helloencrypt)
+    4. [Hello World in Python](helloworldpy)
+    5. [Starting, using and ending a DIDComm connection](startConnection)
 3. [Threading](threading)
 4. Protocols
     1. Implementing a protocol
@@ -31,6 +31,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     5. N-wise
     6. Bootstrapping
     7. Using DIDComm security outside DIDComm
+    8. [Dealing with mobile agents](mobileagents)
 6. Safety
     1. [Privacy](privacy)
     2. Security
@@ -42,7 +43,8 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     5. [Perfect forward secrecy](pfs)
     6. [Man in the middle](mitm)
 7. [Routing](routing)
-8. Appendix: Migration from DIDComm v1
+8. [Frequently Asked Questions](faq)
+9. Appendix: Migration from DIDComm v1
     1. [What's new](whatsnew)
     2. Migrator script
 
