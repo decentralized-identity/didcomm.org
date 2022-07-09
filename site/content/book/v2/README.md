@@ -39,7 +39,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
         2. Choosing curves
         3. Choosing DID methods
     3. Message security contexts
-    4. DID rotation
+    4. [DID rotation](didrotation)
     5. [Perfect forward secrecy](pfs)
     6. [Man in the middle](mitm)
 7. [Routing](routing)
