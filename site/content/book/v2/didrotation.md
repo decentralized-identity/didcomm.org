@@ -6,7 +6,7 @@ However there are cases when the DID (not the DID Document) need to be rotated b
 1. At the beginning of a connection: its common that the initial message is in the form of an Out of Band message that it is unencrypted per definition, and may be observed by another party or transmitted in an unsecure channel such as a QR code or a URL posted in an email or webpage. The DID used in the OOB should be considered as a temporal DID just to start the conversation, but it is highly recommended that it is rotated afterwards to improve privacy.
 2. When keys inside a DID Document are compromised and the DID method does not allow updating the DID Document with new rotated keys, as is the case for [did:key](https://w3c-ccg.github.io/did-method-key/).
 
-[DIDComm](https://identity.foundation/didcomm-messaging/spec/#did-rotation) defines a specific header to handle DID rotation. This header is called `prior_did` and can be used in any message sent to the other party. That message must include the `prior_did` header that is a standard JWT token conformed with:
+[DIDComm](https://identity.foundation/didcomm-messaging/spec/#did-rotation) defines a specific header to handle DID rotation. This header is called `from_prior` and can be used in any message sent to the other party. That message must include the `from_prior` header that is a standard JWT token conformed with:
 - Header:
   - `typ`: `jwt`
   - `alg`: verification algorithm such as `EdDSA`
