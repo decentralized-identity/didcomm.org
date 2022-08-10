@@ -1,5 +1,5 @@
 ---
-title: Mediator Coordinator
+title: Action Menu
 publisher: rodolfomiranda
 license: MIT
 piuri: https://didcomm.org/action-menu/2.0
@@ -74,7 +74,7 @@ Supported Goal Code | Notes
 ## Message Reference
 
 ### Menu
-A `requestor` is expected to display only one active menu per connection when action menus are employed by the `responder`. A newly received menu is not expected to interrupt a user, but rather be made available for the user to inspect possible actions related to the `responder`.
+A `requester` is expected to display only one active menu per connection when action menus are employed by the `responder`. A newly received menu is not expected to interrupt a user, but rather be made available for the user to inspect possible actions related to the `responder`.
 
 Message Type URI: `https://didcomm.org/action-menu/2.0/menu`
 
