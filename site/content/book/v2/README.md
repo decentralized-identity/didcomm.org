@@ -32,6 +32,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     6. Bootstrapping
     7. Using DIDComm security outside DIDComm
     8. [Dealing with mobile agents](mobileagents)
+    9. [Problem Codes](problemcodes)
 6. Safety
     1. [Privacy](privacy)
     2. Security
