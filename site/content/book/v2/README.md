@@ -43,8 +43,9 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     5. [Perfect forward secrecy](pfs)
     6. [Man in the middle](mitm)
 7. [Routing](routing)
-8. [Frequently Asked Questions](faq)
-9. Appendix: Migration from DIDComm v1
+8. [Extensions](extensions)
+9. [Frequently Asked Questions](faq)
+10. Appendix: Migration from DIDComm v1
     1. [What's new](whatsnew)
     2. Migrator script
 
