@@ -72,7 +72,6 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/mediate-request`
 {
     "id": "123456780",
     "type": "https://didcomm.org/coordinate-mediation/2.0/mediate-request",
-    }
 }
 ```
 
