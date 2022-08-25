@@ -100,16 +100,13 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/mediate-grant`
     "type": "https://didcomm.org/coordinate-mediation/2.0/mediate-grant",
     "body": 
             {
-                "endpoint": "https://mediators-r-us.com",
-                "routing_keys": ["did:peer:z6Mkfriq1MqLBoPWecGoDLjguo1sB9brj6wT3qZ5BxkKpuP6"]
+                "routing_did": ["did:peer:z6Mkfriq1MqLBoPWecGoDLjguo1sB9brj6wT3qZ5BxkKpuP6"]
             }
 }
 ```
 where:
 
-- `endpoint`: the endpoint reported to mediation client connections.
-
-- `routing_keys`: list of keys in intended routing order. Key used as recipient of forward messages.
+- `routing_did`: DID of the mediator where forwarded messages should be sent. The `recipient` may use this DID as an enpoint as explained in [Using a DID as an endpoint](https://identity.foundation/didcomm-messaging/spec/#using-a-did-as-an-endpoint) section of the specification. 
 
 ### Keylist Update
 Used to notify the `mediator` of keys in use by the `recipient`.
@@ -124,7 +121,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update`
             {
                 "updates":  [
                                 {
-                                    "recipient_key": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                                    "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
                                     "action": "add"
                                 }
                             ]
@@ -133,7 +130,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update`
 ```
 where:
 
-- `recipient_key`: key subject of the update.
+- `recipient_did`: DID subject of the update.
 - `action`: one of `add` or `remove`.
 
 ### Keylist Response
@@ -149,7 +146,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update-r
             {
                 "updated":  [
                                 {
-                                    "recipient_key": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                                    "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
                                     "action": "" // "add" or "remove"
                                     "result": "" // [client_error | server_error | no_change | success]
                                 }
@@ -159,7 +156,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update-r
 ```
 where:
 
-- `recipient_key`: key subject of the update.
+- `recipient_did`: DID subject of the update.
 - `action`: one of `add` or `remove`.
 - `result`: one of `client_error`, `server_error`, `no_change`, `success`; describes the resulting state of the keylist update.
 
@@ -198,7 +195,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist`
             {
                 "keys": [
                             {
-                                "recipient_key": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
+                                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
                             }
                         ]
                 "pagination":   {
