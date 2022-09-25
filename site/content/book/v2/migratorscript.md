@@ -18,7 +18,7 @@ goal|body.goal
 ~timing.expires_time|expires_time| v1 use timestamp format as "2019-01-25 18:25Z", v2 use unixtime seconds since 1970-01-01T00:00:00Z
 sent_time|created_time|v1 use timestamp format as "2019-01-25 18:25Z", v2 use unixtime seconds since 1970-01-01T00:00:00Z
 handler|handler
-traced_type|traced_type
+~trace|trace
 ~attach|attachments| an array of attachments
 ~attach[n].@id|attachments[n].id
 ~attach[n].mime_type|attachments[n].media_type
