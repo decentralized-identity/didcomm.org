@@ -119,7 +119,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update`
             {
                 "updates":  [
                                 {
-                                    "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                                    "recipient_did": `did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH`,
                                     "action": "add"
                                 }
                             ]
@@ -144,7 +144,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update-r
             {
                 "updated":  [
                                 {
-                                    "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                                    "recipient_did": `did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH`,
                                     "action": "" // "add" or "remove"
                                     "result": "" // [client_error | server_error | no_change | success]
                                 }
@@ -193,7 +193,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist`
             {
                 "keys": [
                             {
-                                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
+                                "recipient_did": `did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH`
                             }
                         ]
                 "pagination":   {
