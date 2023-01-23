@@ -27,7 +27,7 @@ There are two roles in this protocol:
 
 ## Connectivity
 
-This protocol consists of three different message requests from the `recipient` that should be replied by the `mediator`:
+This protocol consists of three different message requests from the `recipient` that should be replied to by the `mediator`:
 
 1. Status Request -> Status
 2. Delivery Request -> Message Delivery
@@ -60,15 +60,6 @@ When _Live Mode_ is enabled, messages that arrive when an existing connection ex
 
 This protocol expects messages to be encrypted during transmission, and repudiable. 
 
-## Composition
-
-Supported Goal Code | Notes
---- | ---
-                     |       
-                     |       
-
-
-
 ## Message Reference
 
 ### Status Request
@@ -81,12 +72,12 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/status-request`
     "id": "123456780",
     "type": "https://didcomm.org/messagepickup/3.0/status-request",
     "body" : {
-        "recipient_key": "<key for messages>"
+        "recipient_did": "<did for messages>"
     },
     "return_route": "all"
 }
 ```
-`recipient_key` is optional. When specified, the `mediator` **MUST** only return status related to that recipient key. This allows the `recipient` to discover if any messages are in the queue that were sent to a specific key. You can find more details about `recipient_key` and how it's managed in [Mediator Coordination Protocol]().
+`recipient_did` is optional. When specified, the `mediator` **MUST** only return status related to that recipient did. This allows the `recipient` to discover if any messages are in the queue that were sent to a specific did. 
 
 ### Status
 Status details about waiting messages.
@@ -98,7 +89,7 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/status`
     "id": "123456780",
     "type": "https://didcomm.org/messagepickup/3.0/status",
     "body": {
-            "recipient_key": "<key for messages>",
+            "recipient_did": "<did for messages>",
             "message_count": 7,
             "longest_waited_seconds": 3600,
             "newest_received_time": 1658085169,
@@ -116,7 +107,7 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/status`
 
 `total_bytes` represents the total size of all messages.
 
-If a `recipient_key` was specified in the `status-request message`, the matching value **MUST** be specified in the `recipient_key` attribute of the status message.
+If a `recipient_did` was specified in the `status-request message`, the matching value **MUST** be specified in the `recipient_did` attribute of the status message.
 
 `live_delivery` state is also indicated in the status message.
 
@@ -134,21 +125,21 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery-request`
     "type": "ttps://didcomm.org/messagepickup/3.0/delivery-request",
     "body": {
         "limit": 10,
-        "recipient_key": "<key for messages>"
+        "recipient_did": "<did for messages>"
     },
     "return_route": "all"
 }
 ```
 `limit` is a **REQUIRED** attribute, and after receipt of this message, the `mediator` **SHOULD** deliver up to the limit indicated.
 
-`recipient_key` is optional. When specified, the `mediator` **MUST** only return messages sent to that recipient key.
+`recipient_did` is optional. When specified, the `mediator` **MUST** only return messages sent to that recipient did.
 
 If no messages are available to be sent, a `status` message **MUST** be sent immediately.
 
 Delivered messages **MUST NOT** be deleted until delivery is acknowledged by a messages-received message.
 
 ### Message Delivery
-Batch of messages delivered to the `receiver` as attachments.
+Batch of messages delivered to the `recipient` as attachments.
 
 Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery`
 
@@ -158,7 +149,7 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery`
     "thid": "<message id of delivery-request message>",
     "type": "https://didcomm.org/messagepickup/3.0/delivery",
     "body": {
-        "recipient_key": "<key for messages>"
+        "recipient_did": "<did for messages>"
     },
     "attachments": [{
         "id": "<id of message>",
@@ -172,7 +163,7 @@ Messages delivered from the queue must be delivered in a batch delivery message 
 
 The ONLY valid type of attachment for this message is a DIDComm v2 Message in encrypted form.
 
-The `recipient_key` attribute is only included when responding to a `delivery-request` message that indicates a `recipient_key`.
+The `recipient_did` attribute is only included when responding to a `delivery-request` message that indicates a `recipient_did`.
 
 ### Messages Received
 After receiving messages, the `recipient` sends an acknowledge message indiciating which messages are safe to clear from the queue.
@@ -208,7 +199,7 @@ Recipients have three modes of possible operation for message delivery with vari
 
 1. Never activate _Live Mode_. Poll for new messages with a `status_request` message, and retrieve them when available.
 2. Retrieve all messages from queue, and then activate _Live Mode_. This simplifies message processing logic in the `recipient`.
-3. Activate _Live Mode_ immediately upon connecting to the `mediator`. Retrieve messages from the queue as possible. When receiving a message delivered live, the queue may be queried for any waiting messages delivered to the same key for processing.
+3. Activate _Live Mode_ immediately upon connecting to the `mediator`. Retrieve messages from the queue as possible. When receiving a message delivered live, the queue may be queried for any waiting messages delivered to the same did for processing.
 ### Live Mode Change
 _Live Mode_ is changed with a `live-delivery-change` message.
 
@@ -246,4 +237,3 @@ No localization is required.
 ## Implementations
 
 ## Endnotes
-
