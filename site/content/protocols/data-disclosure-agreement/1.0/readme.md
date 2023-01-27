@@ -65,11 +65,11 @@ The DS construct a DIDComm message of type `/dda-marketplace/1.0/publish-request
 
 ```json
 {
-  "@type": "https://didcomm.org/dda/1.0/publish-request",
-  "@id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
+  "type": "https://didcomm.org/dda/1.0/publish-request",
+  "id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>",
+  "from": "<sender did>",
+  "to": "<receipient did>",
   "body": {
     "data_disclosure_agreement": {}
   }
@@ -86,14 +86,14 @@ The Data Intermediary create a /dda-marketplace/1.0/publish-response DIDComm mes
 
 ```json
 {
-  "@type": "https://didcomm.org/dda/1.0/publish-response",
-  "@id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
+  "type": "https://didcomm.org/dda/1.0/publish-response",
+  "id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
   "~thread": {
         "thid": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4"
     },
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>",
+  "from": "<sender did>",
+  "to": "<receipient did>",
   "body": {
     "txn_hash": "0xeba2df809e7a612a0a0d444ccfa5c839624bdc00dd29e3340d46df3870f8a30e"
   }
@@ -124,11 +124,11 @@ Resolve CID to obtain a DDA offer from IPFS and then construct a counter proposa
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/1.0/propose-terms",
-  "@id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
+  "type": "https://didcomm.org/dda-negotiation/1.0/propose-terms",
+  "id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>",
+  "from": "<sender did>",
+  "to": "<receipient did>",
   "body": {
     "data_disclosure_agreement": {}
   }
@@ -140,14 +140,14 @@ The DS updates the DDA to include the proposed terms and signs it. A copy of the
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/dda-negotiation/1.0/accept-terms",
-  "@id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
+  "type": "https://didcomm.org/dda-negotiation/dda-negotiation/1.0/accept-terms",
+  "id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
   "~thread": {
         "thid": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4"
     },
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>",
+  "from": "<sender did>",
+  "to": "<receipient did>",
   "body": {
     "data_disclosure_agreement": {}
   }
@@ -160,14 +160,14 @@ An example is provided below.
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/dda-negotiation/1.0/reject-terms",
-  "@id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
+  "type": "https://didcomm.org/dda-negotiation/dda-negotiation/1.0/reject-terms",
+  "id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
   "~thread": {
         "thid": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4"
     },
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>"
+  "from": "<sender did>",
+  "to": "<receipient did>"
 }
 ```
 
@@ -177,11 +177,11 @@ The DUS counter signs the DDA and sends a copy to the DS. An example is as provi
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/dda-negotiation/1.0/accept-dda",
-  "@id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
+  "type": "https://didcomm.org/dda-negotiation/dda-negotiation/1.0/accept-dda",
+  "id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>"
+  "from": "<sender did>",
+  "to": "<receipient did>"
   "body": {
     "data_disclosure_agreement": {}
   }
@@ -210,11 +210,11 @@ The DUS requests access to personal data by presenting the hash of a signed DDA 
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/request-access",
-  "@id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
+  "type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/request-access",
+  "id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>"
+  "from": "<sender did>",
+  "to": "<receipient did>"
   "body": {
     "dda_hash": ""
     "nonce": ""
@@ -258,14 +258,14 @@ The DS constructs a /data-exchange/1.0/grant-access DIDComm message with an Ethe
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/grant-access",
-  "@id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
+  "type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/grant-access",
+  "id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
   "~thread": {
         "thid": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609"
     },
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>"
+  "from": "<sender did>",
+  "to": "<receipient did>"
   "body": {
     "txn_hash": "0xeba2df809e7a612a0a0d444ccfa5c839624bdc00dd29e3340d46df3870f8a30e"
   }
@@ -316,11 +316,11 @@ An example is as provided below:
 
 ```json
 {
-  "@type": "https://didcomm.org/delegated-da-negotiation/1.0/initiate",
-  "@id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
+  "type": "https://didcomm.org/delegated-da-negotiation/1.0/initiate",
+  "id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>",
+  "from": "<sender did>",
+  "to": "<receipient did>",
   "body": {
     "da": {}
   }
@@ -333,14 +333,14 @@ An example is provided below.
 
 ```json
 {
-  "@type": "https://didcomm.org/delegated-da-negotiation/1.0/initiate",
-  "@id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
+  "type": "https://didcomm.org/delegated-da-negotiation/1.0/initiate",
+  "id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
   "~thread": {
     "thid": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4"
   },
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>",
+  "from": "<sender did>",
+  "to": "<receipient did>",
   "body": {
     "invitation": {
       "serviceEndpoint": "https://didcomm.data-source.com/",
@@ -369,11 +369,11 @@ The DS checks if a DA (purpose: 3rd party disclosure) exists between the DS and 
 
 ```json
 {
-  "@type": "delegated-da-negotiation/1.0/offer",
-  "@id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
+  "type": "delegated-da-negotiation/1.0/offer",
+  "id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>",
+  "from": "<sender did>",
+  "to": "<receipient did>",
   "body": {
     "da": {}
   }
@@ -406,11 +406,11 @@ The DUS requests access to personal data by presenting the hash of a signed DUS 
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/request-access",
-  "@id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
+  "type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/request-access",
+  "id": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609",
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>"
+  "from": "<sender did>",
+  "to": "<receipient did>"
   "body": {
     "da_hash": ""
     "nonce": ""
@@ -455,14 +455,14 @@ The DS constructs `/data-exchange/1.0/grant-access` a DIDComm message with the E
 
 ```json
 {
-  "@type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/grant-access",
-  "@id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
+  "type": "https://didcomm.org/dda-negotiation/data-exchange/1.0/grant-access",
+  "id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
   "~thread": {
         "thid": "1b8381a8-5b7a-44b0-a6b6-037a4aac5609"
     },
   "created_time": "1639288911",
-  "@from": "<sender did>",
-  "@to": "<receipient did>"
+  "from": "<sender did>",
+  "to": "<receipient did>"
   "body": {
     "txn_hash": "0xeba2df809e7a612a0a0d444ccfa5c839624bdc00dd29e3340d46df3870f8a30e"
   }
