@@ -127,8 +127,8 @@ Creation of the DID follows the sequence below.
 
 ```json 
 {
-    "@type": "https://didcomm.org/mydata-did/mydata-did/1.0/create-did",
-    "@id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
+    "type": "https://didcomm.org/mydata-did/mydata-did/1.0/create-did",
+    "id": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3",
     "created_time": "1639125359",
     "to": "did:mydata:z6Mkr85Fb3yUoj2PT1BVfFfVmAuuAe38UX9XnD5Eb9PVA8FG",
     "from": "did:mydata:z6MkioNqmrGDEDMA1e5YBH6Tudjt5gQj9kFxzA5DzUwWNS8s",
@@ -193,8 +193,8 @@ Creation of the DID follows the sequence below.
 
 ```json 
 {
-    "@type": "https://didcomm.org/mydata-did/1.0/create-did-response",
-    "@id": "4dfd460b-f965-4bf5-923a-9bfd3d30f410",
+    "type": "https://didcomm.org/mydata-did/1.0/create-did-response",
+    "id": "4dfd460b-f965-4bf5-923a-9bfd3d30f410",
     "~thread": {
         "thid": "53f19e0b-5be2-480a-92bc-fcdeabf69ad3"
     },
@@ -245,8 +245,8 @@ To resolve a DID and fetch the associated DID document from the DID registry, a 
 
 ```
 {
-    "@type": "https://didcomm.org/mydata-did/1.0/read-did",
-    "@id": "be23b532-589d-4ed4-ae6f-82b89702d2c4",
+    "type": "https://didcomm.org/mydata-did/1.0/read-did",
+    "id": "be23b532-589d-4ed4-ae6f-82b89702d2c4",
     "created_time": "1639126418",
     "to": "did:mydata:z6Mkr85Fb3yUoj2PT1BVfFfVmAuuAe38UX9XnD5Eb9PVA8FG",
     "from": "did:mydata:z6MkioNqmrGDEDMA1e5YBH6Tudjt5gQj9kFxzA5DzUwWNS8s",
@@ -266,8 +266,8 @@ The ADA service will respond to the above DIDComm message with an encryption env
 
 ```json 
 {
-    "@type": "https://didcomm.org/mydata-did/1.0/read-did-response",
-    "@id": "1265c0d5-5199-48b7-acf5-41c6fc766a84",
+    "type": "https://didcomm.org/mydata-did/1.0/read-did-response",
+    "id": "1265c0d5-5199-48b7-acf5-41c6fc766a84",
     "~thread": {
         "thid": "be23b532-589d-4ed4-ae6f-82b89702d2c4"
     },
@@ -322,13 +322,13 @@ In the current version of this specification, delete is relevant only when trigg
 
 ```json
 {
-    "@type": "https://didcomm.org/mydata-did/1.0/delete-did",
-    "@id": "ecb656ad-e52a-4105-8fda-4af06ba436a7",
+    "type": "https://didcomm.org/mydata-did/1.0/delete-did",
+    "id": "ecb656ad-e52a-4105-8fda-4af06ba436a7",
     "created_time": "1639284769",
     "to": "did:mydata:z6Mkr85Fb3yUoj2PT1BVfFfVmAuuAe38UX9XnD5Eb9PVA8FG",
     "from": "did:mydata:z6MkioNqmrGDEDMA1e5YBH6Tudjt5gQj9kFxzA5DzUwWNS8s",
     "body~sig": {
-        "@type": "https://didcomm.org/signature/1.0/ed25519Sha512_single",
+        "type": "https://didcomm.org/signature/1.0/ed25519Sha512_single",
         "signature": "N_6jzRzEcYAE4laJmUNXpV_Usf4-YMq3Fz3k_t2p9xK16vZKS3BSl91x0meXMFBmOUhO4kykpcct4SB0mIGjDg==",
         "sig_data": "AAAAAGG1zXl7ImRpZCI6ICJkaWQ6bXlkYXRhOno2TWt3V3lVYVF2cFBpbjVCTFVCVlhTY2JnVWdCQ3RXUE1zTHluanlEbjhKZU5FWSJ9",
         "signer": "J4iRzAgP4BHc4qdUoxUmkavgMdceyUczHmq3PWAHj9TA"
@@ -350,8 +350,8 @@ The ADA service will respond to the above DIDComm message with an encryption env
 
 ```json
 {
-    "@type": "https://didcomm.org/mydata-did/1.0/delete-did-response",
-    "@id": "8f560451-02a3-4e84-8441-7016442887b8",
+    "type": "https://didcomm.org/mydata-did/1.0/delete-did-response",
+    "id": "8f560451-02a3-4e84-8441-7016442887b8",
     "~thread": {
         "thid": "ecb656ad-e52a-4105-8fda-4af06ba436a7"
     },
@@ -371,8 +371,8 @@ If a problem arises while handling any DIDComm message, ADA service will respond
 
 ```json
 {
-  "@type": "https://didcomm.org/mydata-did/1.0/problem-report",
-  "@id": "c98aaa94-8bd4-4c8d-9d05-c25ead35dc62",
+  "type": "https://didcomm.org/mydata-did/1.0/problem-report",
+  "id": "c98aaa94-8bd4-4c8d-9d05-c25ead35dc62",
   "~thread": {
     "thid": "cf2b1dca-9904-4242-87c6-063745cc86f9"
   },
@@ -422,8 +422,8 @@ The ADA service will be exposing a DIDComm agent. CRUD operations on DID can the
     "recipientKeys": [
       "4ZMHW7jX885o6dfXTjff2W8zkDdPXEFrxYauFmJrNwyE"
     ],
-    "@id": "8e1cc2f6-f2af-41e7-8475-fa99be1c4c99",
-    "@type": "https://didcomm.org/connections/1.0/invitation"
+    "id": "8e1cc2f6-f2af-41e7-8475-fa99be1c4c99",
+    "type": "https://didcomm.org/connections/1.0/invitation"
   }
 }
 ```
@@ -447,8 +447,8 @@ An Auditor or a Data Subject can perform a read operation on a data agreement in
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreements/1.0/read-data-agreement",
-    "@id": "fc2a046d-10c3-41bf-8484-7b990ed06e2d",
+    "type": "https://didcomm.org/data-agreements/1.0/read-data-agreement",
+    "id": "fc2a046d-10c3-41bf-8484-7b990ed06e2d",
     "from": "did:mydata:z6MkhnMkWDytfVEL88BRmWGeLN9vGhpdJ612QTgVMt1agqND",
     "to": "did:mydata:z6MkpzHAuPc4N2jgXg23ikZjp2tQSTEHqnzzr9683AQ2EvCV",
     "created_time": "1639289716",
@@ -463,8 +463,8 @@ An example of a `data-agreements/1.0/read-data-agreement-response` DIDComm messa
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreements/1.0/read-data-agreement-response",
-    "@id": "b9703401-56af-461a-b4a0-43b575b3a534",
+    "type": "https://didcomm.org/data-agreements/1.0/read-data-agreement-response",
+    "id": "b9703401-56af-461a-b4a0-43b575b3a534",
     "~thread": {
         "thid": "fc2a046d-10c3-41bf-8484-7b990ed06e2d"
     },
@@ -552,8 +552,8 @@ If a problem arises while handling the `data-agreements/1.0/read-data-agreement`
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreements/1.0/problem-report",
-    "@id": "14525b0d-284f-42de-85ed-a2ca66a4d51c",
+    "type": "https://didcomm.org/data-agreements/1.0/problem-report",
+    "id": "14525b0d-284f-42de-85ed-a2ca66a4d51c",
     "~thread": {
         "thid": "2ab0914c-9209-4b4a-8bf4-8df329ecbd3b"
     },
@@ -604,8 +604,8 @@ An organisation (requester) intending to send a Data Agreement offer to a Data S
 
 ```json 
 {
-    "@type": "https://didcomm.org/data-agreement-negotiation/1.0/offer",
-    "@id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
+    "type": "https://didcomm.org/data-agreement-negotiation/1.0/offer",
+    "id": "999f6c2b-b0e5-4123-aab0-b5f7bfc780c4",
     "created_time": "1639288911",
     "from": "did:mydata:z6Mkkmdx9iNHeKGYyV4Wi4uZLLpcmCKmh8uw369a6xGrY4iX",
     "body": {
@@ -676,8 +676,8 @@ On receiving the `offer` message, the Data Subject (responder) is displayed the 
 
 ```json 
 {
-    "@type": "https://didcomm.org/data-agreement-negotiation/1.0/accept",
-    "@id": "b6ca56e5-5f2a-470f-95e6-b71690964754",
+    "type": "https://didcomm.org/data-agreement-negotiation/1.0/accept",
+    "id": "b6ca56e5-5f2a-470f-95e6-b71690964754",
     "from": "did:mydata:z6MkhnMkWDytfVEL88BRmWGeLN9vGhpdJ612QTgVMt1agqND",
     "to": "did:mydata:z6MkpzHAuPc4N2jgXg23ikZjp2tQSTEHqnzzr9683AQ2EvCV",
     "created_time": "1639288936",
@@ -708,8 +708,8 @@ On receiving the `offer` message, the Data Subject (responder) is displayed the 
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreement-negotiation/1.0/reject",
-    "@id": "68aae3a4-7c19-4541-97c6-1388778d3a98",
+    "type": "https://didcomm.org/data-agreement-negotiation/1.0/reject",
+    "id": "68aae3a4-7c19-4541-97c6-1388778d3a98",
     "from": "did:mydata:z6MkhnMkWDytfVEL88BRmWGeLN9vGhpdJ612QTgVMt1agqND",
     "to": "did:mydata:z6MkpzHAuPc4N2jgXg23ikZjp2tQSTEHqnzzr9683AQ2EvCV",
     "created_time": "1639291116",
@@ -739,8 +739,8 @@ Errors might occur in various places. All errors are modeled with problem-report
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreement-negotiation/1.0/problem-report",
-    "@id": "14525b0d-284f-42de-85ed-a2ca66a4d51c",
+    "type": "https://didcomm.org/data-agreement-negotiation/1.0/problem-report",
+    "id": "14525b0d-284f-42de-85ed-a2ca66a4d51c",
     "~thread": {
         "thid": "2ab0914c-9209-4b4a-8bf4-8df329ecbd3b"
     },
@@ -786,8 +786,8 @@ An ADA service (responder) will be exposing a DIDComm agent. Requester can verif
     "recipientKeys": [
       "4ZMHW7jX885o6dfXTjff2W8zkDdPXEFrxYauFmJrNwyE"
     ],
-    "@id": "8e1cc2f6-f2af-41e7-8475-fa99be1c4c99",
-    "@type": "https://didcomm.org/connections/1.0/invitation"
+    "id": "8e1cc2f6-f2af-41e7-8475-fa99be1c4c99",
+    "type": "https://didcomm.org/connections/1.0/invitation"
   }
 }
 ```
@@ -809,8 +809,8 @@ An organisation (Data Using Service or Data Source) or an individual (Data Subje
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreement-proofs/1.0/verify-request",
-    "@id": "87e2a18d-f5c6-4110-8904-ac0a7f4af4db",
+    "type": "https://didcomm.org/data-agreement-proofs/1.0/verify-request",
+    "id": "87e2a18d-f5c6-4110-8904-ac0a7f4af4db",
     "to": "did:mydata:z6MkgMD9ukKcdgvfoD7qfxwM5jXbRDKQeKJTm2MQRqtuuEJN",
     "created_time": "1639355850",
     "from": "did:mydata:z6MkfsAcQsc8wQqvjNTpG2JJ2GweV31Tk5zzmrJQKmX1aQ7a",
@@ -909,8 +909,8 @@ ADA service (responder) will respond with a DIDComm message of type `data-agreem
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreement-proofs/1.0/verify-response",
-    "@id": "5c294a66-fa7f-4a61-a22c-8bdebc74f8f2",
+    "type": "https://didcomm.org/data-agreement-proofs/1.0/verify-response",
+    "id": "5c294a66-fa7f-4a61-a22c-8bdebc74f8f2",
     "~thread": {
         "thid": "87e2a18d-f5c6-4110-8904-ac0a7f4af4db"
     },
@@ -967,8 +967,8 @@ A Data Subject (requester) intending to terminate a Data Agreement initiates the
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreement-termination/1.0/terminate",
-    "@id": "418cd2fe-d20d-49e1-a73e-7782c51e1dd1",
+    "type": "https://didcomm.org/data-agreement-termination/1.0/terminate",
+    "id": "418cd2fe-d20d-49e1-a73e-7782c51e1dd1",
     "to": "did:mydata:z6MkpzHAuPc4N2jgXg23ikZjp2tQSTEHqnzzr9683AQ2EvCV",
     "body": {
         "id": "d900a281-31f0-4bd5-a647-2c95136250b5",
@@ -998,8 +998,8 @@ On receiving the `terminate` message and processing it, the organisation (respon
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreement-termination/1.0/terminate-ack",
-    "@id": "5f5225d4-5df3-480c-b7b5-9029bd0a17c3",
+    "type": "https://didcomm.org/data-agreement-termination/1.0/terminate-ack",
+    "id": "5f5225d4-5df3-480c-b7b5-9029bd0a17c3",
     "~thread": {
         "thid": "418cd2fe-d20d-49e1-a73e-7782c51e1dd1"
     },
@@ -1014,8 +1014,8 @@ Errors might occur in various places. All errors are modeled with problem-report
 
 ```json
 {
-    "@type": "https://didcomm.org/data-agreement-termination/1.0/problem-report",
-    "@id": "14525b0d-284f-42de-85ed-a2ca66a4d51c",
+    "type": "https://didcomm.org/data-agreement-termination/1.0/problem-report",
+    "id": "14525b0d-284f-42de-85ed-a2ca66a4d51c",
     "~thread": {
         "thid": "2ab0914c-9209-4b4a-8bf4-8df329ecbd3b"
     },
@@ -1222,8 +1222,8 @@ The context decorator could also carry an ADA protocol message, for example, If 
   "~data-agreement-context": {
     "message_type": "protocol",
     "message": {
-      "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/data-agreement-negotiation/1.0/offer",
-      "@id": "12bcc96d-88b6-4ee8-997a-4ce67b653d87",
+      "type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/data-agreement-negotiation/1.0/offer",
+      "id": "12bcc96d-88b6-4ee8-997a-4ce67b653d87",
       "to": "did:mydata:z6MkhnMkWDytfVEL88BRmWGeLN9vGhpdJ612QTgVMt1agqND",
       "body": {
         "@context": [
@@ -1309,8 +1309,8 @@ The context decorator could also carry an ADA protocol message, for example, If 
   "~data-agreement-context": {
     "message_type": "protocol",
     "message": {
-      "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/data-agreement-negotiation/1.0/accept",
-      "@id": "4937ed2a-c2e2-4ebf-802f-9c9a4d7cca07",
+      "type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/data-agreement-negotiation/1.0/accept",
+      "id": "4937ed2a-c2e2-4ebf-802f-9c9a4d7cca07",
       "body": {
         "id": "d73043e6-4627-4e2f-a20a-2495604afd84",
         "event": {
