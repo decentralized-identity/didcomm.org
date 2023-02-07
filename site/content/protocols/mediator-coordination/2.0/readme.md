@@ -14,7 +14,7 @@ authors:
 ---
 
 # Motivation
-Use of the forward message in the Routing Protocol 2.0 requires an exchange of information. The _Recipient_ must know which endpoint and routing key(s) to share, and the _Mediator_ needs to know which keys should be routed via this relationship.
+Use of the forward message in the Routing Protocol 2.0 requires an exchange of information. The _Recipient_ must know which endpoint and routing did(s) to share, and the _Mediator_ needs to know which did should be routed via this relationship.
 
 ## Roles
 There are two roles in this protocol: 
@@ -27,12 +27,12 @@ There are two roles in this protocol:
 This protocol consists of three different message requests from the `recipient` that should be replied by the `mediator`:
 
 1. Mediate Request -> Mediate Grant or Mediate Deny
-2. Keylist Update -> Keylist Update Response
-3. Keylist Query -> Keylist
+2. Recipient Update -> Recipient Update Response
+3. Recipient Query -> Recipient
 
 ## States
 
-This protocol follows the request-response message exchange pattern, and only requerires the simple state of waiting for a response or to produce a response.
+This protocol follows the request-response message exchange pattern, and only requires the simple state of waiting for a response or to produce a response.
 
 ## Basic Walkthrough
 
@@ -40,9 +40,9 @@ A `recipient` may discover an agent capable of routing using the Discover Featur
 
 First, the `recipient` sends a `mediate-request` message to the `mediator`. If the `mediator` is willing to route messages, it will respond with a `mediate-grant` message, otherwise with a `mediate-deny` message. The `recipient` will share the routing information in the grant message with other contacts.
 
-When a new key is used by the `recipient`, it must be registered with the `mediator` to enable route identification. This is done with a `keylist-update` message.
+When a new DID is used by the `recipient`, it must be registered with the `mediator` to enable route identification. This is done with a `recipient-update` message.
 
-The `keylist-update` and `keylist-query` methods are used over time to identify and remove keys that are no longer in use by the `recipient`.
+The `recipient-update` and `recipient-query` methods are used over time to identify and remove DIDs that are no longer in use by the `recipient`.
 
 ## Design By Contract
 
@@ -106,15 +106,15 @@ where:
 
 - `routing_did`: DID of the mediator where forwarded messages should be sent. The `recipient` may use this DID as an enpoint as explained in [Using a DID as an endpoint](https://identity.foundation/didcomm-messaging/spec/#using-a-did-as-an-endpoint) section of the specification. 
 
-### Keylist Update
-Used to notify the `mediator` of keys in use by the `recipient`.
+### Recipient Update
+Used to notify the `mediator` of DIDs in use by the `recipient`.
 
-Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update`
+Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/recipient-update`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/coordinate-mediation/2.0/keylist-update",
+    "type": "https://didcomm.org/coordinate-mediation/2.0/recipient-update",
     "body": 
             {
                 "updates":  [
@@ -131,15 +131,15 @@ where:
 - `recipient_did`: DID subject of the update.
 - `action`: one of `add` or `remove`.
 
-### Keylist Response
-Confirmation of requested keylist updates.
+### Recipient Response
+Confirmation of requested Recipient DID updates.
 
-Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-update-response`
+Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/recipient-update-response`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/coordinate-mediation/2.0/keylist-update-response",
+    "type": "https://didcomm.org/coordinate-mediation/2.0/recipient-update-response",
     "body": 
             {
                 "updated":  [
@@ -156,17 +156,17 @@ where:
 
 - `recipient_did`: DID subject of the update.
 - `action`: one of `add` or `remove`.
-- `result`: one of `client_error`, `server_error`, `no_change`, `success`; describes the resulting state of the keylist update.
+- `result`: one of `client_error`, `server_error`, `no_change`, `success`; describes the resulting state of the Recipient update.
 
-### Keylist Query
-Query `mediator` for a list of keys registered for this connection.
+### Recipient Query
+Query `mediator` for a list of DIDs registered for this connection.
 
-Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist-query`
+Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/recipient-query`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/coordinate-mediation/2.0/keylist-query",
+    "type": "https://didcomm.org/coordinate-mediation/2.0/recipient-query",
     "body": 
             {
                 "paginate": {
@@ -180,18 +180,18 @@ where:
 
 - `paginate`: is optional, and if present must include `limit` and `offset`.
 
-### Keylist 
-Response to key list query, containing retrieved keys.
+### Didlist 
+Response to did list query, containing retrieved DIDs.
 
-Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/keylist`
+Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/recipient`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/coordinate-mediation/2.0/keylist",
+    "type": "https://didcomm.org/coordinate-mediation/2.0/recipient",
     "body": 
             {
-                "keys": [
+                "dids": [
                             {
                                 "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
                             }
@@ -217,8 +217,8 @@ No localization is required.
 ## Endnotes
 
 ### Future Considerations
-- Should we allow listing keys by date? You could query keys in use by date?
-- We are missing a way to check a single key (or a few keys) without doing a full list.
+- Should we allow listing dids by date? You could query dids in use by date?
+- We are missing a way to check a single did (or a few dids) without doing a full list.
 - Mediation grant supports only one endpoint. What can be done to support multiple endpoint options i.e. http, ws, etc.
-- Requiring proof of key ownership (with a signature) would prevent an edge case where a malicious party registers a key for another party at the same mediator, and before the other party.
+- Requiring proof of did ownership (with a signature) would prevent an edge case where a malicious party registers a did for another party at the same mediator, and before the other party.
 - How do we express terms and conditions for mediation?
