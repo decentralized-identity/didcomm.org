@@ -180,8 +180,8 @@ where:
 
 - `paginate`: is optional, and if present must include `limit` and `offset`.
 
-### Didlist 
-Response to did list query, containing retrieved DIDs.
+### Recipient 
+Response to recipient query, containing retrieved recipient DIDs.
 
 Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/recipient`
 
