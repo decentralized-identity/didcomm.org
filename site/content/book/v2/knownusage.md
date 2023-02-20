@@ -6,7 +6,7 @@ Here we track DIDComm v2 usage in the wild. Live DIDComm v2 services (hosted med
 You can find the known DIDComm v2 libs in the Hello World [libraries section](https://didcomm.org/book/v2/hellolibstools)
 
 ## Live Services
-* [RootsID DIDComm v2 mediator](https://mediator.rootsid.cloud/) was meant to support mobile DIDComm v2 agents, but is also useful as a general DIDComm v2 interaction/interop service.
+* [RootsID DIDComm v2 mediator](https://mediator.rootsid.cloud/) was meant to support mobile DIDComm v2 agents, but is also useful as a test DIDComm v2 interaction/interop service.
 
 ## Agents
 * Ongoing - [Nessus DIDComm v1 and v2 PoC](https://github.com/tdiesler/nessus-didcomm/releases)
