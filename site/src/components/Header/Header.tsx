@@ -39,6 +39,11 @@ export const Header = ({ children, primary, className, hideLinks }: Props) => {
                   Specification
                 </a>
               </li>
+              <li>
+                <a className={styles.link} href="mailto:security@didcomm.org">
+                  Security
+                </a>
+              </li>
             </ul>
           </nav>
         )}
