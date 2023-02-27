@@ -235,5 +235,6 @@ If sent with `live_delivery` set to true on a connection incapable of live deliv
 No localization is required.
 
 ## Implementations
+[RootsID DIDComm v2 Mediator](https://github.com/roots-id/didcomm-mediator)
 
 ## Endnotes

@@ -98,7 +98,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/mediate-grant`
     "type": "https://didcomm.org/coordinate-mediation/2.0/mediate-grant",
     "body": 
             {
-                "routing_did": ["did:peer:z6Mkfriq1MqLBoPWecGoDLjguo1sB9brj6wT3qZ5BxkKpuP6"]
+                "routing_did": "did:peer:z6Mkfriq1MqLBoPWecGoDLjguo1sB9brj6wT3qZ5BxkKpuP6"
             }
 }
 ```
@@ -213,6 +213,7 @@ where:
 No localization is required.
 
 ## Implementations
+[RootsID DIDComm v2 Mediator](https://github.com/roots-id/didcomm-mediator)
 
 ## Endnotes
 
