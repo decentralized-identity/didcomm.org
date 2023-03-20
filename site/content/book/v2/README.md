@@ -46,6 +46,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 7. [Routing](routing)
 8. [Extensions](extensions)
 9. [Frequently Asked Questions](faq)
+    1. [OpenID4VC](oidc)
 10. Appendix: Migration from DIDComm v1
     1. [What's new](whatsnew)
     2. Migrator script
