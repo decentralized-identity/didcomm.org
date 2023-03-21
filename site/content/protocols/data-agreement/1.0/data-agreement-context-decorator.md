@@ -2,7 +2,7 @@
 
 ### Summary
 
-The `~data-agreement-context decorator` describes the associated Data Agreement protocol or holds references to a signed/counter-signed Data Agreement document inline to a DIDComm message.
+The `data-agreement-context decorator` describes the associated Data Agreement protocol or holds references to a signed/counter-signed Data Agreement document inline with a DIDComm message.
 
 ### Motivation
 
@@ -26,15 +26,15 @@ Usage looks like this,
 Core properties of a ~data-agreement-context decorator are:
 
 1. `message_type `- Indicates the type of message embedded in the decorator. Possible types are: 
-   1. protocol - Indicates that message embedded is an Data Agreement protocol and it must be processed accordingly
-   2. non-protocol - Indicates that message contains reference to a data agreement offer.
+   1. protocol - Indicates that message embedded is a Data Agreement protocol, and it must be processed accordingly
+   2. non-protocol - Indicates that message references a data agreement offer.
 2. `message `- Hold the message body.
 
-`~data-agreement-context` decorator could carry an Data Agreement protocol message inside it or a reference to data agreement offer. 
+`~data-agreement-context` decorator could carry a Data Agreement protocol message inside it or a reference to the data agreement offer. 
 
-When it carries a reference to a data agreement instance (or receipt), it is understood that the outlying DIDComm message is occurring in reference to a data agreement that was signed by both requester (Data Source or Data Using Service) and responder (Data Subject). 
+When it carries a reference to a data agreement instance (or receipt), it is understood that the outlying DIDComm message is occurring in reference to a data agreement that was signed by both requester (Data Source or Data Using Service) and the responder (Data Subject). 
 
-The context decorator could also carry an Data Agreement protocol message, for example, If Data Source would like to send Data Agreement Offer to a Data Subject when offering a credential preview, it could do so by embedding `https://didcomm.org/data-agreement-negotiation/1.0/offer` DIDComm message. The Data Subject can respond while making a presentation request by embedding the response  `https://didcomm.org/data-agreement-negotiation/1.0/accept`  DIDComm message  in the decorator.
+The context decorator could also carry a Data Agreement protocol message; for example, If Data Source wants to send Data Agreement Offer to a Data Subject when offering a credential preview, it could do so by embedding `https://didcomm.org/data-agreement-negotiation/1.0/offer` DIDComm message. The Data Subject can respond while requesting a presentation by embedding the response  `https://didcomm.org/data-agreement-negotiation/1.0/accept`  DIDComm message in the decorator.
 
 ### Examples of `~data-agreement-context` decorator used in DIDComm messages
 

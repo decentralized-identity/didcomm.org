@@ -11,15 +11,15 @@ We need a standard protocol to verify and authenticate the proof chain associate
 
 ### Tutorial
 
-The protocol described in this document is a request-response protocol [10].This involves two parties, with the `requester` making the first move, and the responder completing the interaction. The responder role is assumed by Data Agreement microservice hosted by an Auditor. The requester can verify and authenticate proof chains associated with the Data Agreement instance (receipt). Requester role can be assumed by a Data Subject or Data Controller (Data Using Service or Data Source) or anyone who has access to the Data Agreement instance (receipt).
+The protocol described in this document is a request-response protocol [10]. This involves two parties, with the `requester` making the first move and the responder completing the interaction. The responder role is assumed by the Data Agreement microservice hosted by an Auditor. The requester can verify and authenticate proof chains associated with the Data Agreement instance (receipt). The requester role can be assumed by a Data Subject or Data Controller (Data Using Service or Data Source) or anyone with access to the Data Agreement instance (receipt).
 
-Following actors identified as part of Data Agreement specification can assume the `responder` role:
+The following actors identified as part of the Data Agreement specification can assume the `responder` role:
 
 * an **Auditor** may be called in to review the data agreements and ensure that an agreement is in place in case of data breaches or regular inspection.
 
 #### Interaction
 
-An Data Agreement service (responder) will be exposing a DIDComm agent. Requester can verify and authenticate proof chain associated with a Data Agreement instance (or receipt) using available DIDComm messages. The Data Agreement service itself will be allocated a pairwise DID, and a connection invitation message with pairwise DID as one of the recipientKey will be publicly available at an established DID configuration endpoint (`"/.well-known/did-configuration.json"`) of the web server.  A sample configuration is given below.
+A Data Agreement service (responder) will be exposing a DIDComm agent. Requester can verify and authenticate the proof chain associated with a Data Agreement instance (or receipt) using available DIDComm messages. The Data Agreement service itself will be allocated a pairwise DID, and a connection invitation message with pairwise DID as one of the recipientKey will be publicly available at an established DID configuration endpoint (`"/.well-known/did-configuration.json"`) of the web server.  A sample configuration is given below.
 
 ```json
 {
@@ -139,14 +139,14 @@ An organisation (Data Using Service or Data Source) or an individual (Data Subje
 
 ##### Verify Response
 
-Data Agreement service hosted by the Auditor after receiving the above message processes the request, the verification of the proof chain conforms to the proof verification algorithm specified in LINKED DATA PROOFS 1.0 specification.
+Data Agreement service hosted by the Auditor after receiving the above message processes the request; the verification of the proof chain conforms to the proof verification algorithm specified in the LINKED DATA PROOFS 1.0 specification.
 
-The following algorithm specifies how to check the authenticity and integrity of a counter signed Data Agreement (signed linked data document) by verifying its digital proof. This algorithm takes a counter signed Data Agreement (signed linked data document) and outputs a `true` or `false` value based on whether or not the digital proof on the signed document was verified. Whenever this algorithm encodes strings, it _MUST_ use UTF-8 encoding.
+The following algorithm specifies how to check the authenticity and integrity of a counter-signed Data Agreement (signed linked data document) by verifying its digital proof. This algorithm takes a counter-signed Data Agreement (signed linked data document) and outputs a `true` or `false` value based on whether or not the digital proof on the signed document was verified. Whenever this algorithm encodes strings, it _MUST_ use UTF-8 encoding.
 
 * Get the public key by dereferencing its URL identifier in the `proof` node of the default graph of the signed document. Confirm that the linked data document that describes the public key specifies its owner and that its owner's URL identifier can be dereferenced to reveal a bi-directional link back to the key. Ensure that the key's owner is a trusted entity before proceeding to the next step.
-* Let the document be a copy of the counter signed Data Agreement.
-* Remove any `proof` nodes from the default graph in the document and save it as proof.
-* Generate a canonicalized document by canonicalizing the document according to the canonicalization algorithm (e.g. the _URDNA2015_ [RDF-DATASET-NORMALIZATION] algorithm).
+* Let the document be a copy of the countersigned Data Agreement.
+* Remove any `proof` nodes from the default graph in the document and save them as proof.
+* Generate a canonicalised document by canonicalising the document according to the canonicalisation algorithm (e.g. the _URDNA2015_ [RDF-DATASET-NORMALIZATION] algorithm).
 * Create a value tbv that represents the data to be verified, and set it to the result of running the Create Verify Hash Algorithm, passing the information in proof.
 * Pass the proofValue, tbv, and the public key to the proof algorithm (e.g. JSON Web Proof using _RSASSA-PKCS1-v1_5_ algorithm). Return the resulting boolean value.
 

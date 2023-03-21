@@ -8,29 +8,29 @@ This specification describes a DIDComm protocol for a Data Subject to terminate 
 
 ### Motivation
 
-The Data Agreement may be terminated in a number of ways. Here are a few of the scenarios:
+The Data Agreement may be terminated in many ways. Here are a few of the scenarios:
 
-1. Data Agreement expired and the service is no longer applicable
-2. Updated Data Agreement with new purpose or changes to collected pii categories
-3. Individual requests to terminate the service before expiration date
+1. Data Agreement expired, and the service is no longer applicable
+2. Updated Data Agreement with the new purpose or changes to collected PII categories
+3. Individual requests to terminate the service before the expiration date
 4. Individual requests not only to terminate but to have their personal data erased
 
-Note, the erasure may come after termination of the Data Agreement.
+Note the erasure may come after the termination of the Data Agreement.
 
 
 ### Tutorial
 
-The protocol described in this document is a request-response protocol [10].This involves two parties, with the `requester` making the first move, and the responder completing the interaction. The responder role is assumed by an Organisation (Data Source or Data Using Service). The requester can initiate the Data Agreement termination.
+The protocol described in this document is a request-response protocol [10]. This involves two parties, with the `requester` making the first move and the responder completing the interaction. The responder role is assumed by an Organisation (Data Source or Data Using Service). The requester can initiate the Data Agreement termination.
 
-Following actors identified as part of Data Agreement specification can assume the `requester` role:
+The following actors identified as part of the Data Agreement specification can assume the `requester` role:
 
 * a **Data Subject** or **Individual**. [SSI: Holder]
 
-Once a Data Agreement is terminated, the proofs associated with termination are recorded to the Data Agreement service hosted by the Organisation (Data Using Service or Data Source) which acts as a central source of truth.
+Once a Data Agreement is terminated, the proofs associated with termination are recorded to the Data Agreement service hosted by the Organisation (Data Using Service or Data Source), which acts as a central source of truth.
 
 #### Interaction
 
-Using an already established pairwise connection (agent-to-agent communication) requester can initiate the data agreement termination process by sending `terminate` message to the Organisation. The responder (Organization) records the termination event in the Data Agreement receipt and take the necessary actions to fulfill the termination request. The responder acknowledges the termination request by responding with a `terminate-ack` message.
+Using an already established pairwise connection (agent-to-agent communication) requester can initiate the data agreement termination process by sending a `terminate` message to the Organisation. The responder (Organization) records the termination event in the Data Agreement receipt and takes the necessary actions to fulfil the termination request. The responder acknowledges the termination request by responding with a `terminate-ack` message.
 
 #### Messages
 
@@ -42,7 +42,7 @@ The Data Agreement Termination protocol consists of these messages:
 
 ##### Terminate
 
-A Data Subject (requester) intending to terminate a Data Agreement initiates the termination process by recording a terminate event and corresponding proof in the Data Agreement receipt. This event and proof is then send to the Organisation to notify them about the termination. Data Subject (requester) must construct a `terminate` DIDComm message and send it to the Organisation (responder) using an already established pairwise connectin (agent-to-agent communication). An example of a `terminate` DIDComm message is given below.
+A Data Subject (requester) intending to terminate a Data Agreement initiates the termination process by recording a termination event and corresponding proof in the Data Agreement receipt. This event and proof are then sent to the Organisation to notify them about the termination. Data Subject (requester) must construct a `terminate` DIDComm message and send it to the Organisation (responder) using an already established pairwise connection (agent-to-agent communication). An example of a `terminate` DIDComm message is given below.
 
 ```json
 {
@@ -73,7 +73,7 @@ A Data Subject (requester) intending to terminate a Data Agreement initiates the
 
 ##### Terminate Ack
 
-On receiving the `terminate` message and processing it, the organisation (responder) must construct a `terminate-ack` DIDComm message and send it to the Data Subject (responder) using an already established pairwise connection (agent-to-agent communication). The organisation is informing the Data Subject that the associated data is no longer bound to the Data Agreement. An example of a `terminate-ack` DIDComm message is given below.
+On receiving the `terminate` message and processing it, the organisation (responder) must construct a `terminate-ack` DIDComm message and send it to the Data Subject (responder) using an already established pairwise connection (agent-to-agent communication). The organisation informs the Data Subject that the associated data is no longer bound to the Data Agreement. An example of a `terminate-ack` DIDComm message is given below.
 
 ```json
 {
@@ -88,7 +88,7 @@ On receiving the `terminate` message and processing it, the organisation (respon
 
 ##### Problem Report
 
-Errors might occur in various places. All errors are modeled with problem-report messages. If a problem arises, the agent will respond with a problem report message that conforms to Aries RFC 0035 [9]. An example is given below.
+Errors might occur in various places. All errors are modelled with problem-report messages. If a problem arises, the agent will respond with a problem report message that conforms to Aries RFC 0035 [9]. An example is given below.
 
 
 ```json

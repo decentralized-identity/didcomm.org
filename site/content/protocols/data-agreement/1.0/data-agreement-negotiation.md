@@ -19,7 +19,7 @@ Following actors identified as part of Data Agreement specification can assume t
 
 #### Interaction
 
-Using an already established pairwise connection (agent-to-agent communication), the requester sends a Data Agreement offer to the responder. The responder can decide to accept or reject it. If the responder accepts the offer, it will result in credential issuance or proof presentation based on the method of use as described in the Data Agreement.
+The requester sends a Data Agreement offer to the responder using an already established pairwise connection (agent-to-agent communication). The responder can decide to accept or reject it. If the responder accepts the offer, it will result in credential issuance or proof presentation based on the method of use as described in the Data Agreement.
 
 #### Messages
 
@@ -33,7 +33,7 @@ The Data Agreement Offer protocol consists of these messages:
 
 ##### Offer
 
-An organisation (requester) intending to send a Data Agreement offer to a Data Subject (responder) must construct an `data-agreement-negotiation/1.0/offer` DIDComm message and sign it using the registered MyData DID. An example of an `data-agreement-negotiation/1.0/offer` DIDComm message is given below.
+An organisation (requester) intending to send a Data Agreement offer to a Data Subject (responder) must construct a `data-agreement-negotiation/1.0/offer` DIDComm message and sign it using the registered MyData DID. An example of a `data-agreement-negotiation/1.0/offer` DIDComm message is given below.
 
 ```json 
 {
@@ -101,11 +101,11 @@ An organisation (requester) intending to send a Data Agreement offer to a Data S
 
 ##### Accept
 
-On receiving the `offer` message, the Data Subject (responder) is displayed the contents of the Data Agreement offer, and can decide to accept it or reject it. If the Data Subject decides to accept the offer:
+On receiving the `offer` message, the Data Subject (responder) displays the contents of the Data Agreement offer and can decide to accept or reject it. If the Data Subject decides to accept the offer:
 
-1. Data Agreement Offer is represented as a JSON-LD document and proof in the document conforms to W3C LINKED DATA PROOF 1.0 specification.
+1. Data Agreement Offer is represented as a JSON-LD document, and proof in the document conforms to W3C LINKED DATA PROOF 1.0 specification.
 2. The Data Subject should add the counter signature to the proof chain in the Data Agreement Offer using the proof algorithm.
-3. An `accept` DIDComm plain-text message is constructed. An example is as given below.
+3. An `accept` DIDComm plain-text message is constructed. An example is given below.
 
 ```json 
 {
@@ -136,7 +136,7 @@ On receiving the `offer` message, the Data Subject (responder) is displayed the 
 
 ##### Reject
 
-On receiving the `offer` message, the Data Subject (responder) is displayed the contents of the Data Agreement offer, and can decide to accept it or reject it. If the Data Subject decides to reject the offer, a `reject` DIDComm message must be constructed and sent to the requester. This message is to notify the requester that the Data Subject rejected the Data Agreement Offer. An example of `reject` message is as given below.
+On receiving the `offer` message, the Data Subject (responder) displays the contents of the Data Agreement offer and can decide to accept or reject it. If the Data Subject rejects the offer, a `reject` DIDComm message must be constructed and sent to the requester. This message informs the requester that the Data Subject rejected the Data Agreement Offer. An example of a `reject` message is given below.
 
 
 ```json
@@ -168,7 +168,7 @@ On receiving the `offer` message, the Data Subject (responder) is displayed the 
 
 ##### Problem Report
 
-Errors might occur in various places. All errors are modeled with problem-report messages. If a problem arises, the agent will respond with a problem report message that conforms to Aries RFC 0035 [9]. An example is given below.
+Errors might occur in various places. All errors are modelled with problem-report messages. If a problem arises, the agent will respond with a problem report message that conforms to Aries RFC 0035 [9]. An example is given below.
 
 ```json
 {
