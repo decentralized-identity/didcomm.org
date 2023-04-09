@@ -19,7 +19,7 @@ Problems are reported by a specific message defined in the [Problem Report 2.0](
 }
 ```
 One of the most importan headers of that message is the `code` header that categorizes, in a machine readable format, what went wrong.
-`code` follows a structured format defined in [Problem Codes](https://identity.foundation/didcomm-messaging/spec/#problem-codes) on the specification.
+`code` follows a structured format defined in [Problem Codes](https://identity.foundation/didcomm-messaging/spec/v2.0/#problem-codes) on the specification.
 
 In short, the code is contructed as a sequence like:
 `{sorter}.{scope}.{general_descriptor}.{specific_descriptor}.{more_specific_descriptor}..`
