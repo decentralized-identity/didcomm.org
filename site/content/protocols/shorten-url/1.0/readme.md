@@ -121,7 +121,7 @@ Description of the fields:
 
 - `url` -- (required) The url that should be shortened
 - `requested_validity_seconds` -- (required) The time in seconds that the shortened url should be valid. If not provided, the **url-shortener** determines the validity time. The value can be set to `0` to request the shortened url to be valid indefinitely (or until the url is invalidated using the `invalidate-shortened-url` message).
-- `goal_code` -- (required) A goal code that can be used to identify the purpose of the shortened url. See [Goal Codes](#goal-codes) below for supported goal codes.
+- `goal_code` -- (required) A goal code that can be used to identify the purpose of the shortened url. See [Composition](#Composition) for supported goal codes.
 - `short_url_slug`: (optional) A string that can be used to specify the slug of the shortened url. For example if the **url-shortener** uses the domain `https://short-url.aries` and the `short_url_slug` value is `oob-invite-28` then the shortened url could result in `https://short-url.aries/oob-invite-28`. The **url-shortener** can use custom paths or link formats, this protocol doesn't describe how the `short_url_slug` should be integrated into the url. If the **url-shortener** can't or won't include the slug into the shortened url, it should notify the **long-url-provider** of this with an error code (Described in [Design By Contract](#design-by-contract)). As the slug will be encoded into an url, rules for url apply.
 
 When a problem occurs during the request, the **url-shortener** can send a problem report message. This RFC defines a set of problem codes that can be used to identify the problem, see [Problem Reports](#problem-codes) below.
