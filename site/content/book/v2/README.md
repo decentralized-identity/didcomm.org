@@ -9,13 +9,14 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
 ## Contents
 
 1. [Why DIDComm?](why)
-2. Hello World
+2. [Latest DIDComm community activity](scrapbook)
+3. Hello World
     1. [Choosing libraries and tools](hellolibstools)
     3. [Putting a message in an encrypted envelope](helloencrypt)
     4. [Hello World in Python](helloworldpy)
     5. [Starting, using and ending a DIDComm connection](startConnection)
-3. [Threading](threading)
-4. Protocols
+4. [Threading](threading)
+5. Protocols
     1. Implementing a protocol
     2. Designing your own protocol
        1. When this makes sense
@@ -23,7 +24,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
        3. Best practices
     3. Sharing your protocol
     4. Co-protocols
-5. Recipes
+6. Recipes
     1. Debugging
     2. [Timeouts](timeouts)
     3. Retries
@@ -33,7 +34,7 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     7. Using DIDComm security outside DIDComm
     8. [Dealing with mobile agents](mobileagents)
     9. [Problem Codes](problemcodes)
-6. Safety
+7. Safety
     1. [Privacy](privacy)
     2. Security
         1. Authcrypt vs. Anoncrypt
@@ -43,10 +44,10 @@ This is a living doc, updated and expanded regularly by the [DIDComm User Group]
     4. [DID rotation](didrotation)
     5. [Perfect forward secrecy](pfs)
     6. [Man in the middle](mitm)
-7. [Routing](routing)
-8. [Extensions](extensions)
-9. [Frequently Asked Questions](faq)
-10. Appendix: Migration from DIDComm v1
+8. [Routing](routing)
+9. [Extensions](extensions)
+10. [Frequently Asked Questions](faq)
+11. Appendix: Migration from DIDComm v1
     1. [What's new](whatsnew)
     2. Migrator script
 
