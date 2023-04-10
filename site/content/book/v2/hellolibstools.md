@@ -39,7 +39,7 @@ DIDComm v2 developers are contributing to projects that provide important tools 
         * [Authlib](https://github.com/lepture/authlib)
     * Rust
         * [Aries Askar](https://github.com/hyperledger/aries-askar/tree/main/askar-crypto)
-* [DID rotation](https://identity.foundation/didcomm-messaging/spec/#did-rotation)
+* [DID rotation](https://identity.foundation/didcomm-messaging/spec/v2.0/#did-rotation)
 * Forward protocol - Used by default for [routing](https://identity.foundation/didcomm-messaging/spec/#routing) DIDComm messages.
    * [Python example](https://github.com/sicpa-dlab/didcomm-python/blob/ca962db30ac7c1492ed6e3654575cce2dd3a5e0e/didcomm/protocols/routing/forward.py)
    * [Kotlin example](https://github.com/sicpa-dlab/didcomm-jvm/blob/476fc3ed17d4dfe3b11ec891ae5bfa1f52ab7a4e/lib/src/main/kotlin/org/didcommx/didcomm/protocols/routing/ForwardMessage.kt)

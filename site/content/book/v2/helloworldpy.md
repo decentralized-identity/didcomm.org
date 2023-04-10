@@ -68,7 +68,7 @@ message = Message(
 ```
 Note that the message includes an `id` that is mandatory and has to be unique to Alice. Also includes a `type`, also mandatory, that points to the protocol identifier that we've just invented. The `body` contains the actual message in an structured way associated by our `my-protocol/1.0`. Attributes `from` and `to` are optional. Beware that in the code above the property `from` was replaced by `frm` due to a conflict of reserved words in Python; the conversion to the correct property (`from`) is handled internally by the library.
 
-[DIDComm](https://identity.foundation/didcomm-messaging/spec/#message-formats) defines three message formats: plaintext, signed, and encrypted. We are going to use the latter since it is the most common for most applications. In that case, the message will be encrypted so only Bob can see it.
+[DIDComm](https://identity.foundation/didcomm-messaging/spec/v2.0/#message-formats) defines three message formats: plaintext, signed, and encrypted. We are going to use the latter since it is the most common for most applications. In that case, the message will be encrypted so only Bob can see it.
 The final packed message can be generated with this code:
 ```
 packed_msg = await pack_encrypted(

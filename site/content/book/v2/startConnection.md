@@ -45,7 +45,7 @@ DIDComm only works if your code knows how to resolve DIDs to DID documents. Ther
 
 ### Step 3: Out of Band Invitation
 Using our `create_peer_did` helper function, Alice will create a DID Peer to be shared in the OOB invitation. Since an OOB invitation is unencrypted and may be observed by another party, this DID should not be considered private and must be rotated later for privacy.
-Alice DID also contains a `service` part that tells Bob the `serviceEndpoint` where she accepts messages. In this case Alice provides an `https` endpoint. For other cases additional [Routing](https://identity.foundation/didcomm-messaging/spec/#routing-protocol-20) may be required.
+Alice DID also contains a `service` part that tells Bob the `serviceEndpoint` where she accepts messages. In this case Alice provides an `https` endpoint. For other cases additional [Routing](https://identity.foundation/didcomm-messaging/spec/v2.0/#routing-protocol-20) may be required.
 
 ```
 alice_did_oob = await create_peer_did(1, 1, service_endpoint="https://www.example.com/alice")
@@ -159,7 +159,7 @@ print(alice_endpoint)
 ```
 https://www.example.com/alice
 
-Using an `https` [transport](https://identity.foundation/didcomm-messaging/spec/#transports) Bob can simply `POST` the message to the endpoint with the message in the `body` and the media type header set to `application/didcomm-encrypted+json`.
+Using an `https` [transport](https://identity.foundation/didcomm-messaging/spec/v2.0/#transports) Bob can simply `POST` the message to the endpoint with the message in the `body` and the media type header set to `application/didcomm-encrypted+json`.
 ```
 headers = {"Content-Type": "application/didcomm-encrypted+json"}
 resp = requests.post(alice_endpoint, headers=headers, data = bob_packed_msg.packed_msg)
@@ -201,7 +201,7 @@ print(bob_endpoint)
 ```
 https://www.example.com/bob
 
-Now Alice is able to respond back to Bob's. However, in order to keep DID Peers private between them, Alice must replace the DID used in the Out of Band message by a new one. That process is call [DID rotation](https://identity.foundation/didcomm-messaging/spec/#did-rotation).
+Now Alice is able to respond back to Bob's. However, in order to keep DID Peers private between them, Alice must replace the DID used in the Out of Band message by a new one. That process is call [DID rotation](https://identity.foundation/didcomm-messaging/spec/v2.0/#did-rotation).
 
 A DID is rotated by sending a message to Bob including the `from_prior` header containng a JWT with the new DID in the `sub` and the prior DID in the `iss` fields.
 First, she need to create the new DID Peer:
@@ -212,7 +212,7 @@ print("Alice's NEW DID:", alice_did_new)
 ```
 Alice's NEW DID: did:peer:2.Ez6LSnn1bdY7Zy5WLuXxMQWEpDb2o9L9g8fW9Z2NWdASTAAKd.Vz6MkqFwmMSecezdhHHGMQJPEpjkoSFNVBQRnQG15P1VbgJsN.SeyJpZCI6Im5ldy1pZCIsInQiOiJkbSIsInMiOiJodHRwczovL3d3dy5leGFtcGxlLmNvbS9hbGljZSIsImEiOlsiZGlkY29tbS92MiJdfQ
 ```
-Then, with the help of the library she can easily creat the `from_prior` header. More details on how to make the JWT can be found in Chapter 5.3 of [DIDComm Messaging Specification](https://identity.foundation/didcomm-messaging/spec/#did-rotation)
+Then, with the help of the library she can easily creat the `from_prior` header. More details on how to make the JWT can be found in Chapter 5.3 of [DIDComm Messaging Specification](https://identity.foundation/didcomm-messaging/spec/v2.0/#did-rotation)
 ```
 from_prior = FromPrior(iss=alice_did_oob, sub=alice_did_new)
 
@@ -245,7 +245,7 @@ resp = requests.post(bob_endpoint, headers=headers, data = alice_packed_msg.pack
 Bob will receive the message in his endpoint, unpack and decrypt, and get the new Alice's DID. He must store Alice's new DID and use it in subsequent communications.
 
 ### Step 6: What's next --> Protocols
-Now Alice and Bob have a private way to communicate. This communication channel can be used whenever they need. Normally, messages passed back and forth will follow a protocol that can be understood by both. We won't cover protocols in this tutorial. You can read more about protocols in Chapter 9 of the [DIDComm Messaging specification](https://identity.foundation/didcomm-messaging/spec/#protocols)
+Now Alice and Bob have a private way to communicate. This communication channel can be used whenever they need. Normally, messages passed back and forth will follow a protocol that can be understood by both. We won't cover protocols in this tutorial. You can read more about protocols in Chapter 9 of the [DIDComm Messaging specification](https://identity.foundation/didcomm-messaging/spec/v2.0/#protocols)
 
 ### Step 7: Ending a relationship
 Alice and Bob can use the channel forever. They know how to pass messages and even how to rotate a DID if needed. If for any reason, Alice (or Bob) need to end the relationship, she can simply send a message rotating the DID to nothing. That is achieved by ommiting the `sub` in the `from_prior` and sending the message without a `from` attribute of the message as it's shown below:
