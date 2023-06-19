@@ -15,7 +15,7 @@
     "gatsby-remark-autolink-headers": "^4.10.0",
     "gatsby-remark-copy-linked-files": "^4.9.0",
     "gatsby-remark-emojis": "^0.4.3",
-    "gatsby-source-filesystem": "^3.10.0",
+    "gatsby-source-filesystem": "^3.15.0",
     "gatsby-transformer-remark": "^4.7.0",
     "git-date-extractor": "^4.0.1",
     "html-tags": "^3.1.0",
@@ -24,6 +24,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "sass": "^1.36.0",
+    "sharp": "^0.32.1",
     "string-strip-html": "^8.3.0",
     "use-query-params": "^1.2.3"
   },
@@ -42,7 +43,7 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && gatsby build",
+    "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",

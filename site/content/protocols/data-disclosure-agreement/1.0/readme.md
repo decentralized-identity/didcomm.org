@@ -1,3 +1,16 @@
+---
+title: Data Disclosure Agreement Protocol Specification
+publisher: lalc
+license: MIT
+piuri: https://didcomm.org/dda-marketplace/1.0
+status: Production
+summary: A Data Disclosure Agreement (DDA) enables automated agreement handling for data exchange between a Data Source (DS) and Data Using Service (DUS).
+tags: []
+authors:
+  - name: Mr. George Padayatti (iGrant.io, Sweden)  
+  - name: Mr. Lal Chandran (iGrant.io, Sweden)
+
+---
 # Data Disclosure Agreement Protocol Specification
 
 **Specification Status:** version 1.0.0 (Ready for impplementation)

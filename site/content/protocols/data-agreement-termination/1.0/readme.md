@@ -1,3 +1,17 @@
+---
+title: Data Agreement Termination Protocol
+publisher: lalc
+license: MIT
+piuri: https://didcomm.org/data-agreement-termination/1.0
+status: Production
+summary: This specification describes a DIDComm protocol for a Data Subject to terminate a Data Agreement and notify the Organisation.
+tags: []
+authors:
+  - name: 
+
+---
+
+
 ## Data Agreement Termination Protocol 1.0
 
 

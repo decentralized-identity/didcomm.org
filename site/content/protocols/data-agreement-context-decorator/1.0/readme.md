@@ -1,3 +1,15 @@
+---
+title: Data Agreement Context Decorator
+publisher: lalc
+license: MIT
+piuri: https://didcomm.org/data-agreement-negotiation/1.0
+status: Production
+summary: The `data-agreement-context decorator` describes the associated Data Agreement protocol or holds references to a signed/counter-signed Data Agreement document inline with a DIDComm message.
+tags: []
+authors:
+  - name:  
+
+---
 ## Data Agreement Context Decorator
 
 ### Summary

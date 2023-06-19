@@ -1,3 +1,15 @@
+---
+title: Data Agreement Proofs Protocol
+publisher: lalc
+license: MIT
+piuri: https://didcomm.org/data-agreement-proofs/1.0
+status: Production
+summary: This specification describes a DIDComm protocol to verify and authenticate the proof chain associated with a Data Agreement instance (receipt).
+tags: []
+authors:
+  - name:  
+
+---
 ## Data Agreement Proofs Protocol 1.0
 
 ### Summary

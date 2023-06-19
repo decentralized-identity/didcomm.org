@@ -1,3 +1,15 @@
+---
+title: Data Agreement Negotiation Protocol
+publisher: lalc
+license: MIT
+piuri: https://didcomm.org/data-agreement-negotiation/1.0
+status: Production
+summary: This specification defines DIDComm protocol for a Data Controller (Data Source or Data Using Service) to send a Data Agreement offer to an Individual (Data Subject). Individuals receiving the Data Agreement Offer can decide to accept or reject it.
+tags: []
+authors:
+  - name:  
+
+---
 ## Data Agreement Negotiation Protocol 1.0
 
 ### Summary
