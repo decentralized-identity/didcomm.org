@@ -4,7 +4,7 @@ publisher: genaris
 license: MIT
 piuri: https://didcomm.org/user-profile/1.0
 status: Demonstrated
-summary: AA simple protocol for exchanging user profile information between parties.
+summary: A simple protocol for exchanging user profile information between parties.
 tags: []
 authors:
   - name: Ariel Gentile
@@ -20,7 +20,6 @@ Data exposed and exchanged within this protocol can be seen as a complement to t
 ## Motivation
 
 Modern communication applications normally need some user-friendly information about the other party. For that purpose it's needed to provide a common mechanism to sharing and retrieving user profile information, which might change over time, in more secure and efficient way than the usual Invitation messages.
-
 
 ## Roles
 
