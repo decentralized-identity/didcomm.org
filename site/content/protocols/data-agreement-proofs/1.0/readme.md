@@ -1,5 +1,5 @@
 ---
-title: Data Agreement Proofs Protocol
+title: Data Agreement Proofs
 publisher: lalc
 license: MIT
 piuri: https://didcomm.org/data-agreement-proofs/1.0

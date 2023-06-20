@@ -1,5 +1,5 @@
 ---
-title: Data Agreement Termination Protocol
+title: Data Agreement Termination
 publisher: lalc
 license: MIT
 piuri: https://didcomm.org/data-agreement-termination/1.0
