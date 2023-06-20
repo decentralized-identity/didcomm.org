@@ -1,6 +1,6 @@
 ---
 title: Data Agreement Context Decorator
-publisher: georgepadayatti
+publisher: rodolfomiranda
 license: MIT
 piuri: https://didcomm.org/data-agreement-context-decorator/1.0
 status: Production

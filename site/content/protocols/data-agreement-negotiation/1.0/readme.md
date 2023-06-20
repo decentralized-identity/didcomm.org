@@ -1,6 +1,6 @@
 ---
 title: Data Agreement Negotiation
-publisher: georgepadayatti
+publisher: rodolfomiranda
 license: MIT
 piuri: https://didcomm.org/data-agreement-negotiation/1.0
 status: Production

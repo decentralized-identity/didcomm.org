@@ -1,6 +1,6 @@
 ---
 title: Data Disclosure Agreement
-publisher: georgepadayatti
+publisher: rodolfomiranda
 license: MIT
 piuri: https://didcomm.org/data-disclosure-agreement/1.0
 status: Production
