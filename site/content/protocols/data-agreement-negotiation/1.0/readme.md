@@ -7,7 +7,7 @@ status: Production
 summary: This specification defines DIDComm protocol for a Data Controller (Data Source or Data Using Service) to send a Data Agreement offer to an Individual (Data Subject). Individuals receiving the Data Agreement Offer can decide to accept or reject it.
 tags: []
 authors:
-  - name:  
+  - name: Mr. Lal Chandran (iGrant.io, Sweden)
 
 ---
 ## Data Agreement Negotiation Protocol 1.0

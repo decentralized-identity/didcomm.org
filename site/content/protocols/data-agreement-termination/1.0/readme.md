@@ -7,7 +7,7 @@ status: Production
 summary: This specification describes a DIDComm protocol for a Data Subject to terminate a Data Agreement and notify the Organisation.
 tags: []
 authors:
-  - name: 
+  - name: Mr. Lal Chandran (iGrant.io, Sweden)
 
 ---
 
