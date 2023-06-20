@@ -4,7 +4,7 @@ publisher: genaris
 license: MIT
 piuri: https://didcomm.org/media-sharing/1.0
 status: Demonstrated
-summary: A protocol to share media files (and any content in general) in a secure and efficient manner.
+summary: A protocol to share large media files (and any content in general) in a secure and efficient manner.
 tags: []
 authors:
   - name: Ariel Gentile
@@ -13,7 +13,7 @@ authors:
 
 ## Summary
 
-A protocol to share media files (and any content in general) in a secure and efficient manner.
+A protocol to share large media files (and any content in general) in a secure and efficient manner.
 
 This protocol is intended to be used by any DIDComm agent willing to share large data to a single or multiple connections.
 
@@ -159,7 +159,7 @@ Description of the fields:
   -  `metadata`: (optional) any relevant information that might the used by an agent to better show the item. Some initial known fields are:
      -  `preview`: base64 string containing a thumbnail (used mostly for images and videos)
      -  `blurhash`: compact representation of a placeholder for an image (used mostly for images and videos)
-     -  `duration`: number containing media duration in seconds (used for videos and audios)
+     -  `duration`: number containing media duration in seconds (used mostly for videos and audio files)
 
 DIDComm v1 example: 
 
@@ -173,7 +173,7 @@ DIDComm v1 example:
     "items": [
         {
             "@id": "f88b7925-4cb4-4e32-b1d6-ac217c9fedbf",
-            "attachment_id": "#item1",
+            "attachment_id": "item1",
             "ciphering": {
                 "algorithm": "aes-256-cbc",
                 "parameters" : {
