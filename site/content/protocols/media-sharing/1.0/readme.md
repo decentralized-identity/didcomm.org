@@ -160,6 +160,8 @@ Description of the fields:
      -  `preview`: base64 string containing a thumbnail (used mostly for images and videos)
      -  `blurhash`: compact representation of a placeholder for an image (used mostly for images and videos)
      -  `duration`: number containing media duration in seconds (used mostly for videos and audio files)
+     -  `title`: a descriptible title for the item shared (in addition to the regular `description`)
+     -  `icon`: URL or Data URL containing an icon to describe the item
 
 DIDComm v1 example: 
 
@@ -202,8 +204,8 @@ DIDComm v2 example:
 
 ```json
 {
-    "@id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
-    "@type": "<baseuri>/share-media",
+    "id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
+    "type": "<baseuri>/share-media",
     "created_time": "1547577721",
     "lang": "en",
     "body": {
@@ -225,7 +227,7 @@ DIDComm v2 example:
         ]
     },
     "attachments": [{
-                "@id": "item1",
+                "id": "item1",
                 "byte_count": "23894",
                 "media_type": "image/png",
                 "filename": "image1.png",
@@ -270,8 +272,8 @@ DIDComm v2 example:
 
 ```json
 {
-    "@id": "123456781",
-    "@type": "<baseuri>/request-media",
+    "id": "123456781",
+    "type": "<baseuri>/request-media",
     "created_time": "1547577721",
     "lang": "en",
     "body": {
