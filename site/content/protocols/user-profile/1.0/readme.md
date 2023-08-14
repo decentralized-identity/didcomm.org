@@ -65,9 +65,10 @@ This message is used to send user profile to another party.
 
 Description of the fields:
 
-- `profile`: Object containing all supported fields that must be set or updated. Any absent field means that there is no change on that field so the recipient must keep the previous value for this connection. When a field previously present needs to be removed, it must be explicitly set to null or an empty string.
+- `profile`: Object containing all supported fields that must be set or updated. Any absent field means that there is no change on that field so the recipient must keep the previous value for this connection. When a field previously present needs to be removed, it must be explicitly set to null or an empty string (e.g. `{ "displayPicture": null }``).
   - `displayName`: String containing user display name in the language specified by localization
-  - `displayPicture`:  Reference to an appended attachment which might contain a link to download the picture or an embedded base64 picture. It can also contain a message to retrieve the file through [Media Sharing protocol](https://didcomm.org/media-sharing/1.0).
+  - `displayPicture`:  Reference to an appended attachment which might contain a link to download the picture or an embedded base64 picture. It can also contain a message to retrieve the file through [Media Sharing protocol](https://didcomm.org/media-sharing/1.0)
+  - `description`: free text containing user's bio
 - `send_back_yours`: When this parameter is defined and set to true, the recipient is expected to send another Profile message containing their profile. Such message should include this message ID as pthid. Agents must not include this parameter when the message is created as a result of another one.
 
 > **Note**: When `send_back_yours` is set, the other party is asked to send their profile. However, it might either choose not to do it or send it in another instance of this protocol. Therefore, the protocol can be considered properly finished as soon as Profile message is successfully sent.  
@@ -100,8 +101,8 @@ DIDComm v2 example:
 
 ```json
 {
-    "@id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
-    "@type": "<baseuri>/profile",
+    "id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
+    "type": "<baseuri>/profile",
     "body": {
         "profile": {
             "displayName": "John Doe",
@@ -141,8 +142,8 @@ DIDComm v2 example:
 
 ```json
 {
-    "@id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
-    "@type": "<baseuri>/request-profile",
+    "id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
+    "type": "<baseuri>/request-profile",
     "body": {
         "query": [ "displayName", "displayPicture", "description" ]
     }
