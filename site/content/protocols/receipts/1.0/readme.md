@@ -113,12 +113,12 @@ DIDComm v1 example:
     "@type": "<baseuri>/request-receipts",
     "requested_receipts": [
         {
-            "message_type": "https://baseUri/protocol/1.0/message",
-            "states": ["Received", "Viewed"]
+            "message_type": "https://<baseUri>/protocol/1.0/message",
+            "states": ["received", "viewed"]
         },
         {
-            "message_type": "https://baseUri/protocol/1.0/*",
-            "states": ["Received", "Viewed", "Deleted"]
+            "message_type": "https://<baseUri>/protocol/1.0/*",
+            "states": ["received", "viewed", "deleted"]
         },        
         ...
     ]
@@ -129,17 +129,17 @@ DIDComm v2 example:
 
 ```json
 {
-    "@id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
-    "@type": "<baseuri>/request-receipts",
+    "id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
+    "type": "<baseuri>/request-receipts",
     "body": {
         "requested_receipts": [
         {
-            "message_type": "https://baseUri/protocol/1.0/message",
-            "states": ["Received", "Viewed"]
+            "message_type": "https://<baseUri>/protocol/1.0/message",
+            "states": ["received", "viewed"]
         },
         {
-            "message_type": "https://baseUri/protocol/1.0/*",
-            "states": ["Received", "Viewed", "Deleted"]
+            "message_type": "https://<baseUri>/protocol/1.0/*",
+            "states": ["received", "viewed", "deleted"]
         },        
         ...
     ]},
@@ -184,8 +184,8 @@ DIDComm v2 example:
 
 ```json
 {
-    "@id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
-    "@type": "<baseuri>/message-receipts",
+    "id": "8ba049e6-cc46-48fb-bfe0-463084d66324",
+    "type": "<baseuri>/message-receipts",
     "body": {
     "receipts": [ 
         {
