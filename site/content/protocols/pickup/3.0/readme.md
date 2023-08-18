@@ -159,7 +159,9 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery`
     }]
 }
 ```
-Messages delivered from the queue must be delivered in a batch delivery message as attachments, with a batch size specified by the `limit` provided in the `delivery-request` message. The `id` of each attachment is used to confirm receipt. The `id` is an opaque value, and the `recipient` should not infer anything from the value.
+Messages delivered from the queue must be delivered in a batch delivery message as attachments, with a batch size specified by the `limit` provided in the `delivery-request` message.
+The `id` of each attachment is used to confirm receipt.
+The `id` is an opaque value, and the recipient should not deduce any information from it, except that it is unique to the mediator. The recipient can use the `id`s in the `message_id_list` field of `messages-received`.
 
 The ONLY valid type of attachment for this message is a DIDComm v2 Message in encrypted form.
 
