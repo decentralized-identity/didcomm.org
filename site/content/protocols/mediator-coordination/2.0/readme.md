@@ -104,7 +104,9 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/2.0/mediate-grant`
 ```
 where:
 
-- `routing_did`: DID of the mediator where forwarded messages should be sent. The `recipient` may use this DID as an enpoint as explained in [Using a DID as an endpoint](https://identity.foundation/didcomm-messaging/spec/#using-a-did-as-an-endpoint) section of the specification. 
+- `routing_did`: DID of the mediator where forwarded messages should be sent. The `recipient` may use this DID as an enpoint as explained in [Using a DID as an endpoint](https://identity.foundation/didcomm-messaging/spec/#using-a-did-as-an-endpoint) section of the specification.
+
+**NOTE**: After receiving a `mediate-grant` message the `recipient` should update his `recipient_did` with a `keylist-update` message and add DIDs. In order for the `mediator` to start accepting Forward Message for those DIDs.
 
 ### Keylist Update
 Used to notify the `mediator` of keys in use by the `recipient`.
