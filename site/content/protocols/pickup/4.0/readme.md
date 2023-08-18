@@ -1,9 +1,9 @@
 ---
 title: Pickup
-publisher: rodolfomiranda
+publisher: FabioPinheiro
 license: MIT
-piuri: https://didcomm.org/messagepickup/3.0
-status: Production
+piuri: https://didcomm.org/messagepickup/4.0
+status: Proposed
 summary: A protocol to facilitate an agent picking up messages held at a mediator.
 tags: []
 authors:
@@ -30,7 +30,7 @@ There are two roles in this protocol:
 This protocol consists of three different message requests from the `recipient` that should be replied to by the `mediator`:
 
 1. Status Request -> Status
-2. Delivery Request -> Message Delivery or Status
+2. Delivery Request -> Message Delivery
 3. Message Received -> Status
 4. Live Mode  -> Status or Problem Report
 
@@ -65,12 +65,12 @@ This protocol expects messages to be encrypted during transmission, and repudiab
 ### Status Request
 Sent by the `recipient` to the `mediator` to request a `status` message.
 
-Message Type URI: `https://didcomm.org/messagepickup/3.0/status-request`
+Message Type URI: `https://didcomm.org/messagepickup/4.0/status-request`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/messagepickup/3.0/status-request",
+    "type": "https://didcomm.org/messagepickup/4.0/status-request",
     "body" : {
         "recipient_did": "<did for messages>"
     },
@@ -82,12 +82,12 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/status-request`
 ### Status
 Status details about waiting messages.
 
-Message Type URI: `https://didcomm.org/messagepickup/3.0/status`
+Message Type URI: `https://didcomm.org/messagepickup/4.0/status`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/messagepickup/3.0/status",
+    "type": "https://didcomm.org/messagepickup/4.0/status",
     "body": {
             "recipient_did": "<did for messages>",
             "message_count": 7,
@@ -117,7 +117,7 @@ If a `recipient_did` was specified in the `status-request message`, the matching
 ### Delivery Request
 A request from the `recipient` to the `mediator` to have pending messages delivered.
 
-Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery-request`
+Message Type URI: `https://didcomm.org/messagepickup/4.0/delivery-request`
 
 ```json
 {
@@ -134,21 +134,18 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery-request`
 
 `recipient_did` is optional. When specified, the `mediator` **MUST** only return messages sent to that recipient did.
 
-If no messages are available to be sent, a `status` message **MUST** be sent immediately.
-(For `status` message the filter `recipient_did` **MUST** assume the `recipient_did` in of the `thid` or that is emply if the `thid` is not specified).
-
 Delivered messages **MUST NOT** be deleted until delivery is acknowledged by a messages-received message.
 
 ### Message Delivery
 Batch of messages delivered to the `recipient` as attachments.
 
-Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery`
+Message Type URI: `https://didcomm.org/messagepickup/4.0/delivery`
 
 ```json
 {
     "id": "123456780",
     "thid": "<message id of delivery-request message>",
-    "type": "https://didcomm.org/messagepickup/3.0/delivery",
+    "type": "https://didcomm.org/messagepickup/4.0/delivery",
     "body": {
         "recipient_did": "<did for messages>"
     },
@@ -169,12 +166,12 @@ The `recipient_did` attribute is only included when responding to a `delivery-re
 ### Messages Received
 After receiving messages, the `recipient` sends an acknowledge message indiciating which messages are safe to clear from the queue.
 
-Message Type URI: `https://didcomm.org/messagepickup/3.0/messages-received`
+Message Type URI: `https://didcomm.org/messagepickup/4.0/messages-received`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/messagepickup/3.0/messages-received",
+    "type": "https://didcomm.org/messagepickup/4.0/messages-received",
     "body": {
         "message_id_list": ["123","456"]
     }
@@ -182,8 +179,7 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/messages-received`
 ```
 `message_id_list` is a list of `ids` of each message received. The `id` of each message is present in the attachment descriptor of each attached message of a delivery message.
 
-Upon receipt of this message, the `mediator` knows which messages have been received, and can remove them from the collection of queued messages with confidence. The `mediator` **MUST** send an updated `status` message reflecting the changes to the queue.
-(For `status` message the filter `recipient_did` **MUST** assume the `recipient_did` in this message)
+Upon receipt of this message, the `mediator` knows which messages have been received, and can remove them from the collection of queued messages with confidence. The `mediator` **SHOULD** send an updated `status` message reflecting the changes to the queue.
 
 #### Multiple Recipients
 
@@ -205,18 +201,21 @@ Recipients have three modes of possible operation for message delivery with vari
 ### Live Mode Change
 _Live Mode_ is changed with a `live-delivery-change` message.
 
-Message Type URI: `https://didcomm.org/messagepickup/3.0/live-delivery-change`
+Message Type URI: `https://didcomm.org/messagepickup/4.0/live-delivery-change`
 
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/messagepickup/3.0/live-delivery-change",
+    "type": "https://didcomm.org/messagepickup/4.0/live-delivery-change",
     "body": {
-        "live_delivery": true
+        "live_delivery": true,
+        "recipient_did": "<did for messages>"
     }
 }
 ```
 Upon receiving the `live_delivery_change` message, the `mediator` **MUST* respond with a `status` message.
+
+`recipient_did` is optional. When specified, the `mediator` **MUST** only return messages related to that recipient did. This allows the `recipient` to discover if any messages are in the queue that were sent to a specific did. 
 
 If sent with `live_delivery` set to true on a connection incapable of live delivery, a `problem_report` **SHOULD** be sent as follows:
 
@@ -240,3 +239,9 @@ No localization is required.
 [RootsID DIDComm v2 Mediator](https://github.com/roots-id/didcomm-mediator)
 
 ## Endnotes
+
+### Difference between version 3.0 and 4.0
+
+- The message `https://didcomm.org/messagepickup/4.0/delivery-request` not longer sends a `https://didcomm.org/messagepickup/4.0/status` when it has no message to deliver.
+- The message `https://didcomm.org/messagepickup/4.0/live-delivery-change` has an optional field `recipient_did` to filter a specific DID. 
+- TODO I think `recipient_did` should be an array.
