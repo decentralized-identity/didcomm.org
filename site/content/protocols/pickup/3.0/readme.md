@@ -15,15 +15,21 @@ authors:
 ---
 
 # Motivation
-Messages can be picked up simply by sending a message to the _Mediator_ with a `return_route` header specified. This mechanism is implicit, and lacks some desired behavior made possible by more explicit messages.
 
-This protocol is the explicit companion to the implicit method of picking up messages.
+Messages can be picked up simply by sending a message to the _Mediator_.
 
 ## Roles
 There are two roles in this protocol: 
 
 - `mediator`: The agent that has messages waiting for pickup by the `recipient`.
 - `recipient`: The agent who is picking up messages from the `mediator`.
+
+## Requirements
+
+The `return_route` extension must be supported by both agents (`recipient` and `mediator`).
+The common use of this protocol is for the reply messages from the `mediator` to be synchronous, utilizing the same connection channel for the reply. In order to have this synchronous behavior the `recipient` should specify `return_route` header to `all`.
+This header must be set each time the communication channel is established: once per established websocket, and every message for an HTTP POST.
+
 
 ## Connectivity
 
@@ -176,7 +182,8 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/messages-received`
     "type": "https://didcomm.org/messagepickup/3.0/messages-received",
     "body": {
         "message_id_list": ["123","456"]
-    }
+    },
+    "return_route": "all"
 }
 ```
 `message_id_list` is a list of `ids` of each message received. The `id` of each message is present in the attachment descriptor of each attached message of a delivery message.
@@ -220,13 +227,13 @@ If sent with `live_delivery` set to true on a connection incapable of live deliv
 
 ```json
 {
-  "id": "123456780",
-  "type": "https://didcomm.org/report-problem/2.0/problem-report",
-  "pthid": "< the value is the thid of the thread in which the problem occurred>",
-  "body": {
+    "id": "123456780",
+    "type": "https://didcomm.org/report-problem/2.0/problem-report",
+    "pthid": "< the value is the thid of the thread in which the problem occurred>",
+    "body": {
         "code": "e.m.live-mode-not-supported",
         "comment": "Connection does not support Live Delivery"
-  }
+    }
 }
 ```
 

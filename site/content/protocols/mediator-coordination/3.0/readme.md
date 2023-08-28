@@ -22,6 +22,12 @@ There are two roles in this protocol:
 - `mediator`: The agent that will be receiving `forward` messages on behalf of the _recipient_.
 - `recipient`: The agent for whom the `forward` message payload is intended.
 
+## Requirements
+
+The `return_route` extension must be supported by both agents (`recipient` and `mediator`).
+The common use of this protocol is for the reply messages from the `mediator` to be synchronous, utilizing the same connection channel for the reply. In order to have this synchronous behavior the `recipient` should specify `return_route` header to `all`.
+This header must be set each time the communication channel is established: once per established websocket, and every message for an HTTP POST.
+
 ## Connectivity
 
 This protocol consists of three different message requests from the `recipient` that should be replied by the `mediator`:
@@ -117,15 +123,15 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/recipient-update
 {
     "id": "123456780",
     "type": "https://didcomm.org/coordinate-mediation/3.0/recipient-update",
-    "body": 
+    "body": {
+        "updates": [
             {
-                "updates":  [
-                                {
-                                    "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
-                                    "action": "add"
-                                }
-                            ]
+                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                "action": "add"
             }
+        ]
+    },
+    "return_route": "all"
 }
 ```
 where:
@@ -142,16 +148,15 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/recipient-update
 {
     "id": "123456780",
     "type": "https://didcomm.org/coordinate-mediation/3.0/recipient-update-response",
-    "body": 
+    "body": {
+        "updated": [
             {
-                "updated":  [
-                                {
-                                    "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
-                                    "action": "" // "add" or "remove"
-                                    "result": "" // [client_error | server_error | no_change | success]
-                                }
-                            ]
+                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                "action": "" // "add" or "remove"
+                "result": "" // [client_error | server_error | no_change | success]
             }
+        ]
+    }
 }
 ```
 where:
@@ -169,13 +174,12 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/recipient-query`
 {
     "id": "123456780",
     "type": "https://didcomm.org/coordinate-mediation/3.0/recipient-query",
-    "body": 
-            {
-                "paginate": {
-                                "limit": 30,
-                                "offset": 0
-                            }
-            }
+    "body": {
+        "paginate": {
+            "limit": 30,
+            "offset": 0
+        }
+    }
 }
 ```
 where:
@@ -191,19 +195,18 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/recipient`
 {
     "id": "123456780",
     "type": "https://didcomm.org/coordinate-mediation/3.0/recipient",
-    "body": 
+    "body": {
+        "dids": [
             {
-                "dids": [
-                            {
-                                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
-                            }
-                        ]
-                "pagination":   {
-                                    "count": 30,
-                                    "offset": 30,
-                                    "remaining": 100
-                                }
+                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
             }
+        ],
+        "pagination": {
+            "count": 30,
+            "offset": 30,
+            "remaining": 100
+        }
+    }
 }
 ```
 where:
