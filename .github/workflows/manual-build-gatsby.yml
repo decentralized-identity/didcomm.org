@@ -6,9 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
+          access-token: x-access-token:${{ secrets.GITHUB_TOKEN }}
           deploy-branch: gh-pages
           working-dir: ./site
