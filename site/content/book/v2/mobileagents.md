@@ -24,7 +24,7 @@ That means that if the `return-route` header is present in a message with a valu
 
 ## Solution via Mediator
 With those two elements a solution can be developed to cope with our problem. The process can be described as follow:
-1. The mobile agent sends a message to register to a Mediator following a predefined protocol called **[Mediator Coordinator Protocol](https://github.com/hyperledger/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0211-route-coordination)**. The message must contain the `return-route` header.
+1. The mobile agent sends a message to register to a Mediator following a predefined protocol called **[Coordinate Mediation Protocol](https://github.com/hyperledger/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0211-route-coordination)**. The message must contain the `return-route` header.
 2. The Mediator responds back to the mobile agent in the same channel that was already opened in the first step. In the response, the mediator assigns a own `serviceEndpoint` to the mobile agent, that later can be used in when sending messages to other parties.
 3. Those third parties, when receiving a message from the mobile agent, can respond using the Routing Protocol by sending a `forward` message to the Mediator that contains the encrypted response to the mobile agent as an attachment.
 4. The Mediator should hold the message, since there is no way to pass it to the mobile agent directly.
