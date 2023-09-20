@@ -1,5 +1,5 @@
 ---
-title: Pickup
+title: Message Pickup
 publisher: rodolfomiranda
 license: MIT
 piuri: https://didcomm.org/messagepickup/3.0
