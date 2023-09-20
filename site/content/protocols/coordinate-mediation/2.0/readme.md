@@ -1,5 +1,5 @@
 ---
-title: Mediator Coordinator
+title: Coordinate Mediation
 publisher: rodolfomiranda
 license: MIT
 piuri: https://didcomm.org/coordinate-mediation/2.0
