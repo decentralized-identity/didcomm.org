@@ -104,7 +104,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/mediate-grant`
     "type": "https://didcomm.org/coordinate-mediation/3.0/mediate-grant",
     "body": 
             {
-                "routing_did": ["did:peer:z6Mkfriq1MqLBoPWecGoDLjguo1sB9brj6wT3qZ5BxkKpuP6"]
+                "routing_did": ["did:peer:0z6Mkfriq1MqLBoPWecGoDLjguo1sB9brj6wT3qZ5BxkKpuP6"]
             }
 }
 ```
@@ -126,7 +126,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/recipient-update
     "body": {
         "updates": [
             {
-                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                "recipient_did": "did:peer:0z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
                 "action": "add"
             }
         ]
@@ -151,7 +151,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/recipient-update
     "body": {
         "updated": [
             {
-                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+                "recipient_did": "did:peer:0z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
                 "action": "" // "add" or "remove"
                 "result": "" // [client_error | server_error | no_change | success]
             }
@@ -198,7 +198,7 @@ Message Type URI: `https://didcomm.org/coordinate-mediation/3.0/recipient`
     "body": {
         "dids": [
             {
-                "recipient_did": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
+                "recipient_did": "did:peer:0z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
             }
         ],
         "pagination": {
