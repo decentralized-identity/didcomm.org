@@ -33,7 +33,7 @@ export const Header = ({ children, primary, className, hideLinks }: Props) => {
                 <a
                   className={styles.link}
                   rel="noreferrer noopener nofollow"
-                  href="https://identity.foundation/didcomm-messaging/spec/v2.0/"
+                  href="https://identity.foundation/didcomm-messaging/spec/v2.1/"
                   target="_blank"
                 >
                   Specification
