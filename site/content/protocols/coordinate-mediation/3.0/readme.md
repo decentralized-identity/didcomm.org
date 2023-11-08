@@ -62,10 +62,6 @@ This protocol expects messages to be encrypted during transmission, and repudiab
 
 Supported Goal Code | Notes
 --- | ---
-                     |       
-                     |       
-
-
 
 ## Message Reference
 
