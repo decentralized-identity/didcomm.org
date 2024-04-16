@@ -60,7 +60,7 @@ The `message-received` message is sent by the `recipient` to confirm receipt of 
 
 The `live-delivery-change` message is used to set the state of `live_delivery`.
 
-When _Live Mode_ is enabled, messages that arrive when an existing connection exists are delivered over the connection immediately, rather than being pushed to the queue. See _Live Mode_ below for more details.
+When _Live Mode_ is enabled, messages that arrive when an existing connection exists are delivered over the connection immediately, via a `delivery` message, rather than being pushed to the queue. See _Live Mode_ below for more details. 
 
 ## Security
 
@@ -174,7 +174,7 @@ The ONLY valid type of attachment for this message is a DIDComm v2 Message in en
 The `recipient_did` attribute is only included when responding to a `delivery-request` message that indicates a `recipient_did`.
 
 ### Messages Received
-After receiving messages, the `recipient` sends an acknowledge message indiciating which messages are safe to clear from the queue.
+After receiving messages, the `recipient` **MUST** send an acknowledge message indiciating which messages are safe to clear from the queue.
 
 Message Type URI: `https://didcomm.org/messagepickup/3.0/messages-received`
 
@@ -203,6 +203,8 @@ _Live Mode_ is the practice of delivering newly arriving messages directly to a 
 Messages already in the queue are not affected by _Live Mode_; they must still be requested with `delivery-request` messages.
 
 _Live Mode_ **MUST** only be enabled when a persistent transport is used, such as WebSockets.
+
+If _Live Mode_ is active, messages still **MUST** be delivered via a `delivery` message and the `recipient` **MUST** send an acknowledge message `messages-received`.
 
 Recipients have three modes of possible operation for message delivery with various abilities and level of development complexity:
 
