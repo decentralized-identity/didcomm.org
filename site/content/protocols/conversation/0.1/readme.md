@@ -2,7 +2,7 @@
 title: Conversation Protocol
 publisher: jorgefl0
 license: MIT
-piuri: https://didcomm.org/chat/0.1
+piuri: https://didcomm.org/basicmessage/[1.0 or 2.0]/conversation
 status: Demonstrated
 summary: The Conversation protocol extends the BasicMessage protocol to formalize a pattern for conversational messaging between connected peers. A conversation is a collection of messages sorted as a time series.
 tags:
