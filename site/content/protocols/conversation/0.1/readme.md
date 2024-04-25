@@ -4,11 +4,11 @@ publisher: jorgefl0
 license: MIT
 piuri: https://didcomm.org/chat/0.1
 status: Demonstrated
-summary: The Conversation protocol extends the BasicMessage protocol to formalize a pattern for grouping a set of related messages around a specific context or thread. This grouping of messages is typically labeled a "conversation" in text-driven chat solutions.
+summary: The Conversation protocol extends the BasicMessage protocol to formalize a pattern for conversational messaging between connected peers. A conversation is a collection of messages organized on a time series.
 tags:
   - basicmessage
   - chat
-authors:
+authors: 
   - name: Jorge Flores
     email: jorge@entidad.io
 
