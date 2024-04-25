@@ -32,8 +32,8 @@ This protocol follows the request-response message exchange pattern, and only re
 
 ## Basic Walkthrough
 
-The basic premise for a conversational message protocol is that there is an expectation of at least one response message from the connected peer.  Conversations are constructed based on a `ThreadId`, 
-if the inbound message includes the `~thread` message decorator together with the `pthid` field, it means it is to be processed as part of a conversation/thread.
+The basic premise for a conversational message protocol is that there is an expectation of at least one response message from the connected peer.  Conversations are constructed based on a parent `ThreadId`, 
+if the inbound message includes a `parentThreadId` message decorator, it means it is to be processed as part of a conversation/thread.
 
 ![Conversation basic flow](./conversation-basic-flow.png)
 
@@ -55,7 +55,7 @@ Description of the fields explicitly required by this protocol:
 - `~thread`: (required) object containing details of the conversation/thread. Note this decorator is only applicable to DIDComm V1 messaging.
   -  `pthid`: (required) Parent thread identifier. If the message is a child of a conversation thread the pthid will uniquely identify which thread is the parent.
   -  `thid`: (optional) Message thread identifier. Use of this field denotes that a message request/response pair can be grouped within the larger context of a conversation/thread.
-  -  `goal_code`: (optional) In case this protocol needs to explictly quality the intent to process messages by conversation/thread, perhaps we can the value `conversation`. This is presented as an option compared to defining an entirely new `message_type` (for example, "https://didcomm.org/basicmessage/1.0/conversation" or https://didcomm.org/basicmessage/2.0/conversation)
+  -  `goal_code`: (optional) In case this protocol needs to explictly qualify the intent to process messages by conversation/thread, perhaps we can define the value `conversation`. This is presented as an option compared to defining an entirely new `message_type` (for example, "https://didcomm.org/basicmessage/1.0/conversation" or https://didcomm.org/basicmessage/2.0/conversation)
     
 
 DIDComm v1 example: 
@@ -94,7 +94,7 @@ DIDComm v2 example:
   ],
   "lang": "en",
   "created_time": 1714072961386,
-  "pthid": "id-of-old-credential-issuance-thread"
+  "pthid": "b8ad23de-d5df-49ae-90a2-c60b5f211854"
 }
 ```
 
