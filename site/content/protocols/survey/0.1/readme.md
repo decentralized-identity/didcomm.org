@@ -37,6 +37,8 @@ This protocol follows the request-response protocol style, and only requires the
 
 The `abandoned` and `completed` states are terminal states and there is no expectation that the protocol can be continued after reaching those states.
 
+Either party may send a problem-report message earlier in the flow to terminate the protocol before its normal conclusion.[check with @Jorge]
+
 ### States for Requester
 
 State|Description
@@ -45,9 +47,6 @@ null|No *survey* has been requested
 awaiting-answer|*survey-request* message has been sent and awaiting *survey-answer* response
 completed|*survey-answer* message received 
 abandoned|received *problem-report*
-
-Should it be possible to abandon a survey as requestor (e.g. retract or expire a survey)[check with @Jorge]
-
 
 ### States for Responder
 
@@ -65,40 +64,129 @@ After receiving a survey-request, the responder may send a problem-report to the
 
 ## Basic Walkthrough
 
-The survey protocol requires an active DIDComm connection before it can proceed. One Agent behaves as a requester in the protocol whilst the other Agent represents a responder. Conceptually the requester sends a message to the responder containing the survey (questions, ui elements, initial data, and internationalization data) which is rendered as a survey in the wallet of the responder. The responder can either decline the survey or complete the survey. The 
+The survey protocol requires an active DIDComm connection before it can proceed. One Agent behaves as a requester in the protocol and the other Agent represents a responder. Conceptually the requester sends a message to the responder containing the survey (questions-schema, ui-schema, initial data, and internationalization data) which is rendered as a survey in the wallet of the responder. The responder can either decline the survey or complete the survey.
 
 The protocol can only be initiated by the requester by selecting the survey and connection. The protocol ends when the responder replies with an answer or declines. At any time a requester can send another survey to the connection.
 
 ## Design By Contract
 
-The survey must be using the JSONForms framework (should we include this?)[check with @Jorge]
+No protocol specific errors exist. Any errors related to headers or other core features are documented in the appropriate places. 
+
+OR
+
+The survey must be using the JSONForms framework (should we include this?, we could send erros for: invalid json, invalid JSONforms schema)[check with @Jorge]
 
 ## Security
 
 ## Composition
 
-
 ## Message Reference
 
-To do
+### Survey-Request
+
+The protocol begins when the `requester` sends a `survey-request` message to the responder:
+
+DIDComm V1 Example:
+```json
+{
+    "message": {
+        "@type": "https://didcomm.org/survey/0.1/survey-request",
+        "@id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
+        "~thread": "5689db78-5123-2aad-448d-0203107fee11",
+        "survey_schema": "base58 encoded json string, defining the survey schema with the questions,answers and validations",
+        "ui_schema": "base58 encoded json string, defining the ui schema such as layout, controls, help text to aid rendering of the survey",
+        "init_data": "base58 encoded json string, containing the data to prefill answers",
+        "i18n_data": "base58 encoded json string, containing the translations",
+        "expires_time": "2018-12-13T17:29:06+0000"
+    },
+    "connectionId": "36e49d7d-3a38-ad84-4eac-c2a513556c1b",
+
+}
+```
+
+DIDComm V2 Example:
+```json
+{
+    "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
+    "type": "https://didcomm.org/survey/0.2/survey-request",
+    "thid": "5689db78-5123-2aad-448d-0203107fee11",
+    "body": {
+        "survey_schema": "base58 encoded json string, defining the survey schema with the questions,answers and validations",
+        "ui_schema": "base58 encoded json string, defining the ui schema such as layout, controls, help text to aid rendering of the survey",
+        "init_data": "base58 encoded json string, containing the data to prefill answers",
+        "i18n_data": "base58 encoded json string, containing the translations",
+        "expires_time": 1544722146
+    },
+    "from": "did:peer:2.Vz6MkmtJnKU38J3KKrj1WbkyznVACZ9jzXGb2EomNy59bFtRP...",
+    "to": [
+        "did:peer:2.Vz6Mkfq1Rq6NS9RP3jJ3PAp9ExzixgWyHuQevTT13j4xTXEex.Ez6LSmWDERZua99gddWgqbCGxyPQKTW2Bf6GbxxkChx8ppT5L..."
+    ],
+    "created_time": 1714072961386
+}
+```
+
+- `init_data` is optional. It can be used to prefill/preselect answers for questions in the survey
+- `expires_time` is optional
+
+
+### Survey-Answer
+
+The `responder` receives this message and completes the survey. Should we require signing of the message or add signature_required to the request? [check with @Jorge]
+
+DIDComm V1 Example:
+```json
+{
+    "message": {
+        "@type": "https://didcomm.org/survey/0.1/survey-request",
+        "@id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
+        "~thread": "5689db78-5123-2aad-448d-0203107fee11",
+        "data": "base58 encoded json string, containing the answers"
+    },
+    "connectionId": "36e49d7d-3a38-ad84-4eac-c2a513556c1b"
+}
+```
+
+DIDComm V2 Example:
+```json
+{
+    "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
+    "type": "https://didcomm.org/survey/0.2/survey-request",
+    "thid": "5689db78-5123-2aad-448d-0203107fee11",
+    "body": {
+        "data": "base58 encoded json string, containing the answers",
+    },
+    "from": "did:peer:2.Vz6Mkfq1Rq6NS9RP3jJ3PAp9ExzixgWyHuQevTT13j4xTXEex.Ez6LSmWDERZua99gddWgqbCGxyPQKTW2Bf6GbxxkChx8ppT5L..",
+    "to": [
+        "did:peer:2.Vz6MkmtJnKU38J3KKrj1WbkyznVACZ9jzXGb2EomNy59bFtRP..."
+    ],
+    "created_time": 1714072961386
+}
+```
 
 ## Advanced Walkthroughs
 
-
 ## Collateral
-
-To do
 
 ## L10n
 
-To do 
+https://github.com/decentralized-identity/didcomm-messaging/blob/main/extensions/l10n/main.md#reference
+Translations are provided in the i18n_data attribute, the structure might be very similar to what whould be in the l10:
+the options described in the extensions are: inline, service or table (only inline is provided with an example)
+```json
+{
+    "inline": [
+      ["fr", "comment", "C'est échec et mat, mon pote."],
+      ["es", "comment", "Eso es jaque mate, amigo"]
+    ]
+},
+```
+[check with @Jorge]
 
 ## Implementations
 
 ## Endnotes
 
 #### 1
-
 
 #### 2
 
