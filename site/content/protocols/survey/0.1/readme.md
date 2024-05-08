@@ -118,11 +118,11 @@ The items in the message are as follows:
 - `@type` -- required, must be as above
 - `@id` -- required, must be as defined in [RFC 0005 DIDComm]
 - `~thread` -- required, must be as defined in [RFC 0008 Message ID and Threading]
-- `request` -- required, an item containing a JSONForms JSON structures. MUST be a single JSONForms request
--- `survey_schema` -- required, contains the questions, answers and validations
--- `ui_schema` -- required, contains layout, controls, help labels
--- `init_data` -- optional, it can be used to prefill/preselect answers for questions in the survey
--- `i18n_data` -- optional, contains translations for the questions, answer options and labels
+- `request` -- required, an item containing a JSONForms JSON structures. must be a single JSONForms request
+    - `survey_schema` -- required, contains the questions, answers and validations
+    - `ui_schema` -- required, contains layout, controls, help labels
+    - `init_data` -- optional, it can be used to prefill/preselect answers for questions in the survey
+    - `i18n_data` -- optional, contains translations for the questions, answer options and labels
 - `expires_time` is optional
 
 
@@ -141,16 +141,20 @@ DIDComm V1 Example:
         "thid": "5689db78-5123-2aad-448d-0203107fee11"
     },
     "response": {
-        "data": "json string containing the answers given by the responder"
+        "response_type": "data",
+        "data": "json string containing the answers given by the responder",
     },
 }
 ```
 
+The items in the message are as follows:
+
 - `@type` -- required, must be as above
 - `@id` -- required, must be as defined in [RFC 0005 DIDComm]
 - `~thread` -- required, must be as defined in [RFC 0008 Message ID and Threading], same as the request
-- `request` -- required, an item containing a JSONForms JSON structures. MUST be a single JSONForms request
--- `data` -- required, contains the answers provided by the responder
+- `request` -- required, an item containing a JSONForms JSON structures. must be a single JSONForms request
+    - `response_type` -- required, the type of response, must be `data` if the survey was completed and returns the answer data. If the responder declines the survey the `response_type` must be `decline`
+    - `data` -- required, if `response_type` is `data` and will contain the answers provided by the responder, optional with other `response_type`'s
 
 ### Problem Report Message
 
