@@ -3,7 +3,7 @@ title: Survey Protocol
 publisher: stephanbruijnis
 license: MIT
 piuri: https://didcomm.org/survey/0.1
-status: Proposed [check with @Jorge]
+status: Proposed
 summary: A protocol where a survey (JSON Forms) is sent by the requester to the responder. The responder then replies with the answers or declines the survey.
 tags:
   - survey
@@ -17,7 +17,7 @@ authors:
 
 ## Summary
 
-The Survey protocol enables a [JSONForms] based request-response interaction to be carried out across a DIDComm channel. An agent sends a request to complete a servuy to be completed by another agent, and gets back the answers message in a subsequent DIDComm message. 
+The Survey protocol enables a [JSONForms] based request-response interaction to be carried out across a DIDComm channel. An agent sends a survey request to be completed by another agent and gets back the answers message in a subsequent DIDComm message. 
 
 [JSONForms]: https://jsonforms.io/
 
@@ -46,17 +46,17 @@ The protocol can only be initiated by the requester by selecting the survey and 
 
 There are two parties in a typical survey interaction. The first party, `requester`, issues the survey with its schemata and the second party, `responder`, responds with the answer-data. The parties must have already exchanged pairwise keys and created a connection. These keys can be used to encrypt and verify the response. When the response is received by the requestion, the requestor can know with a high level of certainty that it was sent by responder.
 
-In this tutorial Alice (the `requester`) initiates the interaction, Alice creates the survey and sends it to Bob. The survey includes the questions, ui, initial data and i18n data, which can optionally be signed [check with @Jorge] for non-repudiability.
+In this tutorial Alice (the `requester`) initiates the interaction, Alice creates the survey and sends it to Bob. The survey includes the questions, ui, initial data and i18n data.
 
-In this tutorial Bob (the `responder`) receives the request and must respond to the survey (or decline it, which is not an answer) by encrypting either the positive or the negative response_code (signing both is invalid).
+In this tutorial, Bob (the `responder`) receives the request and must respond to the survey (or decline it).
 
 ### States
 
-This protocol follows the request-response protocol style, and only requires the simple state of producing a conversational message and waiting for a response.
+This protocol follows the request-response protocol style and only requires the simple state of producing a conversational message and waiting for a response.
 
 The `abandoned` and `completed` states are terminal states and there is no expectation that the protocol can be continued after reaching those states.
 
-Either party may send a problem-report message earlier in the flow to terminate the protocol before its normal conclusion.[check with @Jorge]
+Either party may send a problem-report message earlier in the flow to terminate the protocol before its normal conclusion.
 
 #### States for Requester
 
@@ -66,12 +66,11 @@ The `requester` agent goes through the following states:
 
 The state transition table for the `requester` is:
 
-State/Event|Send Request|Receive Response
----|---|---
-*start*|Transition to **request-sent*| 
-request-sent| | Transition to **completed**
+State/Event|Send Request|Receive Response|Send or Receive Problem Report
+---|---|---|---
+*start*|Transition to **request-sent**| | 
+request-sent| | Transition to **completed**|Transition to **abandoned**
 completed| | 
-problem-report received| Transition to **abandoned** |
 abandoned | | 
 
 #### States for Responder
@@ -82,11 +81,12 @@ The `responder` agent goes through the following states:
 
 The state transition table for the `responder` is:
 
-State/Event|Receive Request|Send Response or Problem Report
----|---|---
-*start*|Transition to **request-received**|   
-request-received| | Transition to **completed** 
-completed
+State/Event|Receive Request|Send Response|Send or Receive Problem Report
+---|---|---|---
+*start*|Transition to **request-received**| |
+request-received| | Transition to **completed** | Transition to **abandoned**
+completed | | | 
+abandoned | | | 
 
 After receiving a survey-request, the responder may send a problem-report to the requestor using the information in the request to decline (abandon) the protocol. 
 
@@ -132,8 +132,6 @@ A `response` message is sent by the `responder` following the completion of the 
 
 If the `request` is unrecognizable as a JSONForms survey such that a survey cannot be rendered, the server SHOULD send a [RFC 0035 Report Problem] message to the client.
 
-Should we require signing of the message or add signature_required to the request? [check with @Jorge]
-
 DIDComm V1 Example:
 ```json
 {
@@ -143,7 +141,7 @@ DIDComm V1 Example:
         "thid": "5689db78-5123-2aad-448d-0203107fee11"
     },
     "response": {
-        "data": "json string defining the survey schema with the questions, answers and validations"
+        "data": "json string containing the answers given by the responder"
     },
 }
 ```
@@ -160,24 +158,11 @@ A [RFC 0035 Report Problem] message SHOULD be sent by the responder instead of a
 
 ## L10n
 
-https://github.com/decentralized-identity/didcomm-messaging/blob/main/extensions/l10n/main.md#reference
-Translations are provided in the i18n_data attribute, the structure might be very similar to what whould be in the l10:
-the options described in the extensions are: inline, service or table (only inline is provided with an example)
-```json
-{
-    "inline": [
-      ["fr", "comment", "C'est échec et mat, mon pote."],
-      ["es", "comment", "Eso es jaque mate, amigo"]
-    ]
-},
-```
-[check with @Jorge]
+Translations for the survey are provided in the i18n_data attribute of the survey request message.
 
 ## Implementations
 
 The following lists the implementations (if any) of this RFC. Please do a pull request to add your implementation. If the implementation is open source, include a link to the repo or to the implementation within the repo. Please be consistent in the "Name" field so that a mechanical processing of the RFCs can generate a list of all RFCs supported by an Aries implementation.
-
-*Implementation Notes* [may need to include a link to test results](README.md).
 
 Name / Link | Implementation Notes
 --- | ---
