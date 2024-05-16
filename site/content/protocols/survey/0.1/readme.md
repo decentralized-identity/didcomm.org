@@ -104,6 +104,7 @@ DIDComm V1 Example:
         "thid": "5689db78-5123-2aad-448d-0203107fee11"
     },
     "request": {
+        "survey_id": "750d9731-562b-f8a9-48df-89b12a1ec7f3",
         "survey_schema": "json string defining the survey schema with the questions, answers and validations",
         "ui_schema": "json string defining the ui schema such as layout, controls, help text to aid rendering of the survey",
         "init_data": "json string containing the data to prefill answers",
@@ -119,6 +120,7 @@ The items in the message are as follows:
 - `@id` -- required, must be as defined in [RFC 0005 DIDComm]
 - `~thread` -- required, must be as defined in [RFC 0008 Message ID and Threading]
 - `request` -- required, an item containing a JSONForms JSON structures. must be a single JSONForms request
+    - `survey_id` -- required, contains the survey identifier to uniquely identify the survey in the business logic
     - `survey_schema` -- required, contains the questions, answers and validations
     - `ui_schema` -- required, contains layout, controls, help labels
     - `init_data` -- optional, it can be used to prefill/preselect answers for questions in the survey
