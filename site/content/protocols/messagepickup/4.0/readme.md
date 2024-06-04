@@ -36,7 +36,7 @@ The common use of this protocol is for the reply messages from the `mediator` to
 This header must be set each time the communication channel is established: once per established websocket, and every message for an HTTP POST.
 
 ### DIDComm V1 Requirements
-When using this protocol with DIDComm V1, `recipient_did`s **MUST** be [`did:key` references](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
+When using this protocol with DIDComm V1, `recipient_did` **MUST** be [`did:key` references](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
 
 ## Basic Walkthrough
 
@@ -80,6 +80,19 @@ Sent by the `recipient` to the `mediator` to request a `status` message.
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/status-request`
 
+DIDComm v1 Example:
+```json
+{
+    "@id": "123456780",
+    "@type": "https://didcomm.org/message-pickup/4.0/status-request",
+    "recipient_did": "<did:key for messages>",
+    "~transport": {
+        "return_route": "all"
+    }
+}
+```
+
+DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
@@ -90,13 +103,29 @@ Message Type URI: `https://didcomm.org/message-pickup/4.0/status-request`
     "return_route": "all"
 }
 ```
-`recipient_did` is optional. When specified, the `mediator` **MUST** only return status related to that recipient did. This allows the `recipient` to discover if any messages are in the queue that were sent to a specific did. 
+`recipient_did` is optional. When specified, the `mediator` **MUST** only return status related to that recipient did. This allows the `recipient` to discover if any messages are in the queue that were sent to a specific did. If using DIDComm v1, `recipient_did` **MUST** be [`did:key` references](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
 
 ### Status
 Status details about waiting messages.
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/status`
 
+DIDComm v1 Example:
+```json
+{
+    "@id": "123456780",
+    "@type": "https://didcomm.org/message-pickup/4.0/status",
+    "recipient_did": "<did:key for messages>",
+    "message_count": 7,
+    "longest_waited_seconds": 3600,
+    "newest_received_time": 1658085169,
+    "oldest_received_time": 1658084293,
+    "total_bytes": 8096,
+    "live_delivery": false
+}
+```
+
+DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
@@ -112,6 +141,7 @@ Message Type URI: `https://didcomm.org/message-pickup/4.0/status`
     }
 }
 ```
+
 `message_count` is the only **REQUIRED** attribute. The others **MAY** be present if offered by the `mediator`.
 
 `longest_waited_seconds` is in seconds, and is the longest delay of any message in the queue.
@@ -132,6 +162,20 @@ A request from the `recipient` to the `mediator` to have pending messages delive
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/delivery-request`
 
+DIDComm v1 Example:
+```json
+{
+    "@id": "123456780",
+    "@type": "https://didcomm.org/message-pickup/4.0/delivery-request",
+    "limit": 10,
+    "recipient_did": "<did:key for messages>",
+    "~transport": {
+        "return_route": "all"
+    }
+}
+```
+
+DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
@@ -143,6 +187,7 @@ Message Type URI: `https://didcomm.org/message-pickup/4.0/delivery-request`
     "return_route": "all"
 }
 ```
+
 `limit` is a **REQUIRED** attribute, and after receipt of this message, the `mediator` **SHOULD** deliver up to the limit indicated.
 
 `recipient_did` is optional. When specified, the `mediator` **MUST** only return messages sent to that recipient did.
@@ -156,6 +201,25 @@ Batch of messages delivered to the `recipient` as attachments.
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/delivery`
 
+DIDComm v1 Example:
+```json
+{
+    "@id": "123456780",
+    "@type": "https://didcomm.org/message-pickup/4.0/delivery",
+    "~thread": {
+        "thid": "<message id of delivery-request message>"
+    },
+    "recipient_did": "<did:key for messages>",
+    "~attach": [{
+        "@id": "<id of message>",
+        "data": {
+            "base64": "<message>"
+        }
+    }]
+}
+```
+
+DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
@@ -172,6 +236,7 @@ Message Type URI: `https://didcomm.org/message-pickup/4.0/delivery`
     }]
 }
 ```
+
 Messages delivered from the queue must be delivered in a batch delivery message as attachments, with a batch size specified by the `limit` provided in the `delivery-request` message.
 The `id` of each attachment is used to confirm receipt.
 The `id` is an opaque value, and the recipient should not deduce any information from it, except that it is unique to the mediator. The recipient can use the `id`s in the `message_id_list` field of `messages-received`.
@@ -185,6 +250,19 @@ After receiving messages, the `recipient` **MUST** send an acknowledge message i
 
 Message Type URI: `https://didcomm.org/pickup-message/4.0/messages-received`
 
+DIDComm v1 Example:
+```json
+{
+    "@id": "123456780",
+    "@type": "https://didcomm.org/pickup-message/4.0/messages-received",
+    "message_id_list": ["123","456"],
+    "~transport": {
+        "return_route": "all"
+    }
+}
+```
+
+DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
@@ -195,6 +273,7 @@ Message Type URI: `https://didcomm.org/pickup-message/4.0/messages-received`
     "return_route": "all"
 }
 ```
+
 `message_id_list` is a list of `ids` of each message received. The `id` of each message is present in the attachment descriptor of each attached message of a delivery message.
 
 Upon receipt of this message, the `mediator` knows which messages have been received, and can remove them from the collection of queued messages with confidence.
@@ -223,6 +302,16 @@ _Live Mode_ is changed with a `live-delivery-change` message.
 
 Message Type URI: `https://didcomm.org/pickup-message/4.0/live-delivery-change`
 
+DIDComm v1 Example:
+```json
+{
+    "@id": "123456780",
+    "@type": "https://didcomm.org/pickup-message/4.0/live-delivery-change",
+    "live_delivery": true
+}
+```
+
+DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
@@ -232,15 +321,32 @@ Message Type URI: `https://didcomm.org/pickup-message/4.0/live-delivery-change`
     }
 }
 ```
+
 Upon receiving the `live_delivery_change` message, the `mediator` **MUST** respond with a `status` message.
 
 If sent with `live_delivery` set to true on a connection incapable of live delivery, a `problem_report` **SHOULD** be sent as follows:
 
+DIDComm v1 Example:
+```json
+{
+    "@id": "123456780",
+    "@type": "https://didcomm.org/pickup-message/4.0/problem-report",
+    "~thread": {
+        "pthid": "<the value is the thid of the thread in which the problem occurred>"
+    },
+    "description": {
+        "code": "e.m.live-mode-not-supported",
+        "en": "Connection does not support Live Delivery"
+    }
+}
+```
+
+DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/report-problem/2.0/problem-report",
-    "pthid": "< the value is the thid of the thread in which the problem occurred>",
+    "type": "https://didcomm.org/pickup-message/4.0/problem-report",
+    "pthid": "<the value is the thid of the thread in which the problem occurred>",
     "body": {
         "code": "e.m.live-mode-not-supported",
         "comment": "Connection does not support Live Delivery"
