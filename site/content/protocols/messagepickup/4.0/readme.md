@@ -20,7 +20,7 @@ A protocol to facilitate a _Recipient_ agent picking up messages held at a _Medi
 ## Motivation
 This protocol is needed to facilitate retrieval of messages from a mediator in an explicit manner. Additionally, this protocol provides behavior for initiating live delivery of messages, which is crucial for good user experience for agents operating on mobile devices.
 
-Motivation for v4 of this protocol stems from ambiguity in the [messagepickup v3 protocol](https://didcomm.org/messagepickup/3.0/) as to whether `delivery` and `messages-received` messages must be used while using live mode. 
+Motivation for v4 of this protocol stems from ambiguity in the [pickup v2 protocol](https://github.com/hyperledger/aries-rfcs/tree/main/features/0685-pickup-v2) and [messagepickup v3 protocol](https://didcomm.org/messagepickup/3.0/) as to whether `delivery` and `messages-received` messages must be used while using live mode. 
 
 ## Roles
 There are two roles in this protocol: 
