@@ -45,7 +45,7 @@ This protocol consists of four different message requests from the `recipient` t
 1. Status Request -> Status
 2. Delivery Request -> Message Delivery
 3. Message Received -> Status
-4. Live Mode  -> Status or Problem Report
+4. Live Mode -> Status or Problem Report
 
 ## States
 
