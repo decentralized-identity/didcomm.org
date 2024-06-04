@@ -248,13 +248,13 @@ The `recipient_did` attribute is only included when responding to a `delivery-re
 ### Messages Received
 After receiving messages, the `recipient` **MUST** send an acknowledge message indiciating which messages are safe to clear from the queue.
 
-Message Type URI: `https://didcomm.org/pickup-message/4.0/messages-received`
+Message Type URI: `https://didcomm.org/message-pickup/4.0/messages-received`
 
 DIDComm v1 Example:
 ```json
 {
     "@id": "123456780",
-    "@type": "https://didcomm.org/pickup-message/4.0/messages-received",
+    "@type": "https://didcomm.org/message-pickup/4.0/messages-received",
     "message_id_list": ["123","456"],
     "~transport": {
         "return_route": "all"
@@ -266,7 +266,7 @@ DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/pickup-message/4.0/messages-received",
+    "type": "https://didcomm.org/message-pickup/4.0/messages-received",
     "body": {
         "message_id_list": ["123","456"]
     },
@@ -300,13 +300,13 @@ Recipients have three modes of possible operation for message delivery with vari
 ### Live Mode Change
 _Live Mode_ is changed with a `live-delivery-change` message.
 
-Message Type URI: `https://didcomm.org/pickup-message/4.0/live-delivery-change`
+Message Type URI: `https://didcomm.org/message-pickup/4.0/live-delivery-change`
 
 DIDComm v1 Example:
 ```json
 {
     "@id": "123456780",
-    "@type": "https://didcomm.org/pickup-message/4.0/live-delivery-change",
+    "@type": "https://didcomm.org/message-pickup/4.0/live-delivery-change",
     "live_delivery": true
 }
 ```
@@ -315,7 +315,7 @@ DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/pickup-message/4.0/live-delivery-change",
+    "type": "https://didcomm.org/message-pickup/4.0/live-delivery-change",
     "body": {
         "live_delivery": true
     }
@@ -330,7 +330,7 @@ DIDComm v1 Example:
 ```json
 {
     "@id": "123456780",
-    "@type": "https://didcomm.org/pickup-message/4.0/problem-report",
+    "@type": "https://didcomm.org/message-pickup/4.0/problem-report",
     "~thread": {
         "pthid": "<the value is the thid of the thread in which the problem occurred>"
     },
@@ -345,7 +345,7 @@ DIDComm v2 Example:
 ```json
 {
     "id": "123456780",
-    "type": "https://didcomm.org/pickup-message/4.0/problem-report",
+    "type": "https://didcomm.org/message-pickup/4.0/problem-report",
     "pthid": "<the value is the thid of the thread in which the problem occurred>",
     "body": {
         "code": "e.m.live-mode-not-supported",
