@@ -115,6 +115,9 @@ DIDComm v1 example:
 {
     "@id": "123456780",
     "@type": "https://didcomm.org/message-pickup/4.0/status",
+    "~thread": {
+        "thid": "<message id of status-request message>"
+    },
     "recipient_did": "<did:key for messages>",
     "message_count": 7,
     "longest_waited_seconds": 3600,
@@ -129,6 +132,7 @@ DIDComm v2 example:
 ```json
 {
     "id": "123456780",
+    "thid": "<message id of status-request message>",
     "type": "https://didcomm.org/message-pickup/4.0/status",
     "body": {
         "recipient_did": "<did for messages>",
@@ -357,6 +361,9 @@ DIDComm v2 example:
 No localization is required.
 
 ## Implementations
+
+Name / Link | Implementation Notes
+--- | --- 
 
 ## Endnotes
 
