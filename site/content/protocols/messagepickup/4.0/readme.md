@@ -36,7 +36,7 @@ The common use of this protocol is for the reply messages from the `mediator` to
 This header must be set each time the communication channel is established: once per established websocket, and every message for an HTTP POST.
 
 ### DIDComm V1 Requirements
-When using this protocol with DIDComm V1, `recipient_did` **MUST** be [`did:key` references](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
+When using this protocol with DIDComm V1, `recipient_did` **MUST** be a [`did:key` reference](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
 
 ## Basic Walkthrough
 
@@ -80,7 +80,7 @@ Sent by the `recipient` to the `mediator` to request a `status` message.
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/status-request`
 
-DIDComm v1 Example:
+DIDComm v1 example:
 ```json
 {
     "@id": "123456780",
@@ -92,7 +92,7 @@ DIDComm v1 Example:
 }
 ```
 
-DIDComm v2 Example:
+DIDComm v2 example:
 ```json
 {
     "id": "123456780",
@@ -103,14 +103,14 @@ DIDComm v2 Example:
     "return_route": "all"
 }
 ```
-`recipient_did` is optional. When specified, the `mediator` **MUST** only return status related to that recipient did. This allows the `recipient` to discover if any messages are in the queue that were sent to a specific did. If using DIDComm v1, `recipient_did` **MUST** be [`did:key` references](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
+`recipient_did` is optional. When specified, the `mediator` **MUST** only return status related to that recipient did. This allows the `recipient` to discover if any messages are in the queue that were sent to a specific DID. If using DIDComm v1, `recipient_did` **MUST** be a [`did:key` reference](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
 
 ### Status
 Status details about waiting messages.
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/status`
 
-DIDComm v1 Example:
+DIDComm v1 example:
 ```json
 {
     "@id": "123456780",
@@ -125,7 +125,7 @@ DIDComm v1 Example:
 }
 ```
 
-DIDComm v2 Example:
+DIDComm v2 example:
 ```json
 {
     "id": "123456780",
@@ -162,7 +162,7 @@ A request from the `recipient` to the `mediator` to have pending messages delive
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/delivery-request`
 
-DIDComm v1 Example:
+DIDComm v1 example:
 ```json
 {
     "@id": "123456780",
@@ -175,7 +175,7 @@ DIDComm v1 Example:
 }
 ```
 
-DIDComm v2 Example:
+DIDComm v2 example:
 ```json
 {
     "id": "123456780",
@@ -201,7 +201,7 @@ Batch of messages delivered to the `recipient` as attachments.
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/delivery`
 
-DIDComm v1 Example:
+DIDComm v1 example:
 ```json
 {
     "@id": "123456780",
@@ -219,7 +219,7 @@ DIDComm v1 Example:
 }
 ```
 
-DIDComm v2 Example:
+DIDComm v2 example:
 ```json
 {
     "id": "123456780",
@@ -250,7 +250,7 @@ After receiving messages, the `recipient` **MUST** send an acknowledge message i
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/messages-received`
 
-DIDComm v1 Example:
+DIDComm v1 example:
 ```json
 {
     "@id": "123456780",
@@ -262,7 +262,7 @@ DIDComm v1 Example:
 }
 ```
 
-DIDComm v2 Example:
+DIDComm v2 example:
 ```json
 {
     "id": "123456780",
@@ -286,11 +286,11 @@ If a message arrives at a `mediator` addressed to multiple `recipients`, the mes
 ### Live Mode
 _Live Mode_ is the practice of delivering newly arriving messages directly to a connected `recipient`. It is disabled by default and only activated by the `recipient`. Messages that arrive when _Live Mode_ is off **MUST** be stored in the queue for retrieval as described above. If _Live Mode_ is active, and the connection is broken, a new inbound connection starts with _Live Mode_ disabled.
 
-Messages already in the queue are not affected by _Live Mode_; they must still be requested with `delivery-request` messages.
+Messages already in the queue are not affected by _Live Mode_; they **MUST** still be requested with `delivery-request` messages.
 
 _Live Mode_ **MUST** only be enabled when a persistent transport is used, such as WebSockets.
 
-If _Live Mode_ is active, messages still **MUST** be delivered via a `delivery` message and the `recipient` **MUST** send an acknowledge message `messages-received`. If a message is not acknowledged, the message **MUST** be added to the queue for later pickup.
+If _Live Mode_ is active, messages still **MUST** be delivered via a `delivery` message and the `recipient` **MUST** send an acknowledgement message `messages-received`. If a message is not acknowledged, the message **MUST** be added to the queue for later pickup.
 
 Recipients have three modes of possible operation for message delivery with various abilities and level of development complexity:
 
@@ -302,7 +302,7 @@ _Live Mode_ is changed with a `live-delivery-change` message.
 
 Message Type URI: `https://didcomm.org/message-pickup/4.0/live-delivery-change`
 
-DIDComm v1 Example:
+DIDComm v1 example:
 ```json
 {
     "@id": "123456780",
@@ -311,7 +311,7 @@ DIDComm v1 Example:
 }
 ```
 
-DIDComm v2 Example:
+DIDComm v2 example:
 ```json
 {
     "id": "123456780",
@@ -326,7 +326,7 @@ Upon receiving the `live_delivery_change` message, the `mediator` **MUST** respo
 
 If sent with `live_delivery` set to true on a connection incapable of live delivery, a `problem_report` **SHOULD** be sent as follows:
 
-DIDComm v1 Example:
+DIDComm v1 example:
 ```json
 {
     "@id": "123456780",
@@ -341,7 +341,7 @@ DIDComm v1 Example:
 }
 ```
 
-DIDComm v2 Example:
+DIDComm v2 example:
 ```json
 {
     "id": "123456780",
@@ -364,3 +364,5 @@ No localization is required.
 
 ### Future Considerations
 The style of wrapping messages in a `delivery` message incurs an additional roughly 33% increased message size due to wrapping of the message. This size bloating is outweighed by the benefit of having explicit and gauranteed delivery of messages. This issue may be resolved in future versions of DIDComm.
+
+Should there be a strategy for a `mediator` to indicate support for _Live Mode_ via discover features?
