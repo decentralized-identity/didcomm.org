@@ -150,7 +150,7 @@ DIDComm v2 example:
 
 `total_bytes` represents the total size of all messages.
 
-If a `recipient_did` was specified in the `status-request message`, the matching value **MUST** be specified in the `recipient_did` attribute of the status message.
+If a `recipient_did` was specified in the `status-request` message, the matching value **MUST** be specified in the `recipient_did` attribute of the status message.
 
 `live_delivery` state is also indicated in the status message.
 
@@ -243,6 +243,8 @@ The `id` is an opaque value, and the recipient should not deduce any information
 
 The ONLY valid type of attachment for this message is a DIDComm v1 or v2 Message in encrypted form.
 
+`thid` -- an optional field if the delivery message is in response to a singular `delivery-request` messsage.
+
 The `recipient_did` attribute is only included when responding to a `delivery-request` message that indicates a `recipient_did`.
 
 ### Messages Received
@@ -255,10 +257,7 @@ DIDComm v1 example:
 {
     "@id": "123456780",
     "@type": "https://didcomm.org/message-pickup/4.0/messages-received",
-    "message_id_list": ["123","456"],
-    "~transport": {
-        "return_route": "all"
-    }
+    "message_id_list": ["123","456"]
 }
 ```
 
@@ -269,8 +268,7 @@ DIDComm v2 example:
     "type": "https://didcomm.org/message-pickup/4.0/messages-received",
     "body": {
         "message_id_list": ["123","456"]
-    },
-    "return_route": "all"
+    }
 }
 ```
 
