@@ -173,6 +173,6 @@ The following lists the implementations (if any) of this RFC. Please do a pull r
 Name / Link | Implementation Notes
 --- | ---
 [credo-ts-survey](https://github.com/Entidad/credo-ts-survey) | Credo extension library
-[https://github.com/openwallet-foundation-labs/farmworker-wallet-os](https://github.com/openwallet-foundation-labs/farmworker-wallet-os) | Farmworker Wallet OS, Credo SDK for Mendix low-code platform
+[farmworker-wallet-os](https://github.com/openwallet-foundation-labs/farmworker-wallet-os) | Farmworker Wallet OS, Credo SDK for Mendix low-code platform
 
 
