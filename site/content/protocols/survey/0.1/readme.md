@@ -1,5 +1,5 @@
 ---
-title: Survey Protocol
+title: Survey
 publisher: stephanbruijnis
 license: MIT
 piuri: https://didcomm.org/survey/0.1
@@ -12,7 +12,8 @@ tags:
 authors:
   - name: Stephan Bruijnis
     email: stephan.bruijnis@entidad.io
-
+  - name: Jorge Flores
+    email: jorge@entidad.io
 ---
 
 ## Summary
