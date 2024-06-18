@@ -1,6 +1,6 @@
 ---
 title: DIDExchange
-publisher: thetechmage
+publisher: TheTechmage
 license: MIT
 piuri: https://didcomm.org/didexchange/1.1
 status: Production
