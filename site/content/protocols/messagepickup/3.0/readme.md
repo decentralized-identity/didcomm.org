@@ -128,7 +128,7 @@ Message Type URI: `https://didcomm.org/messagepickup/3.0/delivery-request`
 ```json
 {
     "id": "123456780",
-    "type": "ttps://didcomm.org/messagepickup/3.0/delivery-request",
+    "type": "https://didcomm.org/messagepickup/3.0/delivery-request",
     "body": {
         "limit": 10,
         "recipient_did": "<did for messages>"
