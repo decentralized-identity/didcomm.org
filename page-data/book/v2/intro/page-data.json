@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-book-book-tsx",
+    "path": "/book/v2/intro",
+    "result": {"data":{"markdownRemark":{"html":"<h1 id=\"Implementers-Guide\">Implementers Guide</h1>\n<p>This guide contains concepts, explanations, and important considerations for those building DIDComm capable systems.</p>"}},"pageContext":{"id":"281c021a-ca07-52a0-987c-e59f026d7b09","html":"<h1 id=\"Implementers-Guide\">Implementers Guide</h1>\n<p>This guide contains concepts, explanations, and important considerations for those building DIDComm capable systems.</p>"}},
+    "staticQueryHashes": ["3000541721"]}
