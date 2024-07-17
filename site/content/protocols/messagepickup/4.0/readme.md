@@ -25,7 +25,8 @@ Motivation for v4 of this protocol primarily stems from ambiguity in the [pickup
 ## Version Change Log
 
 ### 4.0
- - Clarifies that `delivery` and `messages-received` messages MUST be used while using _Live Mode_.
+ - Clarifies that `delivery` and `messages-received` messages MUST be used while using _Live Mode_ to ensure delivery of all messages.
+ - Adjusts handling of `delivery-request` messages when no messages are queued to be delivered. Rather than sending a status message indicating no messages are queued, an empty delivery message is sent. This was chosen to reduce complexity of the protocol.
  - Adds DIDComm v1 message format (pickup v3 only contained DIDComm v2).
     - In pickup v4 while using DIDComm v1, every `recipient_did` must be a [`did:key` reference](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
  - Adjustments to the protocol's use of thread ids
@@ -208,7 +209,7 @@ DIDComm v2 example:
 
 `recipient_did` is optional. When specified, the `mediator` **MUST** only return messages sent to that recipient did.
 
-If no messages are available to be sent, a `status` message **MUST** be sent immediately.
+If no messages are available to be sent, a `delivery` message with an empty attachments array **MUST** be sent immediately.
 
 Delivered messages **MUST NOT** be deleted until delivery is acknowledged by a `messages-received` message.
 
@@ -253,9 +254,11 @@ DIDComm v2 example:
 }
 ```
 
-Messages delivered from the queue must be delivered in a batch delivery message as attachments, with a batch size specified by the `limit` provided in the `delivery-request` message.
+Messages delivered from the queue **MUST** be delivered in a batch delivery message as attachments, with a batch size specified by the `limit` provided in the `delivery-request` message.
 The `id` of each attachment is used to confirm receipt.
-The `id` is an opaque value, and the recipient should not deduce any information from it, except that it is unique to the mediator. The recipient can use the `id`s in the `message_id_list` field of `messages-received`.
+The `id` is an opaque value, and the recipient **SHOULD** not deduce any information from it, except that it is unique to the mediator. The recipient can use the `id`s in the `message_id_list` field of `messages-received`.
+
+If there are no messages in the queue for the `delivery-request`, the `delivery` message **MUST** contain an empty array of attachments.
 
 The ONLY valid type of attachment for this message is a DIDComm v1 or v2 Message in encrypted form.
 
