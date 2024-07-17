@@ -20,7 +20,19 @@ A protocol to facilitate a _Recipient_ agent picking up messages held at a _Medi
 ## Motivation
 This protocol is needed to facilitate retrieval of messages from a mediator in an explicit manner. Additionally, this protocol provides behavior for initiating live delivery of messages, which is crucial for good user experience for agents operating on mobile devices.
 
-Motivation for v4 of this protocol stems from ambiguity in the [pickup v2 protocol](https://github.com/hyperledger/aries-rfcs/tree/main/features/0685-pickup-v2) and [messagepickup v3 protocol](https://didcomm.org/messagepickup/3.0/) as to whether `delivery` and `messages-received` messages must be used while using live mode. 
+Motivation for v4 of this protocol primarily stems from ambiguity in the [pickup v2 protocol](https://github.com/hyperledger/aries-rfcs/tree/main/features/0685-pickup-v2) and [messagepickup v3 protocol](https://didcomm.org/messagepickup/3.0/) as to whether `delivery` and `messages-received` messages must be used while using live mode. 
+
+## Version Change Log
+
+### 4.0
+ - Clarifies that `delivery` and `messages-received` messages MUST be used while using _Live Mode_.
+ - Adds DIDComm v1 message format (pickup v3 only contained DIDComm v2).
+    - In pickup v4 while using DIDComm v1, every `recipient_did` must be a [`did:key` reference](https://github.com/hyperledger/aries-rfcs/tree/main/features/0360-use-did-key).
+ - Adjustments to the protocol's use of thread ids
+    - Added thread id to `status` messages, as status messages are always in response to an original message from the `recipient`.
+    - Made the thread id (thid) on `delivery` messages optional, as messages received in _Live Mode_ do not have an associated `delivery-request` message.
+ - Removed return route all from `messages-received` messages, as it is not required.
+ - Updates protocol-name to `message-pickup`.
 
 ## Roles
 There are two roles in this protocol: 
