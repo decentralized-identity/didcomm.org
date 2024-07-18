@@ -106,10 +106,18 @@ DIDComm V1 Example:
     },
     "request": {
         "survey_id": "750d9731-562b-f8a9-48df-89b12a1ec7f3",
-        "survey_schema": "json string defining the survey schema with the questions, answers and validations",
-        "ui_schema": "json string defining the ui schema such as layout, controls, help text to aid rendering of the survey",
-        "init_data": "json string containing the data to prefill answers",
-        "i18n_data": "json string containing the translations"
+        "survey_schema": {
+            "json_object": "json object defining the survey schema with the questions, answers and validations"
+        },
+        "ui_schema": {
+            "json_object": "json object defining the ui schema such as layout, controls, help text to aid rendering of the survey"
+        },
+        "init_data": {
+            "json_object": "json object containing the data to prefill answers"
+        },
+        "i18n_data": {
+            "json object": "json object containing the translations"
+        }
     },
     "expires_time": "2018-12-13T17:29:06+0000"
 }
@@ -128,6 +136,210 @@ The items in the message are as follows:
     - `i18n_data` -- optional, contains translations for the questions, answer options and labels
 - `expires_time` is optional
 
+DIDComm V2 Example:
+```json
+{
+    "type": "https://didcomm.org/survey/0.1/request",
+    "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
+    "thid": "5689db78-5123-2aad-448d-0203107fee11",
+    "body": {
+        "request": {
+            "survey_id": "750d9731-562b-f8a9-48df-89b12a1ec7f3",
+            "survey_schema": {
+                "json_object": "json object defining the survey schema with the questions, answers and validations"
+            },
+            "ui_schema": {
+                "json_object": "json object defining the ui schema such as layout, controls, help text to aid rendering of the survey"
+            },
+            "init_data": {
+                "json_object": "json object containing the data to prefill answers"
+            },
+            "i18n_data": {
+                "json object": "json object containing the translations"
+            }
+        }
+    },
+    "expires_time": "2018-12-13T17:29:06+0000"
+}
+```
+
+#### Example Request Message with a survey
+
+The survey is declared as JSON objects in the Survey Request Message. In this example, we use a survey_schema which is an `object` with three properties `name`, `birthDate` and `nationality`.
+
+Survey Schema:
+```json
+{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 3,
+        "description": "Please enter your name"
+      },
+      "birthDate": {
+        "type": "string",
+        "format": "date"
+      },
+      "nationality": {
+        "type": "string",
+        "enum": [
+          "DE",
+          "IT",
+          "JP",
+          "US",
+          "NL",
+          "Other"
+        ]
+      }
+    },
+    "required": [
+      "name",
+      "nationality"
+    ]
+  }
+```
+
+The UI schema describes the general layout of the survey. It is a JSON object that defines the controls, layouts (horizontal, vertical, groups) and rules. 
+
+UI Schema:
+```json
+{
+    "type": "HorizontalLayout",
+    "elements": [
+        {
+            "type": "Control",
+            "label": "Name",
+            "scope": "#/properties/name"
+        },
+        {
+            "type": "Control",
+            "label": "Birth Date",
+            "scope": "#/properties/birthDate"
+        },
+        {
+            "type": "Control",
+            "scope": "#/properties/nationality"
+        }
+    ]
+}
+```
+
+The `init_data` represents an object containing the data to be rendered in the survey. This can be used to prepopulate the form with data.
+
+Initial Data:
+```json
+{
+  "name": "John Doe",
+  "birthDate": "1985-06-02"
+}
+```
+
+Provides internationalization data for handling the translations (and to render locale specific UI elements, e.g. formatting of numbers). This example translates the Survey `title`, `description` and `name` property.
+
+I18n Data:
+```json
+{
+    "English": {
+        "title": "Hello",
+        "description": "Test",
+        "name": {
+            "label": "What is your name?"
+        }
+    },
+    "Spanish": {
+        "title": "Hola",
+        "description": "Test",
+        "name": {
+            "label": "Que es nombre?"
+        }
+    }
+}
+```
+
+Full example Survey request message:
+```json
+{
+    "type": "https://didcomm.org/survey/0.1/request",
+    "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
+    "thid": "5689db78-5123-2aad-448d-0203107fee11",
+    "body": {
+        "request": {
+            "survey_id": "750d9731-562b-f8a9-48df-89b12a1ec7f3",
+            "survey_schema": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 3,
+                        "description": "Please enter your name"
+                    },
+                    "birthDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "enum": [
+                            "DE",
+                            "IT",
+                            "JP",
+                            "US",
+                            "NL",
+                            "Other"
+                        ]
+                    }
+                },
+                "required": [
+                    "name",
+                    "nationality"
+                ]
+            },
+            "ui_schema": {
+                "type": "HorizontalLayout",
+                "elements": [
+                    {
+                        "type": "Control",
+                        "label": "Name",
+                        "scope": "#/properties/name"
+                    },
+                    {
+                        "type": "Control",
+                        "label": "Birth Date",
+                        "scope": "#/properties/birthDate"
+                    },
+                    {
+                        "type": "Control",
+                        "scope": "#/properties/nationality"
+                    }
+                ]
+            }
+        },
+        "init_data": {
+            "name": "John Doe",
+            "birthDate": "1985-06-02"
+        },
+        "i18n_data": {
+            "English": {
+                "title": "Hello",
+                "description": "Test",
+                "name": {
+                    "label": "What is your name?"
+                }
+            },
+            "Spanish": {
+                "title": "Hola",
+                "description": "Test",
+                "name": {
+                    "label": "Que es nombre?"
+                }
+            }
+        }
+    },
+    "expires_time": "2018-12-13T17:29:06+0000"
+}
+```
+
 
 ### Survey Response Message
 
@@ -145,8 +357,27 @@ DIDComm V1 Example:
     },
     "response": {
         "response_type": "data",
-        "data": "json string containing the answers given by the responder",
+        "data": {
+            "json_object": "json object containing the answers given by the responder"
+        },
     },
+}
+```
+
+DIDComm V2 Example:
+```json
+{
+    "type": "https://didcomm.org/survey/0.1/request",
+    "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
+    "thid": "5689db78-5123-2aad-448d-0203107fee11",
+    "body": {
+        "response": {
+            "response_type": "data",
+            "data": {
+                "json_object": "json object containing the answers given by the responder"
+            }
+        }
+    }
 }
 ```
 
@@ -155,9 +386,9 @@ The items in the message are as follows:
 - `@type` -- required, must be as above
 - `@id` -- required, must be as defined in [RFC 0005 DIDComm]
 - `~thread` -- required, must be as defined in [RFC 0008 Message ID and Threading], same as the request
-- `request` -- required, an item containing a JSONForms JSON structures. must be a single JSONForms request
+- `request` -- required, an item containing a JSONForm as JSON objects. must be a single JSONForms request
     - `response_type` -- required, the type of response, must be `data` if the survey was completed and returns the answer data. If the responder declines the survey the `response_type` must be `decline`
-    - `data` -- required, if `response_type` is `data` and will contain the answers provided by the responder, optional with other `response_type`'s
+    - `data` -- required, if `response_type` is `data` and will contain the answers provided by the responder, optional with other `response_type`'s. And will follow the same object structure as the `init_data` in the Request
 
 ### Problem Report Message
 
@@ -166,6 +397,10 @@ A [RFC 0035 Report Problem] message SHOULD be sent by the responder instead of a
 ## L10n
 
 Translations for the survey are provided in the i18n_data attribute of the survey request message.
+
+## Prior art
+
+This protocol has similar goals to the [RFC 0113 Question & Answer](https://github.com/hyperledger/aries-rfcs/blob/main/features/0113-question-answer/README.md) DIDComm protocol, but changes the approach to more complex use cases where the business case requires a broader set of questions and answers for a larger set of respondents. This Survey protocol can be used for multiple questions and answers in a single form (i.e. surveys) and in a more asynchronous environment (a -nearly- synchronous response is not expected). Surveys would typically be used to gather data from a group of people, unlike Question and Answer which appears to be more directed at a single respondent in a specific context.
 
 ## Implementations
 
