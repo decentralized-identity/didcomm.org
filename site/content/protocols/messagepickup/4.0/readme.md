@@ -15,7 +15,7 @@ authors:
 ---
 
 ## Summary
-A protocol to facilitate a _Recipient_ agent picking up messages held at a _Mediator_. This protocol is likely to be used in tandem with the [cooridinate-mediation protocol](https://didcomm.org/coordinate-mediation/3.0/).
+A protocol to facilitate a _Recipient_ agent picking up messages held at a _Mediator_. This protocol is likely to be used in tandem with the [Cooridinate Mediation protocol](https://didcomm.org/coordinate-mediation/3.0/).
 
 ## Motivation
 This protocol is needed to facilitate retrieval of messages from a mediator in an explicit manner. Additionally, this protocol provides behavior for initiating live delivery of messages, which is crucial for good user experience for agents operating on mobile devices.
@@ -254,9 +254,9 @@ DIDComm v2 example:
 }
 ```
 
-Messages delivered from the queue **MUST** be delivered in a batch delivery message as attachments, with a batch size specified by the `limit` provided in the `delivery-request` message.
+Messages delivered from the queue **MUST** be delivered in a delivery message as attachments. If the `delivery` message is in response to a `delivery-request` message that specifies a `limit`, the number of attached messages **MUST NOT** exceed the `limit` specified in the `delivery-request`. 
 The `id` of each attachment is used to confirm receipt.
-The `id` is an opaque value, and the recipient **SHOULD** not deduce any information from it, except that it is unique to the mediator. The recipient can use the `id`s in the `message_id_list` field of `messages-received`.
+The `id` is an opaque value, and the recipient **SHOULD NOT** deduce any information from it, except that it is unique to the mediator. The recipient can use the `id`s in the `message_id_list` field of `messages-received`.
 
 If there are no messages in the queue for the `delivery-request`, the `delivery` message **MUST** contain an empty array of attachments.
 
