@@ -1,0 +1,31 @@
+baseURL: http://didcomm.org/
+languageCode: en-us
+title: My New Hugo Site
+permalinks:
+  page:
+    protocols: /:sections[1:]/
+mediaTypes:
+  text/htmx:
+    suffixes:
+    - htmx
+  text/html:
+    suffixes:
+    - html
+outputFormats:
+  htmx:
+    baseName: partial
+    isHTML: false
+    isPlainText: true
+    mediaType: text/html
+    protocol: http://
+outputs:
+  home:
+    - html
+    - htmx
+  page:
+    - html
+    - htmx
+#module:
+#  mounts:
+#    - source: content/protocols/
+#      target: content/
