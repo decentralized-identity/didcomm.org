@@ -3,7 +3,7 @@ languageCode: en-us
 title: My New Hugo Site
 permalinks:
   page:
-    protocols: /:sections[1:]/
+    protocols: /:sections[1:]/:slugorfilename
 mediaTypes:
   text/htmx:
     suffixes:

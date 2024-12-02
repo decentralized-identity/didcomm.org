@@ -13,15 +13,15 @@
 				</div>
 			</div>-->
 			{{ .Content }}
-			{{ range first 30 (where .Site.AllPages ".Kind" "page" ) }}
-			<div>
+			<div id="protocol-list" style="display: grid; gap: 20px 10px;grid-template-columns: repeat(4, minmax(0, 1fr));">
+			{{ range first 40 (where (where .Site.AllPages ".Section" "protocols" ) ".Kind" "page") }}
 				<a
 				hx-get="{{ (.OutputFormats.Get "htmx").RelPermalink }}"
 				hx-push-url="{{ .RelPermalink }}"
 				hx-trigger="click"
 				hx-target="#content"
 				hx-swap="innerHTML"
-				href="{{ .Permalink }}">{{ .Permalink }}</a>
-			</div>
+				href="{{ .Permalink }}">{{ delimit (after 2 (split .Path "/")) "/" }}</a>
 			{{ end }}
+			</div>
 {{ end }}
