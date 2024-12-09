@@ -34,7 +34,8 @@ Motivation for v4 of this protocol primarily stems from ambiguity in the [pickup
     - Made the thread id (thid) on `delivery` messages optional, as messages received in _Live Mode_ do not have an associated `delivery-request` message.
  - Removed return route all from `messages-received` messages, as it is not required.
  - Updates protocol-name to `message-pickup`.
- - Clarifies the `longest_waited_seconds` field on the `status` message.
+ - Removes the `longest_waited_seconds` field on the `status` message (as it is redundant in regards to `oldest_received_time`).
+ - Renames `limit` in the `delivery-request` to `message_count_limit` for increased specificity. 
 
 ## Roles
 There are two roles in this protocol: 
@@ -54,12 +55,11 @@ When using this protocol with DIDComm V1, `recipient_did` **MUST** be a [`did:ke
 
 ## Basic Walkthrough
 
-This protocol consists of four different message requests from the `recipient` that should be replied to by the `mediator`:
+This protocol consists of three different message requests from the `recipient` that should be replied to by the `mediator`:
 
 1. Status Request -> Status
-2. Delivery Request -> Message Delivery
-3. Message Received -> Status
-4. Live Mode -> Status or Problem Report
+2. Delivery Request -> Message Delivery -> Message Received
+3. Live Mode -> Status or Problem Report -> Message Delivery -> Message Received
 
 ## States
 
@@ -151,7 +151,6 @@ DIDComm v2 example:
     "body": {
         "recipient_did": "<did for messages>",
         "message_count": 7,
-        "longest_waited_seconds": 3600,
         "newest_received_time": 1658085169,
         "oldest_received_time": 1658084293,
         "total_bytes": 8096,
@@ -161,8 +160,6 @@ DIDComm v2 example:
 ```
 
 `message_count` is the only **REQUIRED** attribute. The others **MAY** be present if offered by the `mediator`.
-
-`longest_waited_seconds` is the age, in seconds, of the oldest message in the queue.
 
 `newest_received_time` and `oldest_received_time` are expressed in UTC Epoch Seconds (seconds since 1970-01-01T00:00:00Z) as an integer.
 
@@ -185,7 +182,7 @@ DIDComm v1 example:
 {
     "@id": "123456780",
     "@type": "https://didcomm.org/message-pickup/4.0/delivery-request",
-    "limit": 10,
+    "message_count_limit": 10,
     "recipient_did": "<did:key for messages>",
     "~transport": {
         "return_route": "all"
@@ -199,14 +196,14 @@ DIDComm v2 example:
     "id": "123456780",
     "type": "https://didcomm.org/message-pickup/4.0/delivery-request",
     "body": {
-        "limit": 10,
+        "message_count_limit": 10,
         "recipient_did": "<did for messages>"
     },
     "return_route": "all"
 }
 ```
 
-`limit` is a **REQUIRED** attribute, and after receipt of this message, the `mediator` **SHOULD** deliver up to the limit indicated.
+`message_count_limit` is a **REQUIRED** attribute, and after receipt of this message, the `mediator` **SHOULD** deliver up to the limit indicated.
 
 `recipient_did` is optional. When specified, the `mediator` **MUST** only return messages sent to that recipient did.
 
@@ -255,7 +252,7 @@ DIDComm v2 example:
 }
 ```
 
-Messages delivered from the queue **MUST** be delivered in a delivery message as attachments. If the `delivery` message is in response to a `delivery-request` message that specifies a `limit`, the number of attached messages **MUST NOT** exceed the `limit` specified in the `delivery-request`. 
+Messages delivered from the queue **MUST** be delivered in a delivery message as attachments. If the `delivery` message is in response to a `delivery-request` message that specifies a `message_count_limit`, the number of attached messages **MUST NOT** exceed the `message_count_limit` specified in the `delivery-request`. 
 The `id` of each attachment is used to confirm receipt.
 The `id` is an opaque value, and the recipient **SHOULD NOT** deduce any information from it, except that it is unique to the mediator. The recipient can use the `id`s in the `message_id_list` field of `messages-received`.
 
@@ -384,6 +381,6 @@ Name / Link | Implementation Notes
 ## Endnotes
 
 ### Future Considerations
-The style of wrapping messages in a `delivery` message incurs an additional roughly 33% increased message size due to wrapping of the message. This size bloating is outweighed by the benefit of having explicit and gauranteed delivery of messages. This issue may be resolved in future versions of DIDComm.
+The style of wrapping messages in a `delivery` message incurs an additional roughly 33% increased message size due to wrapping of the message. This size bloating is outweighed by the benefit of having explicit and guaranteed delivery of messages. This issue may be resolved in future versions of DIDComm.
 
 Should there be a strategy for a `mediator` to indicate support for _Live Mode_ via discover features?
