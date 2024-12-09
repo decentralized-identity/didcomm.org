@@ -34,6 +34,7 @@ Motivation for v4 of this protocol primarily stems from ambiguity in the [pickup
     - Made the thread id (thid) on `delivery` messages optional, as messages received in _Live Mode_ do not have an associated `delivery-request` message.
  - Removed return route all from `messages-received` messages, as it is not required.
  - Updates protocol-name to `message-pickup`.
+ - Clarifies the `longest_waited_seconds` field on the `status` message.
 
 ## Roles
 There are two roles in this protocol: 
@@ -161,7 +162,7 @@ DIDComm v2 example:
 
 `message_count` is the only **REQUIRED** attribute. The others **MAY** be present if offered by the `mediator`.
 
-`longest_waited_seconds` is in seconds, and is the longest delay of any message in the queue.
+`longest_waited_seconds` is the age, in seconds, of the oldest message in the queue.
 
 `newest_received_time` and `oldest_received_time` are expressed in UTC Epoch Seconds (seconds since 1970-01-01T00:00:00Z) as an integer.
 
