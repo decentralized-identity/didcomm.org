@@ -126,7 +126,7 @@ DIDComm v2 example:
 
 ### Request Profile
 
-This message is used to request a profile. Recipient is expected to send their profile at its current state. This will trigger a new instance of this protocol, uysing Request Profile message's id as `pthid`.
+This message is used to request a profile. Recipient is expected to send their profile at its current state. This will trigger a new instance of this protocol, using Request Profile message's id as `pthid`.
 
 DIDComm v1 example: 
 
