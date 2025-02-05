@@ -113,7 +113,7 @@ Done -> [*]
 #### Receiver states
 
 - media-requested
-- media-shared
+- media-received
 - done
 
 <!--
