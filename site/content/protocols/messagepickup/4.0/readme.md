@@ -36,6 +36,7 @@ Motivation for v4 of this protocol primarily stems from ambiguity in the [pickup
  - Updates protocol-name to `message-pickup`.
  - Removes the `longest_waited_seconds` field on the `status` message (as it is redundant in regards to `oldest_received_time`).
  - Renames `limit` in the `delivery-request` to `message_count_limit` for increased specificity. 
+ - Adjusts timing fields to be specified in UTC Epoch milliseconds instead of seconds for greater precision. 
 
 ## Roles
 There are two roles in this protocol: 
@@ -134,9 +135,8 @@ DIDComm v1 example:
     },
     "recipient_did": "<did:key for messages>",
     "message_count": 7,
-    "longest_waited_seconds": 3600,
-    "newest_received_time": 1658085169,
-    "oldest_received_time": 1658084293,
+    "newest_received_time": 1739420343823,
+    "oldest_received_time": 1739420343823,
     "total_bytes": 8096,
     "live_delivery": false
 }
@@ -151,8 +151,8 @@ DIDComm v2 example:
     "body": {
         "recipient_did": "<did for messages>",
         "message_count": 7,
-        "newest_received_time": 1658085169,
-        "oldest_received_time": 1658084293,
+        "newest_received_time": 1739420343823,
+        "oldest_received_time": 1739420343823,
         "total_bytes": 8096,
         "live_delivery": false
     }
@@ -161,7 +161,7 @@ DIDComm v2 example:
 
 `message_count` is the only **REQUIRED** attribute. The others **MAY** be present if offered by the `mediator`.
 
-`newest_received_time` and `oldest_received_time` are expressed in UTC Epoch Seconds (seconds since 1970-01-01T00:00:00Z) as an integer.
+`newest_received_time` and `oldest_received_time` are expressed in UTC Epoch Milliseconds (Milliseconds since 1970-01-01T00:00:00Z) as an integer.
 
 `total_bytes` represents the total size of all messages.
 
