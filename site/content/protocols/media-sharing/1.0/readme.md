@@ -113,7 +113,7 @@ Done -> [*]
 #### Receiver states
 
 - media-requested
-- media-shared
+- media-received
 - done
 
 <!--
@@ -156,7 +156,7 @@ Description of the fields:
         -  `key`: content encryption key, formatted as an hex string
         -  `iv`: initialization vector, formatted as an hex string
         -  `tag`: authentication tag, formatted as an hex string
-  -  `metadata`: (optional) any relevant information that might the used by an agent to better show the item. Some initial known fields are:
+  -  `metadata`: (optional) any relevant information that might be used by an agent to better show the item. Some initial known fields are:
      -  `preview`: base64 string containing a thumbnail (used mostly for images and videos)
      -  `blurhash`: compact representation of a placeholder for an image (used mostly for images and videos)
      -  `duration`: number containing media duration in seconds (used mostly for videos and audio files)
