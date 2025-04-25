@@ -1,6 +1,7 @@
 baseURL: http://didcomm.org/
 languageCode: en-us
 title: My New Hugo Site
+theme: didcomm
 permalinks:
   page:
     protocols: /:sections[1:]/:slugorfilename

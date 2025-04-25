@@ -1,0 +1,14 @@
+name = "didcomm"
+description = "A theme for the DIDComm documentation site."
+version = "1.0.0"
+authors = [{name = '"DIDComm Community", homepage = "Website of author"}]
+license = "Apache-2.0"
+homepage = "https://didcomm.org"
+repository = "https://github.com/decentralized-identity/didcomm.org"
+
+[params]
+  logo = "didcomm-logo.png"
+  primaryColor = "#0078D7"
+  secondaryColor = "#FFFFFF"
+  font = "Arial, sans-serif"
+  defaultLayout = "base.html"

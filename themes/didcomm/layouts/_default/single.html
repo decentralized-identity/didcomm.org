@@ -1,0 +1,83 @@
+{{ define "main" }}
+<div class="content">
+  <h1 class="protocol-title">
+    {{ .Title }}<span class="protocol-version">{{ .Params.version }}</span>
+  </h1>
+
+  <div class="grid-3">
+    <article class="protocol-body">
+      <h2>Summary</h2>
+      <p>{{ .Params.summary }}</p>
+      {{ .Content }}
+    </article>
+    
+    <div class="protocol-meta">
+      {{ if .Params.piuri }}
+      <div class="meta-content">
+        <div class="meta-title">PIURI</div>
+        <div class="meta-value">{{ .Params.piuri }}</div>
+      </div>
+      {{ end }}
+      
+      {{ if .Params.status }}
+      <div class="meta-content">
+        <div class="meta-title">Status</div>
+        <div class="status status-{{ lower .Params.status }}">{{ .Params.status }}</div>
+      </div>
+      {{ end }}
+      
+      {{ if .Params.tags }}
+      <div class="meta-content">
+        <div class="meta-title">Hashtags</div>
+        <div class="tags">
+          {{ range .Params.tags }}
+          <a href="/search?tag={{ . }}" class="tag">#&nbsp;{{ . }}</a>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+      
+      {{ if .Params.publisher }}
+      <div class="meta-content">
+        <div class="meta-title">Publisher</div>
+        <a href="https://github.com/{{ .Params.publisher }}" class="publisher-link">
+          <div class="publisher">@{{ .Params.publisher }}</div>
+        </a>
+      </div>
+      {{ end }}
+      
+      {{ if .Params.authors }}
+      <div class="meta-content">
+        <div class="meta-title">Authors</div>
+        <div class="authors">
+          {{ range .Params.authors }}
+          {{ if .email }}
+          <a href="mailto:{{ .email }}" class="author-link">{{ .name }}</a>
+          {{ else }}
+          <span class="author-name">{{ .name }}</span>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+      
+      <div class="meta-content hide-mobile">
+        <div class="meta-title">Version</div>
+        <div class="meta-value">{{ .Params.version }}</div>
+      </div>
+      
+      {{ if .Params.license }}
+      <div class="meta-content">
+        <div class="meta-title">License</div>
+        <div class="meta-value">{{ .Params.license }}</div>
+      </div>
+      {{ end }}
+      
+      <div class="meta-content">
+        <div class="meta-title">Last modified</div>
+        <div class="meta-value">{{ .Lastmod.Format "January 2, 2006" }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

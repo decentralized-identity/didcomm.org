@@ -1,0 +1,60 @@
+{{- $logo := resources.Get "didcomm-logo.svg" -}}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/htmx-ext-debug@2.0.0/debug.js"></script>
+		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-cyan.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+		<!-- <link rel="stylesheet" href="/css/w3.css"> -->
+		{{ with resources.Get "css/style.scss" | css.Sass -}}
+			{{- $style := . | minify | fingerprint -}}
+			<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+		{{- end }}
+	</head>
+	<body>
+		<header class="w3-theme">
+			<nav class="navbar">
+				<div class="w3-center">
+					<a
+					hx-get="{{ with .Site.Home.OutputFormats.Get "htmx" }}{{ .RelPermalink }}{{ end }}"
+					hx-trigger="click"
+					hx-target="#content"
+					hx-push-url="{{ .Site.Home.RelPermalink }}"
+					hx-swap="innerHTML"
+					hx-ext="debug"
+					href="{{ .Site.BaseURL }}"
+					style="display: flex; align-items: center"
+					class="remove-decoration"
+					>
+						<svg style="display: inline; width: 48px; height: 48px;"><use href="/icons.svg#logo"></use></svg>
+						<span style="margin-left: 1em">DIDComm</span>
+					</a>
+				</div>
+				<div class="w3-center" style="flex-grow: 1; display: flex; justify-content: center; margin: 0 2em">
+					<input id="site-search" class="w3-input w3-animate-input" style="width: 5em" placeholder="Search..." />
+				</div>
+				<div class="flex-baseline links">
+					<a class="remove-decoration" rel="noreferrer noopener nofollow" href="https://github.com/decentralized-identity/didcomm.org">Github Repo</a> |
+					<a class="remove-decoration" rel="noreferrer noopener nofollow" href="https://identity.foundation/didcomm-messaging/spec/v2.1/">Specification</a> |
+					<a class="remove-decoration" href="mailto:security@didcomm.org">Security</a>
+				</div>
+			</nav>
+		</header>
+		<main id="content">
+			{{ block "main" . }}
+			<!-- The part of the page that begins to differ between templates -->
+			{{ end }}
+		</main>
+		<footer>
+			<div class="content">
+			</div>
+		</footer>
+	</body>
+</html>
