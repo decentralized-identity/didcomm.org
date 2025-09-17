@@ -3,7 +3,7 @@ title: Survey
 publisher: stephanbruijnis
 license: MIT
 piuri: https://didcomm.org/survey/1.0
-status: Proposed
+status: Demonstrated
 summary: A protocol where a survey (JSON Forms) is sent by the requester to the responder. The responder then replies with the answers or declines the survey.
 tags:
   - survey
