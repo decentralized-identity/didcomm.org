@@ -82,6 +82,20 @@
 					heroBlock.classList.remove('hero');
 				}
 			}
+			function adjust_links() {
+				const links = document.querySelectorAll('a[hx-get]');
+				links.forEach(link => {
+					const relative_url = new URL(link.href, window.location.origin);
+					const url = get_url(link.href);
+					if (url === relative_url.pathname + relative_url.search + relative_url.hash) {
+						// No adjustment needed if the URL is already correct
+						return;
+					}
+					console.log("Adjusting link:", link.href, "->", get_url(link.href));
+					link.setAttribute('href', url);
+					link.setAttribute('hx-push-url', url);
+				});
+			}
 			document.addEventListener('DOMContentLoaded', function() {
 				// replace_timestamp();
 				// // Update timestamps every minute
@@ -91,6 +105,7 @@
 					if (event.target.id === 'content') {
 						replace_timestamp();
 						adjust_hero(event);
+						adjust_links();
 					}
 				});
 			});

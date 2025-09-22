@@ -56,7 +56,12 @@
     {{- with .First }}
       {{- if ne $currentPageNumber .PageNumber }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="First"
         class="page-link {{$buttonClass}}"
         role="button"
@@ -74,7 +79,12 @@
 
     {{- with .Prev }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="Previous"
         class="page-link {{$buttonClass}}"
         role="button"
@@ -106,6 +116,11 @@
         >{{ $k }}</a>
       {{- else }}
         <a
+				hx-get="{{ (index $.Paginator.Pagers (sub $k 1)).URL }}"
+				hx-push-url="{{ (index $.Paginator.Pagers (sub $k 1)).URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
         href="{{ (index $.Paginator.Pagers (sub $k 1)).URL }}"
         aria-label="Page {{ $k }}"
         class="page-link {{$buttonClass}}"
@@ -116,7 +131,12 @@
 
     {{- with .Next }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="Next"
         class="page-link {{$buttonClass}}"
         role="button"
@@ -134,7 +154,12 @@
     {{- with .Last }}
       {{- if ne $currentPageNumber .PageNumber }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="Last"
         class="page-link {{$buttonClass}}"
         role="button"
@@ -162,7 +187,12 @@
     {{- with .First }}
       {{- if ne $currentPageNumber .PageNumber }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="First"
         class="page-link {{$buttonClass}}"
         role="button"
@@ -172,7 +202,12 @@
 
     {{- with .Prev }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="Previous"
         class="page-link {{$buttonClass}}"
         role="button"
@@ -196,6 +231,11 @@
         >{{ $k }}</a>
       {{- else }}
         <a
+				hx-get="{{ (index $.Paginator.Pagers (sub $k 1)).URL }}"
+				hx-push-url="{{ (index $.Paginator.Pagers (sub $k 1)).URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
         href="{{ (index $.Paginator.Pagers (sub $k 1)).URL }}"
         aria-label="Page {{ $k }}"
         class="page-link {{$buttonClass}}"
@@ -206,7 +246,12 @@
 
     {{- with .Next }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="Next"
         class="page-link {{$buttonClass}}"
         role="button"
@@ -216,7 +261,12 @@
     {{- with .Last }}
       {{- if ne $currentPageNumber .PageNumber }}
         <a
-        href="{{ .URL }}"
+				hx-get="{{ .URL }}"
+				hx-push-url="{{ .URL }}"
+				hx-trigger="click"
+				hx-target="#content"
+				hx-swap="innerHTML"
+				href="{{ .URL }}"
         aria-label="Last"
         class="page-link {{$buttonClass}}"
         role="button"
