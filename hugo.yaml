@@ -2,28 +2,55 @@ baseURL: http://didcomm.org/
 languageCode: en-us
 title: My New Hugo Site
 theme: didcomm
+enableGitInfo: true
 permalinks:
   page:
-    protocols: /:sections[1:]/:slugorfilename
+    protocols: /:sections[1:]/:slugorcontentbasename
+  section:
+    protocols: /protocols/
+contentTypes:
+  text/asciidoc: {}
+  text/html: {}
+  text/markdown: {}
+  text/org: {}
+  text/pandoc: {}
+  text/rst: {}
 mediaTypes:
-  text/htmx:
+  application/htmx:
+    delimiter: .
     suffixes:
     - htmx
   text/html:
     suffixes:
     - html
 outputFormats:
+  html:
+    weight: 2
+    mediaType: text/html
   htmx:
     baseName: partial
-    isHTML: false
-    isPlainText: true
+    isHTML: true
+    isPlainText: false
+    rel: htmx
+    notAlternative: true
+    # mediaType: application/htmx
     mediaType: text/html
     protocol: http://
+    weight: 1
 outputs:
   home:
     - html
     - htmx
   page:
+    - html
+    - htmx
+  section:
+    - html
+    - htmx
+  taxonomy:
+    - html
+    - htmx
+  term:
     - html
     - htmx
 #module:
