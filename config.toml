@@ -1,9 +1,0 @@
-baseURL = "https://didcomm.org/"
-languageCode = "en-us"
-title = "DIDComm Communication Protocol"
-theme = "didcomm"
-
-[build]
-    [[build.cachebusters]]
-        source = 'scss'
-        target = 'css'

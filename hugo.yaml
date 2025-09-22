@@ -1,6 +1,6 @@
 baseURL: http://didcomm.org/
 languageCode: en-us
-title: My New Hugo Site
+title: DIDComm Communication Protocol
 theme: didcomm
 enableGitInfo: true
 permalinks:
@@ -8,6 +8,10 @@ permalinks:
     protocols: /:sections[1:]/:slugorcontentbasename
   section:
     protocols: /protocols/
+build:
+  cachebusters:
+    - source: 'scss'
+      target: 'css'
 contentTypes:
   text/asciidoc: {}
   text/html: {}
