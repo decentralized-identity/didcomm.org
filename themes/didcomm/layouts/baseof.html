@@ -9,6 +9,7 @@
 		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
 		<script src="https://unpkg.com/htmx-ext-debug@2.0.0/debug.js"></script>
 		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-cyan.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
@@ -19,7 +20,7 @@
 		{{- end }}
 	</head>
 	<body>
-		<header class="w3-theme">
+		<header id="hero" class="w3-theme">
 			<nav class="navbar">
 				<div class="w3-center">
 					<a
@@ -37,8 +38,8 @@
 						<span style="margin-left: 1em">DIDComm</span>
 					</a>
 				</div>
-				<div class="w3-center" style="flex-grow: 1; display: flex; justify-content: center; margin: 0 2em">
-					<input id="site-search" class="w3-input w3-animate-input" style="width: 5em" placeholder="Search..." />
+				<div class="mini-search w3-center" style="flex-grow: 1; justify-content: center; margin: 0 2em">
+					<input name="protocol-search" class="site-search w3-input w3-animate-input" style="width: 5em" placeholder="Search..." />
 				</div>
 				<div class="flex-baseline links">
 					<a class="remove-decoration" rel="noreferrer noopener nofollow" href="https://github.com/decentralized-identity/didcomm.org">Github Repo</a> |
@@ -46,6 +47,9 @@
 					<a class="remove-decoration" href="mailto:security@didcomm.org">Security</a>
 				</div>
 			</nav>
+			<div id="hero-block">
+			{{ block "hero" . }}{{ end }}
+			</div>
 		</header>
 		<main id="content">
 			{{ block "main" . }}

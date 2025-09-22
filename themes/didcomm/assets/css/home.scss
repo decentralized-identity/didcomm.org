@@ -1,0 +1,9 @@
+.hero {
+    height: 350px;
+}
+#hero .mini-search {
+    display: flex;
+}
+#hero.hero .mini-search {
+    display: none;
+}

@@ -66,12 +66,17 @@ body {
 .navbar > .links {
 	font-size: 13px;
 }
-#site-search:not(:focus) {
+.site-search:not(:focus) {
 	color: var(--theme-color-inactive-text);
 	background-color: var(--theme-color);
 }
-#site-search:not(:focus)::placeholder {
+.site-search:not(:focus)::placeholder {
 	color: var(--theme-color-inactive-text);
 }
 
+body {
+	min-height: 100vh;
+}
+
+@import "./home.scss";
 @import "./protocol.scss";
