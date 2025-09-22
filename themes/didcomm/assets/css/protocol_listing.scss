@@ -1,0 +1,79 @@
+.protocol-summary-card {
+    background-color: #f0f6fb;
+    border: 1px solid #d1e3f0;
+    border-radius: 8px;
+    padding: 32px 32px;
+    padding-bottom: 8px;
+}
+
+.flex-spacer {
+    flex-grow: 1;
+}
+
+.protocol-summary-card > .title {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    & > a {
+        font-weight: 600;
+        text-decoration: none;
+        color: #15344f;
+        padding-right: 8px;
+    }
+    & > span {
+        color: #888;
+        line-height: normal;
+    }
+    & > .status {
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+        background-color: #29679c;
+        border-radius: 4px;
+        padding: 4px 8px;
+        &.status-draft {
+            background-color: #888;
+        }
+        &.status-deprecated {
+            background-color: #c00;
+        }
+        &.status-active {
+            background-color: #29679c;
+        }
+        &.status-retired {
+            background-color: #555;
+        }
+        &.status-production {
+            color: #1fad3e;
+            background-color: rgba(31, 173, 62, 0.07);
+        }
+    }
+}
+
+.protocol-summary-card > .committer-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    & a {
+        text-decoration: none;
+        color: #15344f;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+    & .timestamp {
+        color: #888;
+    }
+    & .avatar {
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        margin-right: 8px;
+    }
+}
+
+.pagination > .active {
+    background-color: #15344f;
+    color: white;
+}
