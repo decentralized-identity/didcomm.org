@@ -1,19 +1,66 @@
+{{ define "hero" }}
+			<div class="w3-container w3-center hero">
+				<h1 class="w3-xxxlarge">DIDComm</h1>
+				<p class="w3-xlarge">Decentralized Identity Communication</p>
+				<p class="w3-large">A protocol for secure, private, and interoperable messaging.</p>
+				
+				<div class="w3-center" style="flex-grow: 1; display: flex; justify-content: center; margin: 0 2em">
+					<input name="protocol-search" class="site-search w3-input w3-animate-input" style="width: 15em; max-width: 40em;" placeholder="Search..." />
+				</div>
+				{{- $page := .Site.GetPage "/protocols" }}
+				{{- with $page }}
+				or <a
+					hx-get="{{ (.OutputFormats.Get "htmx").RelPermalink }}"
+					hx-trigger="click"
+					hx-target="#content"
+					hx-push-url="{{ .RelPermalink }}"
+					hx-swap="innerHTML"
+					hx-ext="debug"
+					href="{{ .Permalink }}">
+					browse all protocols
+				</a>
+				{{- end }}
+			</div>
+		</div>
+{{ end }}
+
 {{ define "main" }}
-			<!--
 			<div class="w3-row-padding w3-center w3-margin-top">
 				<div class="w3-third">
-					<div class="w3-card w3-container" style="min-height:460px">
-						<h3>Responsive</h3><br>
-						<i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
-						<p>Built-in responsiveness</p>
-						<p>Mobile first fluid grid</p>
-						<p>Fits any screen sizes</p>
-						<p>PC Tablet and Mobile</p>
+					<div class="w3-container" style="min-height:460px">
+						<h3>Learn</h3><br>
+						<i class="fa fa-lightbulb w3-margin-bottom w3-text-amber" style="font-size:120px"></i>
+						<p class="w3-left-align">
+							DIDComm uses DIDs (Decentralized Identifiers) to establish confidential, ongoing
+							connections, without the need for usernames and passwords.
+						</p>
 					</div>
 				</div>
-			</div>-->
+				<div class="w3-third">
+					<div class="w3-container" style="min-height:460px">
+						<h3>Build</h3><br>
+						<i class="fa fa-screwdriver-wrench w3-margin-bottom w3-text-deep-orange" style="font-size:120px"></i>
+						<p class="w3-left-align">
+							DIDComm protocols enable trusted interactions between parties. These support activities
+							like secure chat, verifiable credential exchange, buying and selling, scheduling,
+							escrow, bidding, ticketing, and so forth. If not already in use, protocols can be
+							designed for any use case.
+						</p>
+					</div>
+				</div>
+				<div class="w3-third">
+					<div class="w3-container" style="min-height:460px">
+						<h3>Join</h3><br>
+						<i class="fa fa-share-nodes w3-margin-bottom w3-text-green" style="font-size:120px"></i>
+						<p class="w3-left-align">
+							Become a contributing member of the DIDComm community, get help and feedback, and
+							collaborate with others.
+						</p>
+					</div>
+				</div>
+			</div>
 			{{ .Content }}
-			<div id="protocol-list" style="display: grid; gap: 20px 10px;grid-template-columns: repeat(4, minmax(0, 1fr));">
+			<div id="protocol-list" style="display: grid; gap: 20px 10px;grid-template-columns: repeat(3, minmax(0, 1fr));">
 			{{ range first 40 (where (where .Site.AllPages ".Section" "protocols" ) ".Kind" "page") }}
 				<a
 				hx-get="{{ (.OutputFormats.Get "htmx").RelPermalink }}"
