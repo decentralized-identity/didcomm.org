@@ -18,6 +18,83 @@
 			{{- $style := . | minify | fingerprint -}}
 			<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
 		{{- end }}
+		<script>
+			function replace_timestamp() {
+				const elements = document.querySelectorAll('.timestamp');
+				const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+				elements.forEach(el => {
+					const date = new Date(el.getAttribute('data-timestamp'));
+					const now = new Date();
+					const diffMs = date.getTime() - now.getTime();
+
+					let unit;
+					let value;
+					if (Math.abs(diffMs) < 60 * 1000) {
+						unit = 'second';
+						value = Math.round(diffMs / 1000);
+					} else if (Math.abs(diffMs) < 60 * 60 * 1000) {
+						unit = 'minute';
+						value = Math.round(diffMs / (60 * 1000));
+					} else if (Math.abs(diffMs) < 24 * 60 * 60 * 1000) {
+						unit = 'hour';
+						value = Math.round(diffMs / (60 * 60 * 1000));
+					} else if (Math.abs(diffMs) < 30 * 24 * 60 * 60 * 1000) {
+						unit = 'day';
+						value = Math.round(diffMs / (24 * 60 * 60 * 1000));
+					} else if (Math.abs(diffMs) < 365.25 * 24 * 60 * 60 * 1000) {
+						unit = 'month';
+						value = Math.round(diffMs / (30 * 24 * 60 * 60 * 1000));
+					} else {
+						unit = 'year';
+						value = Math.round(diffMs / (365.25 * 24 * 60 * 60 * 1000));
+					}
+					const relativeTime = rtf.format(value, unit);
+					el.textContent = relativeTime;
+				});
+			}
+
+			// Function to get the base URL from a URI and return only the path
+			// This function is used to ensure that the URL is correctly formatted
+			// for HTMX requests, especially when the URI ends with "partial.htmx"
+			// and we want to remove that part.
+			// It also handles cases where the URI might not end with "partial.htmx".
+			// The function returns the path without the "partial.htmx" suffix.
+			// If the URI does not end with "partial.htmx", it returns the URI
+			// as is, ensuring that the URL remains valid for HTMX requests.
+			function get_url(uri) {
+				// Remove "partial.htmx" from the end of the URI
+				const baseUrl = uri.replace(/\/partial\.htm[xl]$/, '');
+				// Ensure the URL contains the path only
+				const url = new URL(baseUrl, window.location.origin);
+				// Return the path part of the URL
+				return url.pathname + url.search + url.hash;
+			}
+			function adjust_hero(event) {
+				const heroBlock = document.getElementById('hero');
+				let responseUrl = event ? undefined : "{{ .RelPermalink }}";
+				if (event?.detail && event.detail.xhr) {
+					responseUrl = get_url(event.detail.xhr.responseURL);
+				}
+				console.log("Response URL:", responseUrl);
+				if (heroBlock && responseUrl == "/") {
+					heroBlock.classList.add('hero');
+				} else {
+					heroBlock.classList.remove('hero');
+				}
+			}
+			document.addEventListener('DOMContentLoaded', function() {
+				// replace_timestamp();
+				// // Update timestamps every minute
+				// setInterval(replace_timestamp, 60 * 1000);
+				adjust_hero();
+				document.body.addEventListener('htmx:afterSwap', function(event) {
+					if (event.target.id === 'content') {
+						replace_timestamp();
+						adjust_hero(event);
+					}
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<header id="hero" class="w3-theme">
