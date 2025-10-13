@@ -32,9 +32,9 @@ Agents need interoperable, privacy-preserving payment interactions without embed
 - `payee`: The party that receives funds.
 
 ## Requirements (normative)
-- All messages MUST be encrypted (JWE) using sender-authenticated ECDH-1PU.
-- Sign-then-encrypt (nested JWS) is RECOMMENDED for `handshake-request`, `receipt`, and `confirm` for auditability.
-- Use standard DIDComm message fields `id`, `type`, `from`, `to`, `thid`, optional `pthid`, `created_time`.
+- All messages use standard DIDComm v2 encryption.
+- Sign-then-encrypt is RECOMMENDED for `handshake-request`, `receipt`, and `confirm` for non-repudiation and auditability.
+- Use standard DIDComm v2 message fields: `id`, `type`, `from`, `to`, `thid`, optional `pthid`, `created_time`.
 - Sensitive coordinates and tax details MUST appear only in `handshake-request`.
 - If external attachments/links are used, include a content hash (multihash/multibase) and optionally a detached JWS; receivers MUST verify hashes before use.
 
@@ -87,13 +87,13 @@ Sessions expire at `session.ttl`; late receipts MUST be ignored and MAY elicit a
 3) Off-rail Payment and Confirmation: Payer pays off-band → `receipt` (tx ref, summary hash) → `confirm` (received|pending|settled|failed)
 
 ## Security
-- Confidentiality & Integrity: Use authcrypt (ECDH-1PU) for all messages; place sensitive data only in `handshake-request`.
-- Non-repudiation: sign-then-encrypt recommended for `handshake-request`, `receipt`, `confirm`.
-- Replay: bind proofs to `{did, session.id, timestamp/nonce}`; enforce reasonable clock skew.
-- Minimization: receipts exclude coordinates and full terms; include only references and hashes.
-- DID/Key rotation: require `thid` continuity; if `from`/`to` rotate, re-auth on next hop.
-- DoS: rate-limit concurrent sessions per connection; cap payload sizes; reject oversized attachments.
-- Logging: redact coordinates, VCs, and IVMS data; log only hashes/IDs.
+- **Confidentiality & Integrity**: Standard DIDComm v2 encryption provides message confidentiality and integrity; place sensitive data only in `handshake-request`.
+- **Non-repudiation**: Sign-then-encrypt recommended for `handshake-request`, `receipt`, `confirm`.
+- **Replay protection**: Bind proofs to `{did, session.id, timestamp/nonce}`; enforce reasonable clock skew.
+- **Data minimization**: Receipts exclude coordinates and full terms; include only references and hashes.
+- **DID/Key rotation**: Require `thid` continuity; if `from`/`to` rotate, re-auth on next hop.
+- **DoS prevention**: Rate-limit concurrent sessions per connection; cap payload sizes; reject oversized attachments.
+- **Privacy in logging**: Redact coordinates, VCs, and IVMS data; log only hashes/IDs.
 
 ## Message Reference
 
