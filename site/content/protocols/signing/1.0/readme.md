@@ -4,8 +4,8 @@ publisher: vinaysingh8866
 license: MIT
 piuri: https://didcomm.org/signing/1.0
 status: Draft
-summary: A modular, transport-agnostic protocol for requesting, producing, coordinating, and verifying digital signatures over arbitrary payloads (documents, transactions, packages, attestations) with single-signer and multi-party modes.
-tags: [signing, signatures, multisig, cryptography, pdf, evm, bitcoin]
+summary: A modular, transport-agnostic protocol for requesting, producing, coordinating, and verifying digital signatures over arbitrary payloads (documents, transactions, packages, attestations) with single-signer and multi-party modes, plus replay-proof sealed secret delivery using HPKE envelopes and authorization tokens.
+tags: [signing, signatures, multisig, cryptography, pdf, evm, bitcoin, hpke, sealed-secrets, authorization-tokens, replay-protection]
 authors:
   - name: Vinay Singh
     email: vinay@verid.id
@@ -15,12 +15,15 @@ authors:
 
 The **Signing Protocol** provides a unified DIDComm-based approach to digital signature orchestration across heterogeneous media types including PDF documents, blockchain transactions, software packages, and cryptographic attestations. It supports single-signer workflows, threshold signatures (N-of-M), cryptographic aggregation (MuSig2, FROST, BLS), and contract-based multisig (e.g., Gnosis Safe, ERC-1271).
 
+Beyond traditional signatures, the protocol includes **sealed secret delivery** using HPKE envelopes with replay-proof authorization tokens, enabling secure use cases like database password unlock, API key rotation, and ephemeral credential delivery with device binding and monotonic counter protection.
+
 ### Goals
 
-- **Unified**: One protocol to drive signing across heterogeneous media (PDF, CMS, JWT, EVM, PSBT, OCI, etc.)
-- **Modular**: Pluggable canonicalizers, signature suites, aggregators, and policies
+- **Unified**: One protocol to drive signing across heterogeneous media (PDF, CMS, JWT, EVM, PSBT, OCI, etc.) and sealed secret delivery
+- **Modular**: Pluggable canonicalizers, signature suites, aggregators, envelopes, and policies
 - **Multisig**: Support signature collection (N independent sigs), cryptographic aggregation (e.g., MuSig2/FROST/BLS), and contract/account-based multisig (e.g., Gnosis Safe, ERC-1271)
-- **Auditable**: Strong consent mechanisms, digest pinning (WYSIWYS - What You See Is What You Sign), idempotency, and receipts
+- **Auditable**: Strong consent mechanisms, digest pinning (WYSIWYS - What You See Is What You Sign), idempotency, receipts, and authorization tokens
+- **Replay-Proof**: Monotonic counter-based replay protection for authorization tokens and sealed secrets
 - **Transport-agnostic**: Works seamlessly over DIDComm v2 message routing and pickup
 
 ### Non-Goals
@@ -62,9 +65,12 @@ Each domain uses proprietary APIs and coordination mechanisms. This protocol pro
 - **Canonicalizer**: Module that converts an input to canonical bytes and provides a digest method
 - **Signature Suite**: Module that produces/verifies signatures for a class of payloads/keys
 - **Aggregator**: Module that combines partial signatures and/or executes on-chain submissions to produce a final artifact
+- **Envelope**: Module that seals secrets using KEM+KDF+AEAD (e.g., HPKE) with cryptographic binding to authorization tokens
 - **Policy**: Module that enforces business/authorization constraints
 - **Session**: A scoped interaction for signing a specific object (or set of objects)
 - **WYSIWYS**: "What You See Is What You Sign" - the principle that signers must view content derived from the same canonical bytes they are signing
+- **Authorization Token**: Server-signed ticket with replay protection (monotonic counter), device binding, and expiration
+- **Device Binding**: Cryptographic binding of tokens/envelopes to a specific device key or DID
 
 Normative keywords (MUST, SHOULD, MAY) are to be interpreted as in RFC 2119.
 
@@ -255,6 +261,58 @@ The `Suite` specifies the signature algorithm and constraints:
 
 - `idempotency_key` SHOULD be present in `request-signing` to prevent duplicate processing
 - `ack` SHOULD be a compact JWS over `{received, session_id, receipt_jti, step_hash}` for non-repudiation
+
+### Authorization Token
+
+An `Authorization Token` is a server-signed ticket providing replay-proof authorization for sealed secrets, signing operations, or other constrained actions. It includes device binding and monotonic counter semantics.
+
+```json
+{
+  "token": {
+    "typ": "signing-ticket",
+    "session_id": "sess_b5f1...",
+    "scope": "unlock",
+    "device": "did:example:device123",
+    "ctr": 42,
+    "exp": "2025-10-19T16:00:00Z",
+    "aud": ["did:example:agentA"],
+    "policy_hash": "sha-256:GW...",
+    "nonce": "b64...",
+    "cap": 1
+  },
+  "sig": {
+    "suite": "jws-ed25519@1",
+    "kid": "did:ex:coordinator#k1",
+    "value": "eyJ...sig..."
+  }
+}
+```
+
+**Required Fields:**
+- `typ`: Token type (e.g., `signing-ticket`)
+- `session_id`: Session identifier
+- `scope`: Authorization scope (`unlock`, `sign`, `submit`)
+- `device`: Device DID or key identifier
+- `ctr`: Monotonic counter (per device)
+- `exp`: Expiration timestamp (ISO 8601)
+- `cap`: Capability/use limit (default 1)
+
+**Optional Fields:**
+- `aud`: Intended audience DIDs
+- `policy_hash`: Cryptographic commitment to applied policy
+- `nonce`: Client-provided or server-generated nonce
+
+**Signature:**
+- `sig.suite`: Signature suite identifier
+- `sig.kid`: Key identifier (DID URL)
+- `sig.value`: Signature over canonical serialization of `token`
+
+**Normative Rules:**
+- The tuple `(device, ctr)` MUST be strictly monotonically increasing on both server and client
+- `exp` MUST be enforced by both parties; expired tokens MUST be rejected
+- `token` MUST be integrity-protected by `sig` (JWS or equivalent)
+- Clients MUST persist `last_seen_ctr(device)` before consuming the token
+- Tokens with `ctr ≤ last_seen_ctr` MUST be rejected (replay protection)
 
 ## Message Reference
 
@@ -462,7 +520,7 @@ For on-chain execution:
 
 ### provide-artifacts
 
-**Purpose:** Deliver final signed artifacts (signed PDF, CMS, transaction receipts, finalized PSBT, OCI signatures).
+**Purpose:** Deliver final signed artifacts (signed PDF, CMS, transaction receipts, finalized PSBT, OCI signatures) or sealed secrets with authorization tokens.
 
 **Sender:** `coordinator` or `signer` (single-signer mode)
 **Receiver:** `requester`
@@ -472,7 +530,7 @@ For on-chain execution:
 https://didcomm.org/signing/1.0/provide-artifacts
 ```
 
-**Body:**
+**Body (Standard Artifacts):**
 ```json
 {
   "session_id": "sess_...",
@@ -486,12 +544,85 @@ https://didcomm.org/signing/1.0/provide-artifacts
 }
 ```
 
+**Body (Sealed Secret with Authorization Token):**
+```json
+{
+  "session_id": "sess_...",
+  "artifacts": [
+    {
+      "type": "sealed-secret@1",
+      "suite": "envelope-hpke@1",
+      "aad": {
+        "ticket_digest": "sha-256:..."
+      },
+      "ciphertext": "b64...",
+      "enc": {
+        "kem": "X25519",
+        "kdf": "HKDF-SHA256",
+        "aead": "AES-256-GCM",
+        "ek_pub": "b64..."
+      }
+    }
+  ],
+  "token": {
+    "token": {
+      "typ": "signing-ticket",
+      "session_id": "sess_...",
+      "scope": "unlock",
+      "device": "did:example:device123",
+      "ctr": 42,
+      "exp": "2025-10-19T16:00:00Z",
+      "cap": 1
+    },
+    "sig": {
+      "suite": "jws-ed25519@1",
+      "kid": "did:ex:coordinator#k1",
+      "value": "eyJ...sig..."
+    }
+  }
+}
+```
+
+**Sealed Secret Fields:**
+- `type`: MUST be `sealed-secret@1` for envelope artifacts
+- `suite`: Envelope suite identifier (e.g., `envelope-hpke@1`)
+- `aad`: Additional authenticated data MUST include `ticket_digest`
+- `ciphertext`: Base64-encoded encrypted payload
+- `enc`: Encryption metadata (KEM, KDF, AEAD, ephemeral public key)
+
+**Token Field:**
+- `token`: Authorization token structure (see Data Model §Authorization Token)
+- MUST be present when `type` is `sealed-secret@1`
+
 **Attachments:**
 - Artifacts MAY be attached directly or referenced via `links`
 
 **Validation:**
 - Each artifact MUST include `type`, `digest`, and `links` or inline data
 - `digest` SHOULD be verified by requester
+- For `sealed-secret@1`: `aad.ticket_digest` MUST match `sha-256(serialize(token.token))`
+- Receiver MUST verify `token.sig` before attempting decryption
+- Receiver MUST enforce counter monotonicity (`ctr > last_seen_ctr`)
+
+### issue-token
+
+**Purpose:** Issue an authorization token with sealed secret (optional message type; can use `provide-artifacts` instead).
+
+**Sender:** `coordinator`
+**Receiver:** `signer` or `requester`
+
+**Message Type URI:**
+```
+https://didcomm.org/signing/1.0/issue-token
+```
+
+**Body:**
+Same structure as `provide-artifacts` with sealed secret. This message type exists to semantically separate authorization token issuance from artifact delivery in workflows where that distinction is important.
+
+**Usage Note:**
+- Use `issue-token` when the primary purpose is delivering authorization credentials
+- Use `provide-artifacts` with `type: sealed-secret@1` when sealed secrets are one of multiple artifact types
+- Both are functionally equivalent for sealed secret delivery
 
 ### ack
 
@@ -623,6 +754,48 @@ Policies enforce business/authorization constraints.
 | `usage-limit@1` | Enforce `use_limit` |
 | `vp-gate@1` | Require Verifiable Presentation proving role/entitlement |
 | `spend-limit@1` | EVM field checks: token, amount, chainId |
+
+### Envelopes
+
+Envelopes seal secrets using Key Encapsulation Mechanisms (KEM) + Key Derivation Functions (KDF) + Authenticated Encryption with Associated Data (AEAD).
+
+| Registry Key | Description | Cryptographic Primitives |
+|--------------|-------------|--------------------------|
+| `envelope-hpke@1` | RFC 9180 HPKE Base/Auth mode | KEM: X25519 (MUST), KDF: HKDF-SHA256 (MUST), AEAD: AES-256-GCM or ChaCha20-Poly1305 (MUST support ≥1) |
+| `envelope-didcomm-auth@1` | DIDComm v2 authenticated encryption as envelope | Uses DIDComm JWM authcrypt with AAD binding |
+
+**envelope-hpke@1 Specification:**
+
+- **Modes**: Base mode (MUST), Auth mode (MAY)
+- **Inputs**:
+  - Recipient public key (X25519)
+  - Plaintext (secret to seal)
+  - AAD (additional authenticated data)
+- **AAD Requirements (MUST include)**:
+  - `ticket_digest`: `sha-256(serialize(token))`
+  - `session_id`: Session identifier
+  - `device`: Device identifier (optional but recommended)
+- **Outputs**:
+  - `ciphertext`: Encrypted payload
+  - `ek_pub`: Encapsulated key (ephemeral public key)
+- **Metadata**: Include `enc` object with `{kem, kdf, aead, ek_pub}` for interoperability
+
+**envelope-didcomm-auth@1 Specification:**
+
+- Uses DIDComm v2 authenticated encryption (JWM authcrypt)
+- AAD MUST include the same fields as `envelope-hpke@1`
+- Suitable for implementations that already have DIDComm crypto stack
+
+**Discovery:**
+
+Agents advertise supported envelopes in `capabilities.supported_envelopes` during `propose-signing`.
+
+**Security Requirements:**
+
+- Envelope AAD MUST cryptographically bind to the authorization token digest
+- Implementations MUST reject envelopes where `aad.ticket_digest ≠ sha-256(serialize(token))`
+- Recipient MUST verify token signature before attempting decryption
+- Plaintext secrets MUST be zeroized immediately after use
 
 ## Basic Walkthrough
 
@@ -821,6 +994,216 @@ Alice's agent acknowledges receipt:
 - `combine` runs `psbt-finalize@2` aggregator
 - `provide-artifacts` includes hex transaction + txid
 
+### Scenario 5: Database Password Unlock (Sealed Secret)
+
+**Use Case:** Secure, replay-proof delivery of database password to authorized device
+
+**Participants:**
+- **Client Device:** Database application (`did:ex:db-client`, device counter `ctr=41`)
+- **Coordinator:** Credential vault service (`did:ex:vault`)
+
+**Flow:**
+
+1. **Request Authorization**
+
+Client sends `request-signing` requesting database password:
+
+```json
+{
+  "type": "https://didcomm.org/signing/1.0/request-signing",
+  "from": "did:ex:db-client",
+  "to": ["did:ex:vault"],
+  "thid": "thread-unlock-1",
+  "body": {
+    "session": {
+      "session_id": "sess_unlock_db_prod",
+      "mode": {"type": "single"}
+    },
+    "object": {
+      "id": "so_db_prod_pw",
+      "media_type": "application/octet-stream",
+      "canonicalization": {"method": "raw-bytes@1"},
+      "digest": {"alg": "sha-256", "value": "placeholder"}
+    },
+    "suite": {
+      "suite": "jws-ed25519@1",
+      "key_binding": {
+        "controller": "did:ex:db-client#device-key-1"
+      }
+    },
+    "idempotency_key": "unlock_20251019_001"
+  }
+}
+```
+
+2. **Policy Check & Token Creation**
+
+Coordinator:
+- Validates client authorization (e.g., via policy or VP)
+- Increments device counter: `ctr = 42` (was 41)
+- Creates authorization token:
+
+```json
+{
+  "token": {
+    "typ": "signing-ticket",
+    "session_id": "sess_unlock_db_prod",
+    "scope": "unlock",
+    "device": "did:ex:db-client#device-key-1",
+    "ctr": 42,
+    "exp": "2025-10-19T16:02:00Z",
+    "cap": 1
+  }
+}
+```
+
+- Signs token with coordinator key
+- Computes `ticket_digest = sha-256(serialize(token))`
+
+3. **Envelope Creation**
+
+Coordinator encrypts database password using HPKE:
+
+```python
+# Pseudocode
+AAD = {
+  "ticket_digest": "sha-256:9f2a...",
+  "session_id": "sess_unlock_db_prod",
+  "device": "did:ex:db-client#device-key-1"
+}
+recipient_pk = resolve_public_key("did:ex:db-client#device-key-1")
+plaintext = "MySecureDBPassword123!"
+(ciphertext, ek_pub) = HPKE.Seal(recipient_pk, plaintext, serialize(AAD))
+```
+
+4. **Deliver Sealed Secret**
+
+Coordinator sends `provide-artifacts`:
+
+```json
+{
+  "type": "https://didcomm.org/signing/1.0/provide-artifacts",
+  "from": "did:ex:vault",
+  "to": ["did:ex:db-client"],
+  "thid": "thread-unlock-1",
+  "body": {
+    "session_id": "sess_unlock_db_prod",
+    "artifacts": [
+      {
+        "type": "sealed-secret@1",
+        "suite": "envelope-hpke@1",
+        "aad": {
+          "ticket_digest": "sha-256:9f2a..."
+        },
+        "ciphertext": "YjY0LWVuY29kZWQtY2lwaGVydGV4dA==",
+        "enc": {
+          "kem": "X25519",
+          "kdf": "HKDF-SHA256",
+          "aead": "AES-256-GCM",
+          "ek_pub": "ZXBoZW1lcmFsLXB1YmxpYy1rZXk="
+        }
+      }
+    ],
+    "token": {
+      "token": {
+        "typ": "signing-ticket",
+        "session_id": "sess_unlock_db_prod",
+        "scope": "unlock",
+        "device": "did:ex:db-client#device-key-1",
+        "ctr": 42,
+        "exp": "2025-10-19T16:02:00Z",
+        "cap": 1
+      },
+      "sig": {
+        "suite": "jws-ed25519@1",
+        "kid": "did:ex:vault#signing-key",
+        "value": "c2lnbmF0dXJlLWRhdGE="
+      }
+    }
+  }
+}
+```
+
+5. **Client Consumption**
+
+Client receives artifact and:
+
+a. **Verify token signature**:
+```python
+verify_jws(token.sig, coordinator_public_key)  # MUST pass
+```
+
+b. **Check expiration**:
+```python
+assert token.exp > now()  # MUST be true
+```
+
+c. **Check counter** (replay protection):
+```python
+last_seen_ctr = load_from_persistent_storage("did:ex:db-client#device-key-1")
+# last_seen_ctr = 41
+assert token.ctr > last_seen_ctr  # 42 > 41 ✓
+```
+
+d. **Verify envelope binding**:
+```python
+computed_digest = sha256(serialize(token.token))
+assert artifacts[0].aad.ticket_digest == "sha-256:" + computed_digest  # MUST match
+```
+
+e. **Persist counter BEFORE decryption** (critical!):
+```python
+save_to_persistent_storage("did:ex:db-client#device-key-1", ctr=42)
+```
+
+f. **Decrypt secret**:
+```python
+AAD = {
+  "ticket_digest": artifacts[0].aad.ticket_digest,
+  "session_id": token.session_id,
+  "device": token.device
+}
+device_sk = load_private_key("did:ex:db-client#device-key-1")
+password = HPKE.Open(device_sk, artifacts[0].ciphertext, serialize(AAD), artifacts[0].enc.ek_pub)
+# password = "MySecureDBPassword123!"
+```
+
+g. **Use and zeroize**:
+```python
+db_connection = connect_to_database(username, password)
+zeroize(password)  # Clear from memory
+```
+
+h. **Acknowledge receipt**:
+```json
+{
+  "type": "https://didcomm.org/signing/1.0/ack",
+  "from": "did:ex:db-client",
+  "to": ["did:ex:vault"],
+  "thid": "thread-unlock-1",
+  "body": {
+    "received": "provide-artifacts",
+    "session_id": "sess_unlock_db_prod",
+    "receipt_jti": "rcpt_unlock_42"
+  }
+}
+```
+
+**Security Analysis:**
+
+- **Replay Attempt**: If attacker intercepts and replays message, client rejects because `ctr=42 ≤ last_seen_ctr=42`
+- **Envelope Transplant**: If attacker tries to use envelope with different token, AAD verification fails
+- **Token Forgery**: Cannot forge token without coordinator's private key
+- **Device Binding**: Only device with correct HPKE private key can decrypt
+- **Short-Lived**: Token expires in 2 minutes, limiting exposure window
+- **Single-Use**: Counter + `cap:1` enforce one-time use
+
+**Key Differences from Standard Signing:**
+- No traditional signature produced; authorization token is the "signature"
+- Envelope (HPKE) used instead of signature suite
+- Counter-based replay protection instead of time-only
+- Secret delivered encrypted, not in plaintext artifacts
+
 ## Profiles
 
 ### Profile: PDF / PAdES
@@ -861,6 +1244,76 @@ Alice's agent acknowledges receipt:
 - **Suite:** `sigstore-fulcio@1`
 - **Combine:** `oci-multi-sign@1` aggregator
 - **Artifacts:** Signature references (e.g., Rekor transparency log entries)
+
+### Profile: Sealed Secret (DB Unlock & Credential Delivery)
+
+This profile enables replay-proof, device-bound delivery of secrets such as database passwords, API keys, or ephemeral credentials.
+
+- **Media Type:** `application/octet-stream` (or custom, e.g., `application/x-db-credential`)
+- **Canonicalization:** `raw-bytes@1` (identity)
+- **Suite:** Any signature suite for token signing (e.g., `jws-ed25519@1`)
+- **Envelope:** `envelope-hpke@1` (MUST) or `envelope-didcomm-auth@1` (MAY)
+- **Mode:** `single` (one recipient device)
+
+**Flow:**
+
+1. **Request**: Client sends `request-signing` with:
+   - `object.canonicalization.method`: `raw-bytes@1`
+   - `object.digest`: Digest over placeholder or metadata (not the secret itself)
+   - `suite.key_binding.controller`: Client device DID/key
+   - Optional: `idempotency_key`, client `nonce`
+
+2. **Policy Check**: Coordinator validates authorization, enforces policies
+
+3. **Token Issuance**: Coordinator:
+   - Increments device counter: `ctr = last_ctr(device) + 1`
+   - Builds authorization token with `{session_id, scope: "unlock", device, ctr, exp, cap: 1}`
+   - Signs token: `sig = sign(serialize(token), coordinator_key)`
+
+4. **Envelope Creation**: Coordinator:
+   - Computes `ticket_digest = sha-256(serialize(token))`
+   - Builds AAD: `{ticket_digest, session_id, device}`
+   - Encrypts secret `P` using `envelope-hpke@1`:
+     - `(ciphertext, ek_pub) = HPKE.Seal(recipient_pk, P, AAD)`
+
+5. **Delivery**: Coordinator sends `provide-artifacts` (or `issue-token`) with:
+   - `artifacts[0].type`: `sealed-secret@1`
+   - `artifacts[0].suite`: `envelope-hpke@1`
+   - `artifacts[0].aad`: `{ticket_digest}`
+   - `artifacts[0].ciphertext`: encrypted secret
+   - `artifacts[0].enc`: `{kem, kdf, aead, ek_pub}`
+   - `token`: signed authorization token
+
+6. **Consumption**: Client:
+   - Verifies `token.sig` against coordinator's public key
+   - Checks `token.exp > now` (not expired)
+   - Checks `token.ctr > last_seen_ctr(device)` (replay protection)
+   - Verifies `aad.ticket_digest == sha-256(serialize(token))` (binding)
+   - **Persists** `last_seen_ctr(device) = token.ctr` (MUST happen before decryption)
+   - Decrypts: `P = HPKE.Open(recipient_sk, ciphertext, AAD, ek_pub)`
+   - Uses secret `P` (e.g., unlocks database)
+   - Zeroizes `P` from memory
+   - Sends `ack`
+
+**Security Properties:**
+
+- **Replay Protection**: Counter monotonicity enforced client-side and server-side
+- **Device Binding**: Envelope sealed to specific device public key
+- **Transplant Resistance**: AAD cryptographically binds envelope to specific token
+- **Single-Use**: `cap: 1` + counter persistence prevents reuse
+- **Short-Lived**: Typical `exp` of 30-120 seconds
+- **Non-Exportable**: Device keys SHOULD be stored in TPM/SE/Keychain
+
+**Offline Batch Variant:**
+
+Coordinator MAY pre-mint `K` tokens with sequential counters `{ctr, ctr+1, ..., ctr+K-1}` and corresponding envelopes. Client caches them offline and consumes sequentially, persisting `last_seen_ctr` after each use.
+
+**Use Cases:**
+
+- Database password unlock (one-time retrieval)
+- API key rotation (ephemeral credentials)
+- Secure command execution (privilege escalation tokens)
+- Hardware unlock (device-bound secrets)
 
 ## Design By Contract
 
@@ -904,6 +1357,11 @@ Alice's agent acknowledges receipt:
 | `aggregation-failed` | Aggregator could not combine signatures | Retry or change aggregation strategy |
 | `attachment-too-large` | Attachment exceeds `max_attachment_size` | Use `data.links` instead of inline |
 | `artifact-missing` | Expected artifact not found | Coordinator resends `provide-artifacts` |
+| `replay-token` | Token already consumed (replay attempt detected) | Request new token with fresh counter |
+| `counter-stale` | Token counter ≤ last seen counter for device | Coordinator re-syncs device counter state |
+| `envelope-unsupported` | Requested envelope suite not supported | Negotiate supported envelope via `propose-signing` |
+| `envelope-verify-failed` | AAD binding verification failed | Check token digest matches AAD |
+| `device-mismatch` | Token device identifier doesn't match recipient | Verify correct device key in request |
 
 **Timeout Recommendations:**
 - Requester SHOULD set `expires_time` constraint (e.g., 24-48 hours)
@@ -925,14 +1383,20 @@ Alice's agent acknowledges receipt:
 3. **Replay Attacks**: Signature reused in different context
    - **Mitigation**: Time windows (`not_before`, `expires_time`), `use_limit`, `intended_audience`
 
-4. **Double-Sign**: Signer produces multiple conflicting signatures (e.g., blockchain slashing)
+4. **Token Replay**: Authorization token reused after consumption
+   - **Mitigation**: Monotonic counters (`ctr`) enforced client-side and server-side; client persists `last_seen_ctr` before use
+
+5. **Envelope Transplant**: Attacker transplants sealed secret envelope to different token
+   - **Mitigation**: AAD cryptographically binds envelope to token digest; verification MUST check `aad.ticket_digest == sha-256(token)`
+
+6. **Double-Sign**: Signer produces multiple conflicting signatures (e.g., blockchain slashing)
    - **Mitigation**: Idempotency keys; signer tracks previous signatures
 
-5. **Coordinator Tampering**: Malicious coordinator modifies signatures or session state
+7. **Coordinator Tampering**: Malicious coordinator modifies signatures or session state
    - **Mitigation**: All signatures include `session_id` and `object_id`; signers verify final artifacts
 
-6. **Downgrade Attacks**: Attacker forces weak signature suite during negotiation
-   - **Mitigation**: `propose-signing` capabilities discovery; signer rejects unsupported suites
+8. **Downgrade Attacks**: Attacker forces weak signature suite or envelope during negotiation
+   - **Mitigation**: `propose-signing` capabilities discovery; signer rejects unsupported suites/envelopes
 
 ### Security Requirements
 
@@ -941,6 +1405,18 @@ Alice's agent acknowledges receipt:
 - **Key Binding (MUST)**: Include DID/key identifier; verify key control during session
 - **Replay Protection (MUST)**: Enforce time windows and `use_limit`
 - **Idempotency (SHOULD)**: Use `idempotency_key` and constraints.`use_limit`
+
+### Additional Security Requirements (Sealed Secrets & Tokens)
+
+- **Counter Monotonicity (MUST)**: Clients MUST persist `last_seen_ctr(device)` before consuming token or decrypting envelope; tokens with `ctr ≤ last_seen_ctr` MUST be rejected
+- **Envelope Binding (MUST)**: Envelope AAD MUST include `sha-256(serialize(token))`; receivers MUST verify binding before decryption
+- **Token Verification (MUST)**: Verify `token.sig` against coordinator's public key before any other operations
+- **Expiration Enforcement (MUST)**: Both server and client MUST enforce `token.exp`; expired tokens MUST be rejected
+- **Key Pinning (SHOULD)**: Clients SHOULD pin coordinator `kid` or enforce DID Document resolution policy
+- **Secret Zeroization (MUST)**: Plaintext secrets MUST be zeroized from memory immediately after use
+- **Non-Exportable Keys (SHOULD)**: Device HPKE private keys SHOULD be stored in hardware security modules (TPM, Secure Enclave, Keychain, DPAPI) and marked non-exportable
+- **Audit Logging (SHOULD)**: Coordinators SHOULD log `{session_id, device, ctr, exp, kid, status}` for all token issuance and consumption events
+- **Crash Hygiene (MUST)**: Implementations MUST prevent secrets from appearing in logs, environment variables, or core dumps
 
 ### Privacy & Confidentiality
 
@@ -990,9 +1466,20 @@ Agents SHOULD advertise support using DIDComm feature discovery (similar to Arie
     "evm-safe-tx@1",
     "psbt@2"
   ],
+  "envelopes": [
+    "envelope-hpke@1",
+    "envelope-didcomm-auth@1"
+  ],
   "max_attachment_size": 10485760
 }
 ```
+
+**Capability Fields:**
+- `protocol`: Protocol URI
+- `roles`: Supported roles (signer, requester, coordinator, observer)
+- `suites`: Supported signature suites
+- `envelopes`: Supported envelope schemes (optional; required for sealed secret support)
+- `max_attachment_size`: Maximum attachment size in bytes
 
 **Discovery Methods:**
 - DIDComm `discover-features` protocol
@@ -1023,11 +1510,24 @@ An implementation is **conformant** if it:
 4. Enforces idempotency: rejects duplicate `idempotency_key` with different request
 5. Supports `problem-report` with error codes from §Design By Contract
 
-**Optional Conformance:**
+**Optional Conformance (Sealed Secrets & Authorization Tokens):**
+
+An implementation supporting sealed secrets is **conformant** if it additionally:
+
+1. Implements at least one Envelope (e.g., `envelope-hpke@1`)
+2. Enforces counter monotonicity: persists `last_seen_ctr(device)` before token consumption; rejects `ctr ≤ last_seen_ctr`
+3. Enforces envelope binding: verifies `aad.ticket_digest == sha-256(serialize(token))` before decryption
+4. Verifies token signature before any other operations
+5. Enforces token expiration on both client and server
+6. Zeroizes plaintext secrets from memory after use
+7. Supports error codes: `replay-token`, `counter-stale`, `envelope-unsupported`, `envelope-verify-failed`, `device-mismatch`
+
+**Other Optional Conformance:**
 - Multi-signer orchestration (coordinator role)
 - Multi-round cryptographic aggregation
 - On-chain execution (Safe, PSBT broadcast)
 - Advanced policies (VP-gate, spend limits)
+- Offline batch token issuance
 
 ## Test Fixtures
 
@@ -1037,6 +1537,7 @@ Reference test vectors (to be published):
 - **EIP-712 Order**: Typed data + expected signature
 - **Safe Transaction**: Hash + two confirmations + txid on testnet
 - **PSBT**: 2-of-3 multisig with expected final txid
+- **Sealed Secret (HPKE)**: Authorization token + HPKE envelope + expected plaintext + counter sequence demonstrating replay rejection
 
 ## Future Considerations
 
