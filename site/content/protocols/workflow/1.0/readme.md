@@ -3,7 +3,7 @@ title: Workflow
 publisher: vinaysingh8866
 license: MIT
 piuri: https://didcomm.org/workflow/1.0
-status: Draft
+status: Demonstrated
 summary: A protocol for orchestrating stateful, multi-step interactions between agents using declarative workflow templates.
 tags: [workflow, orchestration, state-machine]
 authors:
