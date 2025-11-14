@@ -4,7 +4,7 @@ title: WebRTC
 publisher: vinaysingh8866
 license: MIT
 piuri: https://didcomm.org/webrtc/1.0
-status: Draft
+status: Proposed
 summary: A DIDComm v2 protocol for WebRTC video and audio communication supporting both peer-to-peer mesh (2–8 participants) and SFU-mediated topology (10–100+ participants), with DID-bound certificate fingerprints, E2EE via SFrame, privacy-preserving features, and out-of-band (OOB) one-click invite links.
 tags: [webrtc, video, audio, p2p, sfu, signaling, ice, stun, turn, dtls, srtp, media-sharing, real-time, multiparty, scalable, e2ee, sframe, oob, links, qr]
 authors:
