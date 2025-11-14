@@ -3,7 +3,7 @@ title: Payments
 publisher: vinaysingh8866
 license: MIT
 piuri: https://didcomm.org/payments/1.0
-status: Draft
+status: Demonstrated
 summary: A protocol for proposing, invoicing, and settling payments over DIDComm.
 tags: [payments, commerce]
 authors:
