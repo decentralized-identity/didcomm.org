@@ -3,7 +3,7 @@ title: Vaults
 publisher: vinaysingh8866
 license: MIT
 piuri: https://didcomm.org/vaults/1.0
-status: Draft
+status: Proposed
 summary: A DIDComm-based coordination protocol that lets agents create, share, and retire end-to-end encrypted data vaults (EDV) on heterogeneous backends (e.g., S3, Arweave). It handles who gets access, for how long, and to which objects, while all actual bytes flow over the EDV HTTP API as JOSE/JWE ciphertext with encrypted indexes for equality querying.
 tags: [vaults, edv, encrypted-data-vaults, storage, s3, arweave, zcap, jwe, encryption, access-control, mediator-pickup, threshold-decrypt]
 authors:
