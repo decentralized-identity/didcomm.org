@@ -3,7 +3,7 @@ title: Signing
 publisher: vinaysingh8866
 license: MIT
 piuri: https://didcomm.org/signing/1.0
-status: Draft
+status: Demonstrated
 summary: A modular, transport-agnostic protocol for requesting, producing, coordinating, and verifying digital signatures over arbitrary payloads (documents, transactions, packages, attestations) with single-signer and multi-party modes, plus replay-proof sealed secret delivery using HPKE envelopes and authorization tokens.
 tags: [signing, signatures, multisig, cryptography, pdf, evm, bitcoin, hpke, sealed-secrets, authorization-tokens, replay-protection]
 authors:
