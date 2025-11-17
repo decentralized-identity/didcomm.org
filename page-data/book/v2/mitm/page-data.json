@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-book-book-tsx",
+    "path": "/book/v2/mitm",
+    "result": {"data":{"markdownRemark":{"html":"<h2 id=\"DIDComm-and-Man-in-the-Middle\">DIDComm and Man-in-the-Middle</h2>\n<p>(Content to be added here. See <a href=\"https://j.mp/3BzImtr\">https://j.mp/3BzImtr</a>)</p>"}},"pageContext":{"id":"e64dee89-5771-5fa3-bd77-0f48eab9af82","html":"<h2 id=\"DIDComm-and-Man-in-the-Middle\">DIDComm and Man-in-the-Middle</h2>\n<p>(Content to be added here. See <a href=\"https://j.mp/3BzImtr\">https://j.mp/3BzImtr</a>)</p>"}},
+    "staticQueryHashes": ["3000541721"]}
