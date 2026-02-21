@@ -1,3 +1,4 @@
+<title>{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 <div id="hero-block" hx-swap-oob="innerhtml">
 {{ block "hero" . }}{{ end }}
 </div>
