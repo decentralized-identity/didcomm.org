@@ -9,7 +9,15 @@
     {{ $version = index (last 1 $version) 0 }}
     <div class="w3-card w3-margin protocol-summary-card">
       <div class="title">
-        <a href="{{ .RelPermalink }}" class="w3-xlarge">{{ .LinkTitle }}</a> <span class="w3-small">{{ $version }}</span>
+        <a
+          hx-get="{{ (.OutputFormats.Get "htmx").RelPermalink }}"
+          hx-push-url="{{ .RelPermalink }}"
+          hx-trigger="click"
+          hx-target="#content"
+          hx-swap="innerHTML"
+          href="{{ .Permalink }}"
+          class="w3-xlarge"
+        >{{ .LinkTitle }}</a> <span class="w3-small">{{ $version }}</span>
         <div class="flex-spacer"></div>
         <div class="status status-{{ .Params.status | lower }}">{{ .Params.status }}</div>
       </div>
