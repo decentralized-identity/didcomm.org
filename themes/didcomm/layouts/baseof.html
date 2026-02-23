@@ -7,7 +7,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
-		<script src="https://unpkg.com/htmx-ext-debug@2.0.0/debug.js"></script>
 		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-cyan.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,7 +74,6 @@
 				if (event?.detail && event.detail.xhr) {
 					responseUrl = get_url(event.detail.xhr.responseURL);
 				}
-				console.debug("Response URL:", responseUrl);
 				if (heroBlock && responseUrl == "/") {
 					heroBlock.classList.add('hero');
 				} else {
@@ -91,14 +89,12 @@
 						// No adjustment needed if the URL is already correct
 						return;
 					}
-					console.debug("Adjusting link:", link.href, "->", get_url(link.href));
 					link.setAttribute('href', url);
 					link.setAttribute('hx-push-url', url);
 				});
 			}
 			function update_page_title(event) {
 				const new_doc = event.elt;
-				console.error(event);
 				return; // TEMP DISABLE
 				const check_if_same = (title) => {
 					return title && title === document.title;
@@ -108,22 +104,17 @@
 					const title = pageTitleElement.getAttribute('data-title');
 					if (check_if_same(title)) {
 						// No change needed if the title is already correct
-						console.debug("Page title is already correct:", document.title);
 						return;
 					}
 					if (title && (title.length == 0 || title === "{{.Site.Title }}") || !title) {
 						document.title = "{{.Site.Title }}";
-						console.debug("Updated page title to:", document.title);
 						return;
 					}
 					if (title && title.length > 0) {
 						document.title = title + " | {{ .Site.Title }}";
-						console.debug("Updated page title to:", document.title);
 					}
 				} else if(!check_if_same("{{.Site.Title }}")) {
-					console.debug("No page title element found");
 					document.title = "{{.Site.Title }}";
-					console.debug("Updated page title to:", document.title);
 				}
 			}
 			document.addEventListener('DOMContentLoaded', function() {
@@ -154,7 +145,6 @@
 					hx-target="#content"
 					hx-push-url="{{ .Site.Home.RelPermalink }}"
 					hx-swap="innerHTML"
-					hx-ext="debug"
 					href="{{ .Site.BaseURL }}"
 					style="display: flex; align-items: center"
 					class="remove-decoration"
