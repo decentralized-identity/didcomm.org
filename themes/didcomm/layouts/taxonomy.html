@@ -1,5 +1,32 @@
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  {{ end }}
+{{ define "main" }}
+<div class="content">
+  <div class="filter-breadcrumb">
+    <a
+      hx-get="{{ with (.Site.GetPage "/protocols").OutputFormats.Get "htmx" }}{{ .RelPermalink }}{{ end }}"
+      hx-push-url="/protocols/"
+      hx-trigger="click"
+      hx-target="#content"
+      hx-swap="innerHTML"
+      href="/protocols/"
+    >All Protocols</a> /
+    <span>{{ .Data.Singular | humanize | title }}</span>
+  </div>
+  <h1>Browse by {{ .Data.Singular | humanize | title }}</h1>
+
+  <div class="taxonomy-term-list">
+    {{ range .Pages }}
+      <a
+        hx-get="{{ (.OutputFormats.Get "htmx").RelPermalink }}"
+        hx-push-url="{{ .RelPermalink }}"
+        hx-trigger="click"
+        hx-target="#content"
+        hx-swap="innerHTML"
+        href="{{ .RelPermalink }}"
+        class="taxonomy-term-link"
+      >
+        {{ .Title }} <span class="count">({{ len .Pages }})</span>
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

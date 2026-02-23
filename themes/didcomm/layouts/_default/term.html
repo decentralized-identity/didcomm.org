@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="content">
+  <div class="filter-breadcrumb">
+    <a
+      hx-get="{{ with (.Site.GetPage "/protocols").OutputFormats.Get "htmx" }}{{ .RelPermalink }}{{ end }}"
+      hx-push-url="/protocols/"
+      hx-trigger="click"
+      hx-target="#content"
+      hx-swap="innerHTML"
+      href="/protocols/"
+    >All Protocols</a> /
+    {{ with .Parent }}
+    <a
+      hx-get="{{ (.OutputFormats.Get "htmx").RelPermalink }}"
+      hx-push-url="{{ .RelPermalink }}"
+      hx-trigger="click"
+      hx-target="#content"
+      hx-swap="innerHTML"
+      href="{{ .RelPermalink }}"
+    >{{ .Data.Singular | humanize | title }}</a> /
+    {{ end }}
+    <span>{{ .Title }}</span>
+  </div>
+  <h1>{{ .Data.Singular | humanize | title }}: {{ .Title }}</h1>
+
+  {{ range .Pages }}
+    {{ partial "protocol-card.html" . }}
+  {{ end }}
+</div>
+{{ end }}

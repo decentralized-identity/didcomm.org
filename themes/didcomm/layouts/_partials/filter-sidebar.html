@@ -1,0 +1,119 @@
+<aside class="filter-sidebar" id="filter-sidebar">
+  <h3>Filter Protocols</h3>
+
+  {{/* Status filter */}}
+  {{ with $.Site.Taxonomies.status }}
+  <div class="filter-group" data-filter="status">
+    <h4>Status</h4>
+    <ul class="filter-links nojs-only">
+      {{ range . }}
+        <li>
+          <a
+            hx-get="{{ (.Page.OutputFormats.Get "htmx").RelPermalink }}"
+            hx-push-url="{{ .Page.RelPermalink }}"
+            hx-trigger="click"
+            hx-target="#content"
+            hx-swap="innerHTML"
+            href="{{ .Page.RelPermalink }}"
+          >{{ .Page.Title }} <span class="count">({{ .Count }})</span></a>
+        </li>
+      {{ end }}
+    </ul>
+    <div class="filter-checkboxes js-only" style="display:none">
+      {{ range . }}
+        <label class="filter-checkbox">
+          <input type="checkbox" name="status" value="{{ .Page.Title | lower }}" />
+          {{ .Page.Title }} <span class="count">({{ .Count }})</span>
+        </label>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{/* Publisher filter */}}
+  {{ with $.Site.Taxonomies.publisher }}
+  <div class="filter-group" data-filter="publisher">
+    <h4>Publisher</h4>
+    <ul class="filter-links nojs-only">
+      {{ range . }}
+        <li>
+          <a
+            hx-get="{{ (.Page.OutputFormats.Get "htmx").RelPermalink }}"
+            hx-push-url="{{ .Page.RelPermalink }}"
+            hx-trigger="click"
+            hx-target="#content"
+            hx-swap="innerHTML"
+            href="{{ .Page.RelPermalink }}"
+          >{{ .Page.Title }} <span class="count">({{ .Count }})</span></a>
+        </li>
+      {{ end }}
+    </ul>
+    <div class="filter-checkboxes js-only" style="display:none">
+      {{ range . }}
+        <label class="filter-checkbox">
+          <input type="checkbox" name="publisher" value="{{ .Page.Title | lower }}" />
+          {{ .Page.Title }} <span class="count">({{ .Count }})</span>
+        </label>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{/* License filter */}}
+  {{ with $.Site.Taxonomies.license }}
+  <div class="filter-group" data-filter="license">
+    <h4>License</h4>
+    <ul class="filter-links nojs-only">
+      {{ range . }}
+        <li>
+          <a
+            hx-get="{{ (.Page.OutputFormats.Get "htmx").RelPermalink }}"
+            hx-push-url="{{ .Page.RelPermalink }}"
+            hx-trigger="click"
+            hx-target="#content"
+            hx-swap="innerHTML"
+            href="{{ .Page.RelPermalink }}"
+          >{{ .Page.Title }} <span class="count">({{ .Count }})</span></a>
+        </li>
+      {{ end }}
+    </ul>
+    <div class="filter-checkboxes js-only" style="display:none">
+      {{ range . }}
+        <label class="filter-checkbox">
+          <input type="checkbox" name="license" value="{{ .Page.Title | lower }}" />
+          {{ .Page.Title }} <span class="count">({{ .Count }})</span>
+        </label>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{/* Tags filter */}}
+  {{ with $.Site.Taxonomies.tags }}
+  <div class="filter-group" data-filter="tags">
+    <h4>Tags</h4>
+    <ul class="filter-links nojs-only">
+      {{ range . }}
+        <li>
+          <a
+            hx-get="{{ (.Page.OutputFormats.Get "htmx").RelPermalink }}"
+            hx-push-url="{{ .Page.RelPermalink }}"
+            hx-trigger="click"
+            hx-target="#content"
+            hx-swap="innerHTML"
+            href="{{ .Page.RelPermalink }}"
+          >{{ .Page.Title }} <span class="count">({{ .Count }})</span></a>
+        </li>
+      {{ end }}
+    </ul>
+    <div class="filter-checkboxes js-only" style="display:none">
+      {{ range . }}
+        <label class="filter-checkbox">
+          <input type="checkbox" name="tags" value="{{ .Page.Title | lower }}" />
+          {{ .Page.Title }} <span class="count">({{ .Count }})</span>
+        </label>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+</aside>

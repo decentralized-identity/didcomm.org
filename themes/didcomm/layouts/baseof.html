@@ -163,7 +163,7 @@
 						<span style="margin-left: 1em">DIDComm</span>
 					</a>
 				</div>
-				<div class="mini-search w3-center" style="flex-grow: 1; justify-content: center; margin: 0 2em">
+				<div class="mini-search js-search w3-center" style="flex-grow: 1; justify-content: center; margin: 0 2em">
 					<input name="protocol-search" class="site-search w3-input w3-animate-input" style="width: 5em" placeholder="Search..." />
 				</div>
 				<div class="flex-baseline links">
@@ -184,5 +184,11 @@
 		<footer>
 			<p>&copy; {{ now.Year }} DIDComm Community. All rights reserved.</p>
 		</footer>
+		{{ with resources.Get "js/filter.js" | minify | fingerprint }}
+		<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+		{{ end }}
+		{{ with resources.Get "js/search.js" | minify | fingerprint }}
+		<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+		{{ end }}
 	</body>
 </html>

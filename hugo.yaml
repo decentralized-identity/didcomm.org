@@ -3,6 +3,11 @@ languageCode: en-us
 title: DIDComm Communication Protocol
 theme: didcomm
 enableGitInfo: true
+taxonomies:
+  tag: tags
+  status: status
+  publisher: publisher
+  license: license
 permalinks:
   page:
     protocols: /:sections[1:]/:slugorcontentbasename
@@ -24,6 +29,9 @@ mediaTypes:
     delimiter: .
     suffixes:
     - htmx
+  application/json:
+    suffixes:
+    - json
   text/html:
     suffixes:
     - html
@@ -31,6 +39,11 @@ outputFormats:
   html:
     weight: 2
     mediaType: text/html
+  searchindex:
+    baseName: search-index
+    isPlainText: true
+    mediaType: application/json
+    notAlternative: true
   htmx:
     baseName: partial
     isHTML: true
@@ -45,6 +58,7 @@ outputs:
   home:
     - html
     - htmx
+    - searchindex
   page:
     - html
     - htmx
