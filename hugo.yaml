@@ -1,4 +1,4 @@
-baseURL: http://didcomm.org/
+baseURL: https://didcomm.org/
 languageCode: en-us
 title: DIDComm Communication Protocol
 theme: didcomm
