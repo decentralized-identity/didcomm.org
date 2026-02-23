@@ -75,7 +75,7 @@
 				if (event?.detail && event.detail.xhr) {
 					responseUrl = get_url(event.detail.xhr.responseURL);
 				}
-				console.log("Response URL:", responseUrl);
+				console.debug("Response URL:", responseUrl);
 				if (heroBlock && responseUrl == "/") {
 					heroBlock.classList.add('hero');
 				} else {
@@ -91,7 +91,7 @@
 						// No adjustment needed if the URL is already correct
 						return;
 					}
-					console.log("Adjusting link:", link.href, "->", get_url(link.href));
+					console.debug("Adjusting link:", link.href, "->", get_url(link.href));
 					link.setAttribute('href', url);
 					link.setAttribute('hx-push-url', url);
 				});
