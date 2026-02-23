@@ -2,8 +2,8 @@
 title: Survey
 publisher: stephanbruijnis
 license: MIT
-piuri: https://didcomm.org/survey/0.1
-status: Proposed
+piuri: https://didcomm.org/survey/1.0
+status: Demonstrated
 summary: A protocol where a survey (JSON Forms) is sent by the requester to the responder. The responder then replies with the answers or declines the survey.
 tags:
   - survey
@@ -32,7 +32,7 @@ Surveys are an important method for organizations to gather data from a sample o
 
 This is the survey protocol. It is uniquely identified by the URI:
 
-    "https://didcomm.org/survey/0.1"
+    "https://didcomm.org/survey/1.0"
 
 ### Key Concepts
 The protocol consists of a DIDComm request message carrying a JSON survey request to a responding agent, and a second message that carries the answers of the responder to the survey back to the client of the first message. 
@@ -99,7 +99,7 @@ The protocol begins when the `requester` sends a `survey-request` message to the
 DIDComm V1 Example:
 ```json
 {
-    "@type": "https://didcomm.org/survey/0.1/request",
+    "@type": "https://didcomm.org/survey/1.0/request",
     "@id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
     "~thread": {
         "thid": "5689db78-5123-2aad-448d-0203107fee11"
@@ -139,7 +139,7 @@ The items in the message are as follows:
 DIDComm V2 Example:
 ```json
 {
-    "type": "https://didcomm.org/survey/0.1/request",
+    "type": "https://didcomm.org/survey/1.0/request",
     "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
     "thid": "5689db78-5123-2aad-448d-0203107fee11",
     "body": {
@@ -260,7 +260,7 @@ I18n Data:
 Full example Survey request message:
 ```json
 {
-    "type": "https://didcomm.org/survey/0.1/request",
+    "type": "https://didcomm.org/survey/1.0/request",
     "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
     "thid": "5689db78-5123-2aad-448d-0203107fee11",
     "body": {
@@ -350,7 +350,7 @@ If the `request` is unrecognizable as a JSONForms survey such that a survey cann
 DIDComm V1 Example:
 ```json
 {
-    "@type": "https://didcomm.org/survey/0.1/request",
+    "@type": "https://didcomm.org/survey/1.0/request",
     "@id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
     "~thread": {
         "thid": "5689db78-5123-2aad-448d-0203107fee11"
@@ -367,7 +367,7 @@ DIDComm V1 Example:
 DIDComm V2 Example:
 ```json
 {
-    "type": "https://didcomm.org/survey/0.1/request",
+    "type": "https://didcomm.org/survey/1.0/request",
     "id": "8192855c-89f3-5bb5-4971-7be10cbc6c71",
     "thid": "5689db78-5123-2aad-448d-0203107fee11",
     "body": {
