@@ -126,6 +126,8 @@ Propose creating a shared vault.
 
 **Expected reply**: `offer` (from provisioner/host or a peer offering to host).
 
+**Workflow binding convention**: When a vault is provisioned for a Workflow 1.0 instance, the `purpose` field SHOULD use the format `workflow:<template_id>#<instance_id>` (e.g., `workflow:student-id-issuance#4b6f...`). This enables the vault host and participants to correlate the vault with its owning workflow. The Workflow protocol's `start` message references the resulting vault via `vault_ref`. Retention and TTL constraints SHOULD align with the expected workflow duration.
+
 ---
 
 ### offer
@@ -448,6 +450,9 @@ Use `vaults/1.0` to set up access + transport, and **Signing 1.0** (recommended)
 * **Leakage**: Encrypted equality indexes leak **existence and equality**; avoid sensitive tags; no range/prefix queries. ([identity.foundation][2])
 * **Immutability backends**: For Arweave, treat "delete" as **cryptographic erasure** (destroy keys) and publish a finalization record listing affected digests. ([SwissBorg Academy][7])
 * **Threshold Decrypt** : Never publish keys on immutable backends. Shares, tokens, and sealed secrets travel only via DIDComm.
+* **Workflow-scoped vaults**: When a vault is bound to a Workflow 1.0 instance, the vault TTL SHOULD be synchronized with the workflow's expected duration. If the workflow completes, the Coordinator or Processor SHOULD trigger `seal`; if canceled, `tombstone`. Key material used for vault encryption SHOULD be wiped promptly after the vault is sealed or tombstoned.
+* **Transient data**: Workflow `$transient` fields (single-cycle ephemeral values) MUST NOT be stored in vaults. They exist only in volatile memory during a single workflow advance cycle.
+* **Guard resolution timing**: When a Workflow Processor resolves vault-backed `$ref` pointers for guard evaluation, the decrypted plaintext MUST be held only in memory for the duration of the evaluation and MUST NOT be cached, logged, or persisted.
 
 ---
 
@@ -455,6 +460,8 @@ Use `vaults/1.0` to set up access + transport, and **Signing 1.0** (recommended)
 
 * Minimize metadata in DIDComm headers and EDV indexes.
 * Consider **group encryption** via JWE general serialization to avoid separate per-recipient blobs. ([IETF Datatracker][5])
+* **Workflow field indexing**: When vault documents store workflow context fields, avoid indexing field names or values that could leak the workflow's purpose or the subject's identity. Use opaque identifiers (e.g., `doc_id` based on random values, not field names) and limit encrypted indexes to structural keys like `workflow_id` and `stage`. Do not index `secret`-level field names or values.
+* **Role-grouped documents**: Grouping sensitive workflow fields into EDV documents by role-access pattern (rather than one document per field) reduces the number of EDV queries observable by the vault host, minimizing metadata leakage about field-level access patterns.
 
 ---
 
@@ -465,6 +472,11 @@ Use `vaults/1.0` to set up access + transport, and **Signing 1.0** (recommended)
 
   * Use Signing 1.0 threshold sessions to collect **approvals** and carry **partial-decrypt shares**.
   * Use Signing 1.0 **sealed-secret** profile (HPKE envelopes bound to tokens) for key delivery.
+* **Composition with Workflow 1.0**:
+  * Workflow templates declare a `sensitivity` map that classifies context fields. Fields with `storage: "vault"` are stored in a Vaults 1.0 EDV and referenced via `$ref` pointers in workflow messages.
+  * The Coordinator provisions the vault before sending Workflow `start`. The `propose.purpose` field uses the convention `workflow:<template_id>#<instance_id>`.
+  * Vault lifecycle is bound to workflow lifecycle: `complete` triggers `seal`, `cancel` triggers `tombstone`.
+  * Agents that support both protocols SHOULD advertise `vault-context` in their Discover Features 2.0 capabilities.
 
 ---
 
@@ -545,6 +557,7 @@ Use `vaults/1.0` to set up access + transport, and **Signing 1.0** (recommended)
 ## Change Log
 
 * **v1.0-draft** — Initial publication
+* **v1.0-draft+wf** — Added workflow binding conventions (`purpose` format), workflow-specific security/privacy guidance, and Workflow 1.0 composition notes.
 
 ---
 
