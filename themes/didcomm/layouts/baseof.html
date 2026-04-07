@@ -1,4 +1,3 @@
-{{- $logo := resources.Get "didcomm-logo.svg" -}}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -93,38 +92,11 @@
 					link.setAttribute('hx-push-url', url);
 				});
 			}
-			function update_page_title(event) {
-				const new_doc = event.elt;
-				return; // TEMP DISABLE
-				const check_if_same = (title) => {
-					return title && title === document.title;
-				};
-				const pageTitleElement = new_doc.getElementById('page-title');
-				if (pageTitleElement) {
-					const title = pageTitleElement.getAttribute('data-title');
-					if (check_if_same(title)) {
-						// No change needed if the title is already correct
-						return;
-					}
-					if (title && (title.length == 0 || title === "{{.Site.Title }}") || !title) {
-						document.title = "{{.Site.Title }}";
-						return;
-					}
-					if (title && title.length > 0) {
-						document.title = title + " | {{ .Site.Title }}";
-					}
-				} else if(!check_if_same("{{.Site.Title }}")) {
-					document.title = "{{.Site.Title }}";
-				}
-			}
 			document.addEventListener('DOMContentLoaded', function() {
 				// replace_timestamp();
 				// // Update timestamps every minute
 				// setInterval(replace_timestamp, 60 * 1000);
 				adjust_hero();
-				// document.body.addEventListener('htmx:beforeSwap', function(event) {
-				// 	update_page_title(event);
-				// });
 				document.body.addEventListener('htmx:afterSwap', function(event) {
 					if (event.target.id === 'content') {
 						replace_timestamp();

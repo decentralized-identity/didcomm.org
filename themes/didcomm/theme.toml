@@ -11,8 +11,6 @@ homepage = "https://didcomm.org"
 repository = "https://github.com/decentralized-identity/didcomm.org"
 
 [params]
-  logo = "didcomm-logo.png"
   primaryColor = "#0078D7"
   secondaryColor = "#FFFFFF"
   font = "Arial, sans-serif"
-  defaultLayout = "base.html"

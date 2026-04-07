@@ -48,8 +48,10 @@
 body {
 	font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	font-size: 17px;
+	font-weight: 400;
 	line-height: 24px;
 	color: var(--color-text-primary);
+	min-height: 100vh;
 }
 
 .w3-theme-l5 {color:#000 !important; background-color:#f0f6fb !important}
@@ -90,13 +92,6 @@ body {
 .remove-decoration {
 	text-decoration: none;
 }
-body {
-	font-family: Inter, sans-serif;
-	font-size: 17px;
-	font-weight: 400;
-	line-height: 24px;
-}
-
 .navbar {
 	display: flex;
 	justify-content: space-between;
@@ -112,10 +107,6 @@ body {
 }
 .site-search:not(:focus)::placeholder {
 	color: var(--theme-color-inactive-text);
-}
-
-body {
-	min-height: 100vh;
 }
 
 @import "./home.scss";

@@ -52,7 +52,6 @@ outputFormats:
     notAlternative: true
     # mediaType: application/htmx
     mediaType: text/html
-    protocol: http://
     weight: 1
 outputs:
   home:
