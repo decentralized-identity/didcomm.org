@@ -1,0 +1,20 @@
+{{ define "main" }}
+  {{ .Content }}
+
+  <div class="protocols-layout">
+    {{ partial "filter-sidebar.html" . }}
+
+    <div class="protocols-list">
+      <div id="protocol-cards">
+        {{ $pages := where $.Site.RegularPages "Type" "protocols" }}
+        {{ $paginator := .Paginate $pages }}
+
+        {{ range $paginator.Pages }}
+          {{ partial "protocol-card.html" . }}
+        {{ end }}
+      </div>
+
+      {{ partial "pagination.html" (dict "page" . "format" "default") }}
+    </div>
+  </div>
+{{ end }}

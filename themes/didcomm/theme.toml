@@ -1,0 +1,16 @@
+name = "didcomm"
+description = "A theme for the DIDComm documentation site."
+version = "1.0.0"
+authors = [
+  {name = "DIDComm Community", homepage = "https://didcomm.org"},
+  {name = "Colton Wolkins", homepage = "https://colton.wolkins.net"},
+]
+
+license = "Apache-2.0"
+homepage = "https://didcomm.org"
+repository = "https://github.com/decentralized-identity/didcomm.org"
+
+[params]
+  primaryColor = "#0078D7"
+  secondaryColor = "#FFFFFF"
+  font = "Arial, sans-serif"

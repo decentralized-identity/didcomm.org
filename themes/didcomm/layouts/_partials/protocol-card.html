@@ -1,0 +1,36 @@
+{{ $version := split .Path "/" }}
+{{ $version = index (last 1 $version) 0 }}
+<div class="w3-card w3-margin protocol-summary-card"
+     data-status="{{ .Params.status | lower }}"
+     data-publisher="{{ .Params.publisher | lower }}"
+     data-license="{{ .Params.license | lower }}"
+     data-tags="{{ delimit .Params.tags "," | lower }}"
+     data-authors="{{ range .Params.authors }}{{ .name | lower }},{{ end }}"
+     data-title="{{ .Title | lower }}"
+     data-summary="{{ .Params.summary | lower }}">
+  <div class="title">
+    <a
+      hx-get="{{ (.OutputFormats.Get "htmx").RelPermalink }}"
+      hx-push-url="{{ .RelPermalink }}"
+      hx-trigger="click"
+      hx-target="#content"
+      hx-swap="innerHTML"
+      href="{{ .Permalink }}"
+      class="w3-xlarge"
+    >{{ .LinkTitle }}</a> <span class="w3-small">{{ $version }}</span>
+    <div class="flex-spacer"></div>
+    <div class="status status-{{ .Params.status | lower }}">{{ .Params.status }}</div>
+  </div>
+
+  <p>{{ .Params.summary }}</p>
+  <div class="committer-info w3-medium">
+    <a rel="noreferrer noopener nofollow" href="https://github.com/{{.Params.publisher}}">
+      <img class="avatar" src="https://github.com/{{.Params.publisher}}.png" alt="{{ .Params.publisher }}"/>
+      @{{ .Params.publisher }}
+    </a>
+    {{ with .GitInfo }}
+      <p><span class="timestamp" data-timestamp="{{ .AuthorDate.UTC.Format "2006-01-02T15:04:05Z" }}">{{ .AuthorDate.UTC.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</span></p>
+    {{ end }}
+    <p>{{ .Params.license }}</p>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+// Filter sidebar styles
+.filter-sidebar {
+    padding: 16px;
+    border: 1px solid #d1e3f0;
+    border-radius: 8px;
+    background-color: #f8fbfd;
+
+    h3 {
+        margin: 0 0 12px 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #15344f;
+    }
+
+    h4 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #29679c;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+}
+
+.filter-group {
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.filter-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        margin-bottom: 4px;
+    }
+
+    a {
+        color: #29679c;
+        text-decoration: none;
+        font-size: 14px;
+        display: block;
+        padding: 4px 8px;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: #e8f0f8;
+        }
+    }
+
+    .count {
+        color: #888;
+        font-size: 12px;
+    }
+}
+
+.filter-checkboxes {
+    label {
+        display: block;
+        padding: 4px 0;
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+
+        &:hover {
+            color: #29679c;
+        }
+    }
+
+    input[type="checkbox"] {
+        margin-right: 8px;
+        cursor: pointer;
+    }
+
+    .count {
+        color: #888;
+        font-size: 12px;
+    }
+}
+
+// Two-column layout for protocols page
+.protocols-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+    max-width: 1296px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.protocols-list {
+    min-width: 0; // prevent grid blowout
+}
+
+// Filter result count shown when JS filtering is active
+.filter-result-count {
+    padding: 8px 16px;
+    color: #666;
+    font-size: 14px;
+    font-style: italic;
+}
+
+// Taxonomy browse pages
+.filter-breadcrumb {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #888;
+
+    a {
+        color: #29679c;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    span {
+        color: #333;
+        font-weight: 500;
+    }
+}
+
+.taxonomy-term-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.taxonomy-term-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #29679c;
+    border-radius: 4px;
+    color: #29679c;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.15s, color 0.15s;
+
+    &:hover {
+        background-color: #29679c;
+        color: #fff;
+    }
+
+    .count {
+        color: inherit;
+        opacity: 0.7;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .protocols-layout {
+        grid-template-columns: 1fr;
+        padding: 8px;
+    }
+
+    .filter-sidebar {
+        order: -1;
+    }
+}

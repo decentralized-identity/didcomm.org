@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-cyan.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+		<!-- <link rel="stylesheet" href="/css/w3.css"> -->
+		{{ with resources.Get "css/style.scss" | css.Sass -}}
+			{{- $style := . | minify | fingerprint -}}
+			<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+		{{- end }}
+		<script>
+			function replace_timestamp() {
+				const elements = document.querySelectorAll('.timestamp');
+				const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+				elements.forEach(el => {
+					const date = new Date(el.getAttribute('data-timestamp'));
+					const now = new Date();
+					const diffMs = date.getTime() - now.getTime();
+
+					let unit;
+					let value;
+					if (Math.abs(diffMs) < 60 * 1000) {
+						unit = 'second';
+						value = Math.round(diffMs / 1000);
+					} else if (Math.abs(diffMs) < 60 * 60 * 1000) {
+						unit = 'minute';
+						value = Math.round(diffMs / (60 * 1000));
+					} else if (Math.abs(diffMs) < 24 * 60 * 60 * 1000) {
+						unit = 'hour';
+						value = Math.round(diffMs / (60 * 60 * 1000));
+					} else if (Math.abs(diffMs) < 30 * 24 * 60 * 60 * 1000) {
+						unit = 'day';
+						value = Math.round(diffMs / (24 * 60 * 60 * 1000));
+					} else if (Math.abs(diffMs) < 365.25 * 24 * 60 * 60 * 1000) {
+						unit = 'month';
+						value = Math.round(diffMs / (30 * 24 * 60 * 60 * 1000));
+					} else {
+						unit = 'year';
+						value = Math.round(diffMs / (365.25 * 24 * 60 * 60 * 1000));
+					}
+					const relativeTime = rtf.format(value, unit);
+					el.textContent = relativeTime;
+				});
+			}
+
+			// Function to get the base URL from a URI and return only the path
+			// This function is used to ensure that the URL is correctly formatted
+			// for HTMX requests, especially when the URI ends with "partial.htmx"
+			// and we want to remove that part.
+			// It also handles cases where the URI might not end with "partial.htmx".
+			// The function returns the path without the "partial.htmx" suffix.
+			// If the URI does not end with "partial.htmx", it returns the URI
+			// as is, ensuring that the URL remains valid for HTMX requests.
+			function get_url(uri) {
+				// Remove "partial.htmx" from the end of the URI
+				const baseUrl = uri.replace(/\/partial\.htm[xl]$/, '');
+				// Ensure the URL contains the path only
+				const url = new URL(baseUrl, window.location.origin);
+				// Return the path part of the URL
+				return url.pathname + url.search + url.hash;
+			}
+			function adjust_hero(event) {
+				const heroBlock = document.getElementById('hero');
+				let responseUrl = event ? undefined : "{{ .RelPermalink }}";
+				if (event?.detail && event.detail.xhr) {
+					responseUrl = get_url(event.detail.xhr.responseURL);
+				}
+				if (heroBlock && responseUrl == "/") {
+					heroBlock.classList.add('hero');
+				} else {
+					heroBlock.classList.remove('hero');
+				}
+			}
+			function adjust_links() {
+				const links = document.querySelectorAll('a[hx-get]');
+				links.forEach(link => {
+					const relative_url = new URL(link.href, window.location.origin);
+					const url = get_url(link.href);
+					if (url === relative_url.pathname + relative_url.search + relative_url.hash) {
+						// No adjustment needed if the URL is already correct
+						return;
+					}
+					link.setAttribute('href', url);
+					link.setAttribute('hx-push-url', url);
+				});
+			}
+			document.addEventListener('DOMContentLoaded', function() {
+				// replace_timestamp();
+				// // Update timestamps every minute
+				// setInterval(replace_timestamp, 60 * 1000);
+				adjust_hero();
+				document.body.addEventListener('htmx:afterSwap', function(event) {
+					if (event.target.id === 'content') {
+						replace_timestamp();
+						adjust_hero(event);
+						adjust_links();
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header id="hero" class="w3-theme">
+			<nav class="navbar">
+				<div class="w3-center">
+					<a
+					hx-get="{{ with .Site.Home.OutputFormats.Get "htmx" }}{{ .RelPermalink }}{{ end }}"
+					hx-trigger="click"
+					hx-target="#content"
+					hx-push-url="{{ .Site.Home.RelPermalink }}"
+					hx-swap="innerHTML"
+					href="{{ .Site.BaseURL }}"
+					style="display: flex; align-items: center"
+					class="remove-decoration"
+					>
+						<svg style="display: inline; width: 48px; height: 48px;"><use href="/icons.svg#logo"></use></svg>
+						<span style="margin-left: 1em">DIDComm</span>
+					</a>
+				</div>
+				<div class="mini-search js-search w3-center" style="flex-grow: 1; justify-content: center; margin: 0 2em">
+					<input name="protocol-search" class="site-search w3-input w3-animate-input" style="width: 5em" placeholder="Search..." />
+				</div>
+				<div class="flex-baseline links">
+					<a class="remove-decoration" rel="noreferrer noopener nofollow" href="https://github.com/decentralized-identity/didcomm.org">Github Repo</a> |
+					<a class="remove-decoration" rel="noreferrer noopener nofollow" href="https://identity.foundation/didcomm-messaging/spec/v2.1/">Specification</a> |
+					<a class="remove-decoration" href="mailto:security@didcomm.org">Security</a>
+				</div>
+			</nav>
+			<div id="hero-block">
+			{{ block "hero" . }}{{ end }}
+			</div>
+		</header>
+		<main id="content">
+			{{ block "main" . }}
+			<!-- The part of the page that begins to differ between templates -->
+			{{ end }}
+		</main>
+		<footer>
+			<p>&copy; {{ now.Year }} DIDComm Community. All rights reserved.</p>
+		</footer>
+		{{ with resources.Get "js/filter.js" | minify | fingerprint }}
+		<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+		{{ end }}
+		{{ with resources.Get "js/search.js" | minify | fingerprint }}
+		<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+		{{ end }}
+	</body>
+</html>

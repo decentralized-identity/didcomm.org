@@ -14,5 +14,10 @@
     "remark-lint-no-dead-urls": "^1.1.0",
     "remark-validate-links": "^11.0.1",
     "walk-sync": "^3.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1"
   }
 }

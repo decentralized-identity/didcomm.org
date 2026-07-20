@@ -1,0 +1,17 @@
+{{- $pages := where site.RegularPages "Type" "protocols" -}}
+[{{ range $index, $page := $pages }}{{ if $index }},{{ end }}
+  {
+    "title": {{ $page.Title | jsonify }},
+    "summary": {{ $page.Params.summary | default "" | jsonify }},
+    "content": {{ $page.Plain | truncate 500 "" | jsonify }},
+    "url": {{ $page.RelPermalink | jsonify }},
+    "htmxUrl": {{ with $page.OutputFormats.Get "htmx" }}{{ .RelPermalink | jsonify }}{{ else }}""{{ end }},
+    "status": {{ $page.Params.status | default "" | jsonify }},
+    "publisher": {{ $page.Params.publisher | default "" | jsonify }},
+    "license": {{ $page.Params.license | default "" | jsonify }},
+    "tags": {{ $page.Params.tags | default (slice) | jsonify }},
+    "authors": [{{ range $i, $a := $page.Params.authors }}{{ if $a.name }}{{ if $i }},{{ end }}{{ $a.name | jsonify }}{{ end }}{{ end }}],
+    "version": {{ with $page.File }}{{ $parts := split (strings.TrimRight "/" .Dir) "/" }}{{ index (last 1 $parts) 0 | jsonify }}{{ else }}""{{ end }},
+    "lastmod": {{ $page.Lastmod.UTC.Format "2006-01-02T15:04:05Z" | jsonify }}
+  }
+{{ end }}]

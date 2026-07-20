@@ -1,0 +1,116 @@
+/* Base Typography */
+:root {
+	--theme-color: #29679c;
+	--theme-color-text: #fff;
+	--theme-color-inactive-text: #aaa;
+
+  /* Colors */
+  --color-primary: #29679C;
+  --color-primary-hover: #245A88;
+  --color-primary-pressed: #204F78;
+  --color-secondary: #F1C232;
+  --color-secondary-hover: #E5B82F;
+  --color-secondary-pressed: #D9AF2D;
+  --color-error: #EF2727;
+  --color-background: #ffffff;
+  --color-background-primary: rgba(41, 103, 156, 0.07);
+  --color-background-primary-hover: rgba(41, 103, 156, 0.15);
+  --color-background-primary-pressed: rgba(41, 103, 156, 0.21);
+  --color-background-secondary: #FDF6E0;
+  --color-text-primary: #000000;
+  --color-text-secondary: #666666;
+  --color-tertiary: #999999;
+  --color-production: #1FAD3E;
+  --color-background-production: rgba(31, 173, 62, 0.07);
+  --color-demonstrated: #D9AF2D;
+  --color-background-demonstrated: rgba(217, 175, 45, 0.1);
+  --color-proposed: #666666;
+  --color-background-proposed: rgba(102, 102, 102, 0.07);
+  
+  /* Spacing */
+  --grid-small: 4px;
+  --grid-base: 8px;
+  --grid-base-extra: 12px;
+  --grid-base-2x: 16px;
+  --grid-base-3x: 24px;
+  --grid-base-4x: 32px;
+  --grid-base-5x: 40px;
+  --grid-base-6x: 48px;
+  --grid-base-9x: 72px;
+  
+  /* Borders */
+  --border-small: 1px;
+  --border-base: 2px;
+  --border-radius: 4px;
+}
+
+
+body {
+	font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-size: 17px;
+	font-weight: 400;
+	line-height: 24px;
+	color: var(--color-text-primary);
+	min-height: 100vh;
+}
+
+.w3-theme-l5 {color:#000 !important; background-color:#f0f6fb !important}
+.w3-theme-l4 {color:#000 !important; background-color:#cee1f2 !important}
+.w3-theme-l3 {color:#000 !important; background-color:#9dc3e5 !important}
+.w3-theme-l2 {color:#fff !important; background-color:#6ca5d8 !important}
+.w3-theme-l1 {color:#fff !important; background-color:#3a87cb !important}
+.w3-theme-d1 {color:#fff !important; background-color:#265d8d !important}
+.w3-theme-d2 {color:#fff !important; background-color:#21537e !important}
+.w3-theme-d3 {color:#fff !important; background-color:#1d486e !important}
+.w3-theme-d4 {color:#fff !important; background-color:#193e5e !important}
+.w3-theme-d5 {color:#fff !important; background-color:#15344f !important}
+
+.w3-theme-light {color:#000 !important; background-color:#f0f6fb !important}
+.w3-theme-dark {color:#fff !important; background-color:#15344f !important}
+.w3-theme-action {color:#fff !important; background-color:#15344f !important}
+
+.w3-theme {color:var(--theme-color-text) !important; background-color:var(--theme-color) !important}
+.w3-text-theme {color:#29679c !important}
+.w3-border-theme {border-color:#29679c !important}
+
+.w3-hover-theme:hover {color:#fff !important; background-color:#29679c !important}
+.w3-hover-text-theme:hover {color:#29679c !important}
+.w3-hover-border-theme:hover {border-color:#29679c !important}
+
+.flex {
+	display: flex;
+}
+.flex-center-items {
+	justify-content: space-around;
+}
+.flex-spaced-items {
+	justify-content: space-between;
+}
+.flex-baseline {
+	align-items: baseline;
+}
+.remove-decoration {
+	text-decoration: none;
+}
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75em 2em;
+}
+.navbar > .links {
+	font-size: 13px;
+}
+.site-search:not(:focus) {
+	color: var(--theme-color-inactive-text);
+	background-color: var(--theme-color);
+}
+.site-search:not(:focus)::placeholder {
+	color: var(--theme-color-inactive-text);
+}
+
+@import "./home.scss";
+@import "./protocol_listing.scss";
+@import "./protocol.scss";
+@import "./filter.scss";
+@import "./search.scss";

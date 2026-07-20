@@ -1,0 +1,76 @@
+baseURL: https://didcomm.org/
+languageCode: en-us
+title: DIDComm Communication Protocol
+theme: didcomm
+enableGitInfo: true
+taxonomies:
+  tag: tags
+  status: status
+  publisher: publisher
+  license: license
+permalinks:
+  page:
+    protocols: /:sections[1:]/:slugorcontentbasename
+  section:
+    protocols: /protocols/
+build:
+  cachebusters:
+    - source: 'scss'
+      target: 'css'
+contentTypes:
+  text/asciidoc: {}
+  text/html: {}
+  text/markdown: {}
+  text/org: {}
+  text/pandoc: {}
+  text/rst: {}
+mediaTypes:
+  application/htmx:
+    delimiter: .
+    suffixes:
+    - htmx
+  application/json:
+    suffixes:
+    - json
+  text/html:
+    suffixes:
+    - html
+outputFormats:
+  html:
+    weight: 2
+    mediaType: text/html
+  searchindex:
+    baseName: search-index
+    isPlainText: true
+    mediaType: application/json
+    notAlternative: true
+  htmx:
+    baseName: partial
+    isHTML: true
+    isPlainText: false
+    rel: htmx
+    notAlternative: true
+    # mediaType: application/htmx
+    mediaType: text/html
+    weight: 1
+outputs:
+  home:
+    - html
+    - htmx
+    - searchindex
+  page:
+    - html
+    - htmx
+  section:
+    - html
+    - htmx
+  taxonomy:
+    - html
+    - htmx
+  term:
+    - html
+    - htmx
+#module:
+#  mounts:
+#    - source: content/protocols/
+#      target: content/
