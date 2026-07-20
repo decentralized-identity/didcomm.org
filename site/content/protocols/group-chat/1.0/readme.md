@@ -3,7 +3,7 @@ title: Group Chat Protocol
 publisher: jorgefl0
 license: MIT
 piuri: https://didcomm.org/group-chat/1.0
-status: Production
+status: Demonstrated
 summary: The Group Chat protocol formalizes a pattern for conversational message exchange between a group of DIDComm agents.
 tags:
   - Conversation
