@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---src-templates-book-book-tsx",
+    "path": "/book/v2/authentication",
+    "result": {"data":{"markdownRemark":{"html":"<h2 id=\"Message-Authentication\">Message Authentication</h2>\n<p>TODO: Add details about authenticated encryption.</p>"}},"pageContext":{"id":"3960382c-a1c9-58a4-b79c-e1b16abea3c8","html":"<h2 id=\"Message-Authentication\">Message Authentication</h2>\n<p>TODO: Add details about authenticated encryption.</p>"}},
+    "staticQueryHashes": ["3000541721"]}
